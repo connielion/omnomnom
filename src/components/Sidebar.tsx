@@ -9,7 +9,7 @@ const Sidebar = () => {
     `
 
     return (
-    <SidebarContainer className="sidebar">
+    <SidebarContainer>
         <p>Sidebar</p>
     </SidebarContainer>
     )
