@@ -45,6 +45,7 @@ function App() {
     return ingredientsList;
   };
 
+
   return <div className="App"></div>;
 }
 
