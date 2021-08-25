@@ -1,10 +1,10 @@
 import { IRecipe, IRecipeRequest, IInstructionsRequest, IIngredientsRequest } from '../interfaces/Recipe';
 const baseUrl = "https://api.spoonacular.com/";
 // Fetch recipes by ingredients user typed
-// console.log(process.env.REACT_APP_API_KEY)
+
 export const searchRecipes = async (request: IRecipeRequest): Promise<IRecipe[]> => {
   try {
-    console.log(`request`, request)
+
     const recipes = await fetch(`${baseUrl}recipes/findByIngredients?ingredients=${request.ingredients}&number=${request.number}&apiKey=${request.apiKey}`)
       .then((res) => res.json())
       .then((data) => data);
