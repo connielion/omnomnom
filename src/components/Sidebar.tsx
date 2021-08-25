@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components'
+import SearchBar from './SearchBar';
 
 const Sidebar = () => {
 
@@ -10,7 +11,7 @@ const Sidebar = () => {
 
     return (
     <SidebarContainer>
-        <p>Sidebar</p>
+        <SearchBar/>
     </SidebarContainer>
     )
 }
