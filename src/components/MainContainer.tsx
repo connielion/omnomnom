@@ -14,6 +14,7 @@ const MainContainer = () => {
     ISelectableIngredients[]
   >([]);
 
+<<<<<<< HEAD
   const Container = styled.div`
     width: 100vw;
     height: 100vh;
@@ -34,5 +35,22 @@ const MainContainer = () => {
     </Container>
   );
 };
+=======
+    const Container  = styled.div`
+        width: 100vw;
+        height: 100vh;
+        background-color: lightblue;
+        display: grid;
+        grid-template-columns: 500px 1fr;
+    `;
+
+    return (
+        <Container>
+            <Sidebar/>
+            <BlobsContainer />
+        </Container>
+    )
+}
+>>>>>>> dd9d2ff99bd4b6aa28bdef3ca02670963bf21ac4
 
 export default MainContainer;
