@@ -1,24 +1,32 @@
-import React from "react";
-<<<<<<< HEAD
+import React, { FC } from "react";
 import styled from "styled-components";
-=======
-import styled from 'styled-components'
-import SearchBar from './SearchBar';
->>>>>>> dd9d2ff99bd4b6aa28bdef3ca02670963bf21ac4
+import SearchBar from "./SearchBar";
+import { ISelectableIngredients } from "../interfaces/Recipe";
 
-const Sidebar = () => {
+interface SidebarProps {
+  selectedIngredients: ISelectableIngredients[];
+  setSelectedIngredients: Function;
+}
+const Sidebar: FC<SidebarProps> = ({
+  setSelectedIngredients,
+  selectedIngredients,
+}) => {
   const SidebarContainer = styled.div`
     grid-area: 1 / 1 / 2 / 2;
     background-color: purple;
   `;
 
+  const renderIngredientsList = () => {
+    return selectedIngredients.map((ingredient) => (
+      <h1 key={ingredient.name}>{ingredient.name}</h1>
+    ));
+  };
+
   return (
     <SidebarContainer>
-<<<<<<< HEAD
       <p>Sidebar</p>
-=======
-        <SearchBar/>
->>>>>>> dd9d2ff99bd4b6aa28bdef3ca02670963bf21ac4
+      <SearchBar />
+      {renderIngredientsList()}
     </SidebarContainer>
   );
 };
