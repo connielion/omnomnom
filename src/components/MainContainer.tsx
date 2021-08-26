@@ -15,12 +15,9 @@ const MainContainer = () => {
     `;
 
     return (
-
         <Container>
-        
             <Sidebar/>
             <BlobsContainer />
-
         </Container>
     )
 }
