@@ -14,7 +14,7 @@ import {
   IInstructions,
 } from "./interfaces/Recipe";
 import { topIngredientsList } from "./util/topIngredientsList";
-import MainContainer from './components/MainContainer';
+import MainContainer from "./components/MainContainer";
 
 function App() {
   const [recipesFound, setRecipesFound] = useState([]);
@@ -46,12 +46,11 @@ function App() {
     return ingredientsList;
   };
 
-
   return (
     <div className="App">
-      <MainContainer/>
+      <MainContainer />
     </div>
-  )
+  );
 }
 
 export default App;
