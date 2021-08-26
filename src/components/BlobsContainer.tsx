@@ -5,13 +5,9 @@ import { topIngredientsList } from "../util/topIngredientsList";
 
 interface BlobsContainerProps {
   topIngredientsList: ISelectableIngredients[];
-  setSelectedIngredient: ISelectableIngredients[];
 }
 
-const BlobsContainer: FC<BlobsContainerProps> = ({
-  topIngredientsList,
-  setSelectedIngredient,
-}) => {
+const BlobsContainer: FC<BlobsContainerProps> = ({ topIngredientsList }) => {
   const BlobsContainer = styled.div`
     grid-area: 1 / 2 / 2 / 3;
     background-color: antiquewhite;
