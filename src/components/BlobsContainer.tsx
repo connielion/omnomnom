@@ -53,9 +53,11 @@ const BlobsContainer: FC<BlobsContainerProps> = ({
     const renderBlob = topIngredientsList.map((ingredient) => {
       return (
         <Blob
-          onClick={() =>
-            setSelectedIngredients([...selectedIngredients, ingredient])
-          }
+          onClick={() => {
+            if (!selectedIngredients.includes(ingredient)) {
+              setSelectedIngredients([...selectedIngredients, ingredient]);
+            }
+          }}
         >
           <H1Container>
             <IngredientName>{ingredient.name}</IngredientName>
