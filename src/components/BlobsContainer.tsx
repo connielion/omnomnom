@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { ISelectableIngredients } from "../interfaces/Recipe";
-import { topIngredientsList } from "../util/topIngredientsList";
 import ingredientBlob from "../assets/blob.svg";
 
 interface BlobsContainerProps {

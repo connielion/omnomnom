@@ -1,15 +1,54 @@
-import React, { useState, SetStateAction } from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import BlobsContainer from "./BlobsContainer";
 import styled from "styled-components";
 import { topIngredientsList } from "../util/topIngredientsList";
-import { ISelectableIngredients } from "../interfaces/Recipe";
-import { selectCount } from "../features/counter/counterSlice";
+import {
+  fetchAllIngredients,
+  searchInstructions,
+  searchRecipes,
+} from "../util/fetchAPI";
+import {
+  RecipeRequest,
+  IRecipe,
+  IngredientsRequest,
+  ISelectableIngredients,
+  InstructionsRequest,
+  IInstructions,
+} from "../interfaces/Recipe";
 
 const MainContainer = () => {
+  // contains array of ingredient objects with IDs and ingredient names
   const [selectedIngredients, setSelectedIngredients] = useState<
     ISelectableIngredients[]
   >([]);
+
+  const [userSearchedRecipes, setUserSearchedRecipes] = useState<Boolean>(false);
+
+  //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
+  const searchByIngredients = async (
+    ingredients: string
+  ): Promise<IRecipe[]> => {
+    const request = new RecipeRequest({ ingredients });
+    const recipes = await searchRecipes(request);
+    return recipes;
+  };
+  // returns specific recipe instructions
+  const fetchInstructionsById = async (
+    id: number
+  ): Promise<IInstructions[]> => {
+    const request = new InstructionsRequest({ id });
+    const instructions = await searchInstructions(request);
+    return instructions;
+  };
+  // takes in query string(1 ingredient name from topIngredientsList)
+  const fetchIngredient = async (
+    query: string
+  ): Promise<ISelectableIngredients[]> => {
+    const request = new IngredientsRequest({ query });
+    const ingredientsList = await fetchAllIngredients(request);
+    return ingredientsList;
+  };
 
   const Container = styled.div`
     width: 100vw;
@@ -24,6 +63,7 @@ const MainContainer = () => {
       <Sidebar
         setSelectedIngredients={setSelectedIngredients}
         selectedIngredients={selectedIngredients}
+        searchByIngredients={searchByIngredients}
       />
       <BlobsContainer
         topIngredientsList={topIngredientsList}

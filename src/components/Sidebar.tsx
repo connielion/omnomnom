@@ -6,11 +6,14 @@ import { ISelectableIngredients } from "../interfaces/Recipe";
 interface SidebarProps {
   selectedIngredients: ISelectableIngredients[];
   setSelectedIngredients: Function;
+  searchByIngredients: Function;
 }
+
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
   selectedIngredients,
 }) => {
+
   const SidebarContainer = styled.div`
     grid-area: 1 / 1 / 2 / 2;
     background-color: purple;
@@ -25,7 +28,7 @@ const Sidebar: FC<SidebarProps> = ({
   return (
     <SidebarContainer>
       <p>Sidebar</p>
-      <SearchBar />
+      <SearchBar setSelectedIngredients={setSelectedIngredients}/>
       {renderIngredientsList()}
     </SidebarContainer>
   );

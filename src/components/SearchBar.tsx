@@ -1,7 +1,11 @@
-import React from "react";
+import React, {FC} from "react";
 import styled from "styled-components";
 
-const SearchBar = () => {
+interface SearchBarProps {
+    setSelectedIngredients: Function;
+  }
+
+const SearchBar: FC<SearchBarProps>= ({setSelectedIngredients}) => {
   const SearchContainer = styled.div`
     width: 340px;
     display: flex;
