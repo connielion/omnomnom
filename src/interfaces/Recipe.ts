@@ -5,7 +5,6 @@ export interface IIngredients {
     unit: string;
     image: string;
 }
-
 export interface IRecipe {
     id: number;
     title: string;
@@ -13,22 +12,18 @@ export interface IRecipe {
     missedIngredients: IIngredients[];
     image: string;
 }
-
 export interface IRecipeRequest {
     ingredients: string; // garlic, salmon, pepper
     number: number;
     apiKey: string;
 }
-
 class RecipeRequest implements IRecipeRequest {
     ingredients = '';
     number = 20;
     apiKey = process.env.REACT_APP_API_KEY || '';
-    
     constructor(configOveride?: Partial<IRecipeRequest>){
       if(configOveride) {
           Object.assign(this, configOveride); 
-
           if(configOveride.ingredients) {
             this.ingredients.trim().replaceAll(", ", ",+");
             this.ingredients = encodeURIComponent(this.ingredients);
@@ -36,7 +31,6 @@ class RecipeRequest implements IRecipeRequest {
       }
     }
 }
-
 // RECIPE INGREDIENTS INTERFACE - fetching recipe instructions
 export interface IInstructionsIngredients {
     id: number;
@@ -49,7 +43,6 @@ export interface IEquipment {
     name: string;
     image: string;
 }
-
 export interface ISteps {
     number: number;
     step: string;
@@ -62,41 +55,31 @@ export interface IInstructions {
     steps: ISteps[];
 }
 
-// Instructions Request Class
+//Instructions Request Class
 export interface IInstructionRequest {
     id: number;
     apiKey: string;
 }
-
-class InstructionsRequest implements IInstructionsRequest {
+class InstructionsRequest implements IInstructionRequest {
     id = 0;
     apiKey = process.env.REACT_APP_API_KEY || '';
-
     constructor(configOveride?: Partial<IInstructionRequest>){
         if(configOveride) {
             Object.assign(this, configOveride);
         }
     }
 }
-
 // Ingredients list interface
 export interface ISelectableIngredients {
     id: number;
     name: string;
-    image: string;
 }
-
-export interface ISelectableIngredientsList {
-    results: ISelectableIngredients[];
-}
-
 // Request Interface for selectable ingredients fetch
 export interface IIngredientsRequest {
     query: string;
     number: number;
     apiKey: string;
 }
-
 class IngredientsRequest implements IIngredientsRequest {
     query='';
     number=20;
@@ -104,13 +87,11 @@ class IngredientsRequest implements IIngredientsRequest {
     constructor(configOveride?: Partial<IIngredientsRequest>){
         if(configOveride) {
             Object.assign(this, configOveride);
-
              if(configOveride.query){
                 this.query = encodeURIComponent(this.query);
             }
         }
     }
 }
-
 // exporting all Request classes
 export { RecipeRequest, InstructionsRequest, IngredientsRequest };
