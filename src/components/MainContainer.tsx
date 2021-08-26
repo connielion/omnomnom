@@ -10,11 +10,6 @@ interface selectIngredients {
 }
 
 const MainContainer = () => {
-  const [selectedIngredient, setSelectedIngredient] = useState<
-    ISelectableIngredients[]
-  >([]);
-
-<<<<<<< HEAD
   const Container = styled.div`
     width: 100vw;
     height: 100vh;
@@ -23,34 +18,12 @@ const MainContainer = () => {
     grid-template-columns: 500px 1fr;
   `;
 
-  console.log(`top ingredients`, topIngredientsList);
-
   return (
     <Container>
       <Sidebar />
-      <BlobsContainer
-        topIngredientsList={topIngredientsList}
-        setSelectedIngredient={setSelectedIngredient}
-      />
+      <BlobsContainer />
     </Container>
   );
 };
-=======
-    const Container  = styled.div`
-        width: 100vw;
-        height: 100vh;
-        background-color: lightblue;
-        display: grid;
-        grid-template-columns: 500px 1fr;
-    `;
-
-    return (
-        <Container>
-            <Sidebar/>
-            <BlobsContainer />
-        </Container>
-    )
-}
->>>>>>> dd9d2ff99bd4b6aa28bdef3ca02670963bf21ac4
 
 export default MainContainer;
