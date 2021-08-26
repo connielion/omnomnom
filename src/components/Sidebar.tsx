@@ -17,7 +17,7 @@ const Sidebar: FC<SidebarProps> = ({
   `;
 
   const renderIngredientsList = () => {
-    return selectedIngredients.map((ingredient) => (
+    return selectedIngredients?.map((ingredient) => (
       <h1 key={ingredient.name}>{ingredient.name}</h1>
     ));
   };
