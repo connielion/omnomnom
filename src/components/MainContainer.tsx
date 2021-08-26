@@ -11,7 +11,7 @@ const MainContainer = () => {
         height: 100vh;
         background-color: lightblue;
         display: grid;
-        grid-template-columns: 500px 1fr;
+        grid-template-columns: 350px 1fr;
     `;
 
     return (
