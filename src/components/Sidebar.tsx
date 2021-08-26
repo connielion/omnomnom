@@ -1,18 +1,17 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Sidebar = () => {
+  const SidebarContainer = styled.div`
+    grid-area: 1 / 1 / 2 / 2;
+    background-color: purple;
+  `;
 
-    const SidebarContainer = styled.div`
-        grid-area: 1 / 1 / 2 / 2;
-        background-color: purple;
-    `
-
-    return (
+  return (
     <SidebarContainer>
-        <p>Sidebar</p>
+      <p>Sidebar</p>
     </SidebarContainer>
-    )
-}
+  );
+};
 
 export default Sidebar;
