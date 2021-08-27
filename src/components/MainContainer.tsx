@@ -97,9 +97,7 @@ const MainContainer = () => {
       return cards;
     } else return [];
   }
- console.log(`userSearchedRecipes`, userSearchedRecipes)
- console.log(`searchedRecipes`, searchedRecipes)
- console.log(`cards` ,renderCards())
+ 
   return (
     <Container>
       <Sidebar
