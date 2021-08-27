@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import { ISelectableIngredients } from "../interfaces/Recipe";
-import IngredientButton from './IngredientButton';
+import IngredientButton from "./IngredientButton";
 
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
@@ -28,17 +28,19 @@ const PickedIngredients = styled.div`
 `;
 
 interface SidebarProps {
-  selectedIngredients: ISelectableIngredients[];
+  selectedIngredients: string[];
   setSelectedIngredients: Function;
 }
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
   selectedIngredients,
 }) => {
-
   const renderIngredientsList = () => {
-    return selectedIngredients?.map((ingredient) => (
-      <IngredientButton key={ingredient.name} ingredient={ingredient}></IngredientButton>
+    return selectedIngredients?.map((ingredientName) => (
+      <IngredientButton
+        key={ingredientName}
+        ingredientName={ingredientName}
+      ></IngredientButton>
     ));
   };
 
@@ -48,10 +50,7 @@ const Sidebar: FC<SidebarProps> = ({
 
       <SearchBar />
 
-      <PickedIngredients>
-        {renderIngredientsList()}
-      </PickedIngredients>
-
+      <PickedIngredients>{renderIngredientsList()}</PickedIngredients>
     </SidebarContainer>
   );
 };

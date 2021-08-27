@@ -27,8 +27,10 @@ function App() {
   ): Promise<IRecipe[]> => {
     const request = new RecipeRequest({ ingredients });
     const recipes = await searchRecipes(request);
+    console.log(`recipes`, searchByIngredients);
     return recipes;
   };
+
   // returns specific recipe instructions
   const fetchInstructionsById = async (
     id: number
@@ -37,6 +39,7 @@ function App() {
     const instructions = await searchInstructions(request);
     return instructions;
   };
+
   // takes in query string(1 ingredient name from topIngredientsList)
   const fetchIngredient = async (
     query: string
