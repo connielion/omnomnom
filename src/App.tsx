@@ -27,7 +27,6 @@ function App() {
   ): Promise<IRecipe[]> => {
     const request = new RecipeRequest({ ingredients });
     const recipes = await searchRecipes(request);
-    console.log(`recipes`, searchByIngredients);
     return recipes;
   };
 
