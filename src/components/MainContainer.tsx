@@ -24,21 +24,27 @@ const BlobsContainer = styled.div`
   grid-auto-rows: 250px;
   grid-gap: 10px;
   overflow: scroll;
-
 `;
 
 const MainContainer = () => {
-  const [selectedIngredients, setSelectedIngredients] = useState<
-    ISelectableIngredients[]
-  >([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
 
   const renderBlobs = (): JSX.Element[] => {
-    const blobs = topIngredientsList.map((ingredient) => {
-      return <Blob key={ingredient.id} ingredient={ingredient} setSelectedIngredients={setSelectedIngredients} selectedIngredients={selectedIngredients}/>
+    const blobs = topIngredientsList.map((ingredientName) => {
+      return (
+        <Blob
+          key={ingredientName}
+          ingredientName={ingredientName}
+          setSelectedIngredients={setSelectedIngredients}
+          selectedIngredients={selectedIngredients}
+        />
+      );
     });
 
     return blobs;
-  }
+  };
+
+  console.log(`ingredients`, topIngredientsList);
 
   return (
     <Container>
@@ -46,10 +52,7 @@ const MainContainer = () => {
         setSelectedIngredients={setSelectedIngredients}
         selectedIngredients={selectedIngredients}
       />
-      <BlobsContainer>
-        {renderBlobs()}
-      </BlobsContainer>
-      
+      <BlobsContainer>{renderBlobs()}</BlobsContainer>
     </Container>
   );
 };
