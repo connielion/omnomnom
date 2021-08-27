@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { ISelectableIngredients } from "../interfaces/Recipe";
 
 const IngredientBtnStyle = styled.div`
   padding: 10px;

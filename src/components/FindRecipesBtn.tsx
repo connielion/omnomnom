@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styled from 'styled-components';
 
+interface FindRecipesBtnProps {
+    searchRecipesOnClick: (event: React.MouseEvent<HTMLButtonElement>)=> void;
+}
 const RecipesBtn = styled.button`
     background-color: #fff;
     border: none;
@@ -14,9 +17,11 @@ const RecipesBtn = styled.button`
     margin-left: 2.5%;
 `
 
-const FindRecipesBtn = () => {
+const FindRecipesBtn
+: FC<FindRecipesBtnProps>
+ = ({searchRecipesOnClick}) => {
     return (
-        <RecipesBtn>
+        <RecipesBtn onClick={searchRecipesOnClick}>
             <h2>Find Recipes</h2>
         </RecipesBtn>
     )

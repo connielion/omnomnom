@@ -72,8 +72,7 @@ class InstructionsRequest implements IInstructionRequest {
 }
 
 // Ingredients list interface
-export interface ISelectableIngredients {
-  id: number;
+export interface ISelectableIngredient {
   name: string;
 }
 // Request Interface for selectable ingredients fetch

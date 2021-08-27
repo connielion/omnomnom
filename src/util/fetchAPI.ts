@@ -3,7 +3,7 @@ import {
   IRecipeRequest,
   IInstructionRequest,
   IIngredientsRequest,
-  ISelectableIngredients,
+  ISelectableIngredient,
   IInstructions,
 } from "../interfaces/Recipe";
 const baseUrl = "https://api.spoonacular.com/";
@@ -40,7 +40,7 @@ export const searchInstructions = async (
 };
 export const fetchAllIngredients = async (
   request: IIngredientsRequest
-): Promise<ISelectableIngredients[]> => {
+): Promise<ISelectableIngredient[]> => {
   try {
     const ingredients = await fetch(
       `${baseUrl}food/ingredients/search?query=${request.query}&number=100&apiKey=${request.apiKey}`

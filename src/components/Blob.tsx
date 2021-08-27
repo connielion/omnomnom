@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import ingredientBlob from "../assets/blob.svg";
-import { ISelectableIngredients } from "../interfaces/Recipe";
+
 
 const BlobContent = styled.div`
   background-image: url(${ingredientBlob});
