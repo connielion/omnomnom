@@ -3,11 +3,13 @@ import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import { ISelectableIngredients } from "../interfaces/Recipe";
 import IngredientButton from "./IngredientButton";
+import FindRecipesBtn from "./FindRecipesBtn";
 
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   background-color: #ede6cb;
   padding: 10px;
+  position: relative;
 `;
 
 const LogoContainer = styled.div`
@@ -51,6 +53,8 @@ const Sidebar: FC<SidebarProps> = ({
       <SearchBar />
 
       <PickedIngredients>{renderIngredientsList()}</PickedIngredients>
+
+      <FindRecipesBtn></FindRecipesBtn>
     </SidebarContainer>
   );
 };
