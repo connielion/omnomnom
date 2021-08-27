@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Blob from "./Blob";
+import RecipeCard from './RecipeCard';
 import styled from "styled-components";
 import { topIngredientsList } from "../util/topIngredientsList";
 import {
@@ -38,7 +39,12 @@ const BlobsContainer = styled.div`
 `;
 
 const MainContainer = () => {
+  // array of ingredient names user selected 
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[]>([]);
+  // Conditonally render ingredients or recipes
+  const [userSearchedRecipes, setUserSearchedRecipes] = useState<Boolean>(false)
+
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
@@ -48,6 +54,7 @@ const MainContainer = () => {
     const recipes = await searchRecipes(request);
     return recipes;
   };
+
   // returns specific recipe instructions
   const fetchInstructionsById = async (
     id: number
@@ -56,6 +63,7 @@ const MainContainer = () => {
     const instructions = await searchInstructions(request);
     return instructions;
   };
+
   // takes in query string(1 ingredient name from topIngredientsList)
   const fetchIngredient = async (
     query: string
@@ -80,16 +88,29 @@ const MainContainer = () => {
     return blobs;
   };
 
-
+  const renderCards = (): JSX.Element[]=>{
+    if(searchedRecipes.length){
+      const cards = searchedRecipes.map((recipe) => {
+        const {id, title, image, missedIngredients, usedIngredients} = recipe;
+        return <RecipeCard key={id} id={id} title={title} image={image} missedIngredients={missedIngredients} usedIngredients={usedIngredients} ></RecipeCard>
+      })
+      return cards;
+    } else return [];
+  }
+ console.log(`userSearchedRecipes`, userSearchedRecipes)
+ console.log(`searchedRecipes`, searchedRecipes)
+ console.log(`cards` ,renderCards())
   return (
     <Container>
       <Sidebar
+        setUserSearchedRecipes={setUserSearchedRecipes}
+        searchByIngredients={searchByIngredients}
         setSelectedIngredients={setSelectedIngredients}
         selectedIngredients={selectedIngredients}
-        searchByIngredients={searchByIngredients}
+        setSearchedRecipes={setSearchedRecipes}
       />
       <BlobsContainer>
-        {renderBlobs()}
+        {userSearchedRecipes? renderCards() : renderBlobs()}
       </BlobsContainer>
     </Container>
   );

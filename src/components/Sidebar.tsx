@@ -1,20 +1,22 @@
-import React, { FC, useState } from "react";
-import styled from "styled-components";
-import SearchBar from "./SearchBar";
-import IngredientButton from './IngredientButton';
+import React, { FC } from 'react'
+import styled from 'styled-components'
+import SearchBar from './SearchBar'
+import IngredientButton from './IngredientButton'
+import FindRecipesBtn from './FindRecipesBtn'
 
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   background-color: #ede6cb;
   padding: 10px;
-`;
+  position: relative;
+`
 
 const LogoContainer = styled.div`
   width: 100%;
   height: 50px;
   background-color: blue;
   margin-bottom: 10px;
-`;
+`
 
 const PickedIngredients = styled.div`
   width: 100%;
@@ -24,21 +26,31 @@ const PickedIngredients = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-`;
+`
 
 interface SidebarProps {
   selectedIngredients: string[];
   setSelectedIngredients: Function;
   searchByIngredients: Function;
+  setSearchedRecipes: Function;
+  setUserSearchedRecipes: Function;
 }
-
 
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
   selectedIngredients,
+  searchByIngredients,
+  setSearchedRecipes,
+  setUserSearchedRecipes
 }) => {
-  const [hasIngredient, setHasIngredient] = useState<Boolean>(false);
   
+  const searchRecipesOnClick = async () => {
+    if (selectedIngredients.length > 0) {
+      setUserSearchedRecipes(true);
+      const recipesList = await searchByIngredients(selectedIngredients.join(','));
+      setSearchedRecipes(recipesList);
+    }
+  }
 
   const renderIngredientsList = () => {
     return selectedIngredients?.map((ingredientName) => (
@@ -46,21 +58,23 @@ const Sidebar: FC<SidebarProps> = ({
         key={ingredientName}
         ingredientName={ingredientName}
       ></IngredientButton>
-    ));
-  };
-
-  console.log(`selectedIngredients`, selectedIngredients)
+    ))
+  }
 
   return (
     <SidebarContainer>
       <LogoContainer></LogoContainer>
-      <SearchBar setSelectedIngredients={setSelectedIngredients} setHasIngredient={setHasIngredient}  selectedIngredients={selectedIngredients}/>
+      <SearchBar
+        setSelectedIngredients={setSelectedIngredients}
+        setUserSearchedRecipes={setUserSearchedRecipes}
+        selectedIngredients={selectedIngredients}
+      />
       <PickedIngredients>
-      {selectedIngredients.length > 0 ? renderIngredientsList(): null}
-        {/* {renderIngredientsList()} */}
+        {selectedIngredients.length > 0 ? renderIngredientsList() : null}
       </PickedIngredients>
+      <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} />
     </SidebarContainer>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

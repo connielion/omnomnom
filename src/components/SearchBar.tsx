@@ -1,11 +1,10 @@
 import React, {useState, FC} from "react";
 import styled from "styled-components";
-import { ISelectableIngredient } from '../interfaces/Recipe';
 import {topIngredientsList} from '../util/topIngredientsList';
 
 interface SearchBarProps {
     setSelectedIngredients: Function;
-    setHasIngredient: Function;
+    setUserSearchedRecipes: Function;
     selectedIngredients: string[];
 }
 
@@ -47,13 +46,12 @@ const Plus = styled.img`
   width: 15px;
 `;
 
-const SearchBar: FC<SearchBarProps> = ({selectedIngredients,setSelectedIngredients, setHasIngredient}) => {
+const SearchBar: FC<SearchBarProps> = ({selectedIngredients,setSelectedIngredients, setUserSearchedRecipes}) => {
   const [searchString, setSearchString] = useState<String>(''); // single ingredient name 
 
   // define function for getting searchInput: setIngredientsInput(e.target.value)
   const addIngredientNameToList =()=> {
     if(searchString !== '' && topIngredientsList.includes(searchString)){
-      setHasIngredient(true);
       setSelectedIngredients((prevState: string[]) =>[...prevState, searchString]);
     }
   }
