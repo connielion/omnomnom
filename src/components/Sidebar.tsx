@@ -2,6 +2,30 @@ import React, { FC, useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
 import { ISelectableIngredient } from "../interfaces/Recipe";
+import IngredientButton from './IngredientButton';
+
+const SidebarContainer = styled.div`
+  grid-area: 1 / 1 / 2 / 2;
+  background-color: #ede6cb;
+  padding: 10px;
+`;
+
+const LogoContainer = styled.div`
+  width: 100%;
+  height: 50px;
+  background-color: blue;
+  margin-bottom: 10px;
+`;
+
+const PickedIngredients = styled.div`
+  width: 100%;
+  max-height: 325px;
+  margin-top: 10px;
+  overflow-y: scroll;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+`;
 
 interface SidebarProps {
   selectedIngredients: ISelectableIngredient[];
@@ -9,10 +33,6 @@ interface SidebarProps {
   searchByIngredients: Function;
 }
 
-const SidebarContainer = styled.div`
-    grid-area: 1 / 1 / 2 / 2;
-    background-color: purple;
-  `;
 
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
@@ -23,15 +43,21 @@ const Sidebar: FC<SidebarProps> = ({
 
   const renderIngredientsList = () => {
     return selectedIngredients?.map((ingredient) => (
-      <h1 key={ingredient.name}>{ingredient.name}</h1>
+      <IngredientButton key={ingredient.name} ingredient={ingredient}></IngredientButton>
     ));
   };
 
+  console.log(`selectedIngredients`, selectedIngredients)
+
   return (
     <SidebarContainer>
-      <p>Sidebar</p>
-      <SearchBar setSelectedIngredients={setSelectedIngredients} selectedIngredients={selectedIngredients} setHasIngredient={setHasIngredient} hasIngredient={hasIngredient}/>
-      {renderIngredientsList()}
+      <LogoContainer></LogoContainer>
+      <SearchBar setSelectedIngredients={setSelectedIngredients} setHasIngredient={setHasIngredient}  selectedIngredients={selectedIngredients}/>
+      
+      <PickedIngredients>
+      {selectedIngredients.length > 0 ? renderIngredientsList(): null}
+        {/* {renderIngredientsList()} */}
+      </PickedIngredients>
     </SidebarContainer>
   );
 };

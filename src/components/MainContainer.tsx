@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import BlobsContainer from "./BlobsContainer";
+import Blob from "./Blob";
 import styled from "styled-components";
 import { topIngredientsList } from "../util/topIngredientsList";
 import {
@@ -17,13 +17,31 @@ import {
   IInstructions,
 } from "../interfaces/Recipe";
 
+const Container = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: lightblue;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+  `;
+
+
+const BlobsContainer = styled.div`
+  grid-area: 1 / 2 / 2 / 3;
+  background-color: #ebe6da;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-auto-rows: 250px;
+  grid-gap: 10px;
+  overflow: scroll;
+`;
+
 const MainContainer = () => {
   // contains array of ingredient objects with IDs and ingredient names
   const [selectedIngredients, setSelectedIngredients] = useState<
     ISelectableIngredient[]
   >([]);
-
-  const [userSearchedRecipes, setUserSearchedRecipes] = useState<Boolean>(false);
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
@@ -50,13 +68,14 @@ const MainContainer = () => {
     return ingredientsList;
   };
 
-  const Container = styled.div`
-    width: 100vw;
-    height: 100vh;
-    background-color: lightblue;
-    display: grid;
-    grid-template-columns: 350px 1fr;
-  `;
+  const renderBlobs = (): JSX.Element[] => {
+    const blobs = topIngredientsList.map((ingredient) => {
+      return <Blob key={ingredient.id} ingredient={ingredient} setSelectedIngredients={setSelectedIngredients} selectedIngredients={selectedIngredients}/>
+    });
+
+    return blobs;
+  }
+
 
   return (
     <Container>
@@ -65,11 +84,9 @@ const MainContainer = () => {
         selectedIngredients={selectedIngredients}
         searchByIngredients={searchByIngredients}
       />
-      <BlobsContainer
-        topIngredientsList={topIngredientsList}
-        selectedIngredients={selectedIngredients}
-        setSelectedIngredients={setSelectedIngredients}
-      />
+      <BlobsContainer>
+        {renderBlobs()}
+      </BlobsContainer>
     </Container>
   );
 };
