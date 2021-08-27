@@ -12,7 +12,7 @@ import {
   RecipeRequest,
   IRecipe,
   IngredientsRequest,
-  ISelectableIngredients,
+  ISelectableIngredient,
   InstructionsRequest,
   IInstructions,
 } from "../interfaces/Recipe";
@@ -20,7 +20,7 @@ import {
 const MainContainer = () => {
   // contains array of ingredient objects with IDs and ingredient names
   const [selectedIngredients, setSelectedIngredients] = useState<
-    ISelectableIngredients[]
+    ISelectableIngredient[]
   >([]);
 
   const [userSearchedRecipes, setUserSearchedRecipes] = useState<Boolean>(false);
@@ -44,7 +44,7 @@ const MainContainer = () => {
   // takes in query string(1 ingredient name from topIngredientsList)
   const fetchIngredient = async (
     query: string
-  ): Promise<ISelectableIngredients[]> => {
+  ): Promise<ISelectableIngredient[]> => {
     const request = new IngredientsRequest({ query });
     const ingredientsList = await fetchAllIngredients(request);
     return ingredientsList;

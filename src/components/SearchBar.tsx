@@ -1,11 +1,15 @@
-import React, {FC} from "react";
+import React, {useState, FC} from "react";
 import styled from "styled-components";
+import { ISelectableIngredient } from '../interfaces/Recipe';
+import {topIngredientsList} from '../util/topIngredientsList';
 
 interface SearchBarProps {
+    selectedIngredients: ISelectableIngredient[];
     setSelectedIngredients: Function;
+    setHasIngredient: Function;
+    hasIngredient: Boolean;
   }
 
-const SearchBar: FC<SearchBarProps>= ({setSelectedIngredients}) => {
   const SearchContainer = styled.div`
     width: 340px;
     display: flex;
@@ -44,13 +48,44 @@ const SearchBar: FC<SearchBarProps>= ({setSelectedIngredients}) => {
     width: 15px;
   `;
 
+const SearchBar: FC<SearchBarProps> = ({selectedIngredients ,setSelectedIngredients, setHasIngredient, hasIngredient}) => {
+  const [searchString, setSearchString] = useState<String>(''); // single ingredient name 
+
+  // define function for getting searchInput: setIngredientsInput(e.target.value)
+  const addIngredientNameToList =()=> {
+    console.log(`clicked`)
+    if(searchString !== '' && topIngredientsList.some(ingredientObject => Object.values(ingredientObject).indexOf(`${searchString}`) > -1)){
+      setHasIngredient(true);
+      setSelectedIngredients((prevState: ISelectableIngredient[]) =>[...prevState, searchString]);
+    }
+  }
+
+  const enterSubmit = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+        // if any {} in topIngredientsList[] has search bar value, setSelectedIngredints 
+        if(topIngredientsList.some(ingredientObject => Object.values(ingredientObject).indexOf(`${searchString}`) > -1)){
+          setHasIngredient(true);
+          setSelectedIngredients((prevState: ISelectableIngredient[]) =>[...prevState, searchString]);
+        }
+    }
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+    console.log(`value`, target.value)
+    if(target) setSearchString(target.value);
+  };
+
+   console.log(`selected Ing`, selectedIngredients)
   return (
     <SearchContainer>
       <Input
         type="text"
-        placeholder="What do you have?...garlic, salmon..."
+        placeholder="Enter an ingredient..."
+        onKeyPress={enterSubmit}
+        onChange={handleSearchChange}
       />
-      <AddButton>
+      <AddButton onClick={addIngredientNameToList}>
         <Plus src="plus.svg" />
       </AddButton>
     </SearchContainer>

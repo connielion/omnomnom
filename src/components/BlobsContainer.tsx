@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { ISelectableIngredients } from "../interfaces/Recipe";
+import { ISelectableIngredient } from "../interfaces/Recipe";
 import ingredientBlob from "../assets/blob.svg";
 
 interface BlobsContainerProps {
-  topIngredientsList: ISelectableIngredients[];
+  topIngredientsList: ISelectableIngredient[];
   setSelectedIngredients: Function;
-  selectedIngredients: ISelectableIngredients[];
+  selectedIngredients: ISelectableIngredient[];
 }
 
 const BlobsContainer: FC<BlobsContainerProps> = ({

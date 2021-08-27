@@ -1,23 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
-import { ISelectableIngredients } from "../interfaces/Recipe";
+import { ISelectableIngredient } from "../interfaces/Recipe";
 
 interface SidebarProps {
-  selectedIngredients: ISelectableIngredients[];
+  selectedIngredients: ISelectableIngredient[];
   setSelectedIngredients: Function;
   searchByIngredients: Function;
 }
+
+const SidebarContainer = styled.div`
+    grid-area: 1 / 1 / 2 / 2;
+    background-color: purple;
+  `;
 
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
   selectedIngredients,
 }) => {
-
-  const SidebarContainer = styled.div`
-    grid-area: 1 / 1 / 2 / 2;
-    background-color: purple;
-  `;
+  const [hasIngredient, setHasIngredient] = useState<Boolean>(false);
+  
 
   const renderIngredientsList = () => {
     return selectedIngredients?.map((ingredient) => (
@@ -28,7 +30,7 @@ const Sidebar: FC<SidebarProps> = ({
   return (
     <SidebarContainer>
       <p>Sidebar</p>
-      <SearchBar setSelectedIngredients={setSelectedIngredients}/>
+      <SearchBar setSelectedIngredients={setSelectedIngredients} selectedIngredients={selectedIngredients} setHasIngredient={setHasIngredient} hasIngredient={hasIngredient}/>
       {renderIngredientsList()}
     </SidebarContainer>
   );
