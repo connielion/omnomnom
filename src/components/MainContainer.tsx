@@ -44,8 +44,6 @@ const MainContainer = () => {
     return blobs;
   };
 
-  console.log(`ingredients`, topIngredientsList);
-
   return (
     <Container>
       <Sidebar
