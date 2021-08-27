@@ -75,8 +75,7 @@ const SearchBar: FC<SearchBarProps> = ({selectedIngredients ,setSelectedIngredie
     console.log(`value`, target.value)
     if(target) setSearchString(target.value);
   };
-
-   console.log(`selected Ing`, selectedIngredients)
+  
   return (
     <SearchContainer>
       <Input
