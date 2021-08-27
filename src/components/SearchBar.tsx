@@ -6,7 +6,7 @@ import {topIngredientsList} from '../util/topIngredientsList';
 interface SearchBarProps {
     setSelectedIngredients: Function;
     setHasIngredient: Function;
-    selectedIngredients: ISelectableIngredient[];
+    selectedIngredients: string[];
 }
 
 const SearchContainer = styled.div`
@@ -52,16 +52,15 @@ const SearchBar: FC<SearchBarProps> = ({selectedIngredients,setSelectedIngredien
 
   // define function for getting searchInput: setIngredientsInput(e.target.value)
   const addIngredientNameToList =()=> {
-    if(searchString !== '' && topIngredientsList.some(ingredientObject => Object.values(ingredientObject).indexOf(`${searchString}`) > -1)){
+    if(searchString !== '' && topIngredientsList.includes(searchString)){
       setHasIngredient(true);
-      setSelectedIngredients((prevState: ISelectableIngredient[]) =>[...prevState, searchString]);
+      setSelectedIngredients((prevState: string[]) =>[...prevState, searchString]);
     }
   }
 
   const enterSubmit = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" && searchString !== '') {
-      console.log('entered')
-        // if any {} in topIngredientsList[] has search bar value, setSelectedIngredints 
+        // if any string in topIngredientsList[] has search bar value, setSelectedIngredints 
       addIngredientNameToList()
     }
   };
@@ -71,8 +70,6 @@ const SearchBar: FC<SearchBarProps> = ({selectedIngredients,setSelectedIngredien
     if(target) setSearchString(target.value);
   };
 
-  console.log(`searchString`, searchString)
-  
   return (
     <SearchContainer>
       <Input

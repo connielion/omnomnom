@@ -1,7 +1,6 @@
 import React, { FC, useState } from "react";
 import styled from "styled-components";
 import SearchBar from "./SearchBar";
-import { ISelectableIngredient } from "../interfaces/Recipe";
 import IngredientButton from './IngredientButton';
 
 const SidebarContainer = styled.div`
@@ -28,7 +27,7 @@ const PickedIngredients = styled.div`
 `;
 
 interface SidebarProps {
-  selectedIngredients: ISelectableIngredient[];
+  selectedIngredients: string[];
   setSelectedIngredients: Function;
   searchByIngredients: Function;
 }
@@ -42,8 +41,11 @@ const Sidebar: FC<SidebarProps> = ({
   
 
   const renderIngredientsList = () => {
-    return selectedIngredients?.map((ingredient) => (
-      <IngredientButton key={ingredient.name} ingredient={ingredient}></IngredientButton>
+    return selectedIngredients?.map((ingredientName) => (
+      <IngredientButton
+        key={ingredientName}
+        ingredientName={ingredientName}
+      ></IngredientButton>
     ));
   };
 
@@ -53,7 +55,6 @@ const Sidebar: FC<SidebarProps> = ({
     <SidebarContainer>
       <LogoContainer></LogoContainer>
       <SearchBar setSelectedIngredients={setSelectedIngredients} setHasIngredient={setHasIngredient}  selectedIngredients={selectedIngredients}/>
-      
       <PickedIngredients>
       {selectedIngredients.length > 0 ? renderIngredientsList(): null}
         {/* {renderIngredientsList()} */}

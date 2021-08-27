@@ -38,10 +38,7 @@ const BlobsContainer = styled.div`
 `;
 
 const MainContainer = () => {
-  // contains array of ingredient objects with IDs and ingredient names
-  const [selectedIngredients, setSelectedIngredients] = useState<
-    ISelectableIngredient[]
-  >([]);
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
@@ -69,12 +66,19 @@ const MainContainer = () => {
   };
 
   const renderBlobs = (): JSX.Element[] => {
-    const blobs = topIngredientsList.map((ingredient) => {
-      return <Blob key={ingredient.id} ingredient={ingredient} setSelectedIngredients={setSelectedIngredients} selectedIngredients={selectedIngredients}/>
+    const blobs = topIngredientsList.map((ingredientName) => {
+      return (
+        <Blob
+          key={ingredientName}
+          ingredientName={ingredientName}
+          setSelectedIngredients={setSelectedIngredients}
+          selectedIngredients={selectedIngredients}
+        />
+      );
     });
 
     return blobs;
-  }
+  };
 
 
   return (
