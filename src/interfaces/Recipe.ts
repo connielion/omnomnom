@@ -44,11 +44,18 @@ export interface IEquipment {
   name: string;
   image: string;
 }
+// LENGTH OF RECIPE STEP
+export interface IInstructionsLength {
+  number: number;
+  unit: string;
+}
+
 export interface ISteps {
   number: number;
   step: string;
   ingredients: IInstructionsIngredients[];
   equipment: IEquipment[];
+  length: IInstructionsLength;
 }
 // Overall Instructions Interface
 export interface IInstructions {

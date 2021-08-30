@@ -11,6 +11,7 @@ interface RecipeCardProps {
     usedIngredients: IIngredients[];
     missedIngredients: IIngredients[];
     image: string;
+    getRecipeDetails: Function
 }
 
 const FoodCard = styled.div`
@@ -61,7 +62,7 @@ const UsedIngredientsContainer = styled.div`
     }
 `
 
-const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,missedIngredients})=> {
+const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,missedIngredients,  getRecipeDetails})=> {
 
     const FoodImage = styled.div`
         width: 50%;
@@ -76,7 +77,7 @@ const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,miss
     `
 
     return (
-    <FoodCard>
+    <FoodCard onClick={()=>getRecipeDetails(id)}>
 
         <AddBtn>
             <img src={PlusIcon} alt="plus" />

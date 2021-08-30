@@ -2,8 +2,6 @@ import {
   IRecipe,
   IRecipeRequest,
   IInstructionRequest,
-  IIngredientsRequest,
-  ISelectableIngredient,
   IInstructions,
 } from "../interfaces/Recipe";
 const baseUrl = "https://api.spoonacular.com/";
@@ -33,21 +31,6 @@ export const searchInstructions = async (
       .then((res) => res.json())
       .then((data) => data);
     return steps;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-export const fetchAllIngredients = async (
-  request: IIngredientsRequest
-): Promise<ISelectableIngredient[]> => {
-  try {
-    const ingredients = await fetch(
-      `${baseUrl}food/ingredients/search?query=${request.query}&number=100&apiKey=${request.apiKey}`
-    )
-      .then((res) => res.json())
-      .then((data) => data);
-    return ingredients;
   } catch (error) {
     console.error(error);
     return [];
