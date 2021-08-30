@@ -25,29 +25,32 @@ const Container = styled.div`
   grid-template-columns: 350px 1fr;
 `;
 
-const BlobsContainer = styled.div`
-  grid-area: 1 / 2 / 2 / 3;
-  background-color: #ebe6da;
-  padding: 10px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-auto-rows: 250px;
-  grid-gap: 10px;
-  overflow: scroll;
-`;
 
 const MainContainer = () => {
-  // array of ingredient names user selected
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
-  const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[]>([]);
-  // Conditonally render ingredients or recipes
-  const [userSearchedRecipes, setUserSearchedRecipes] =
-    useState<Boolean>(false);
-  const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
-  const [selectedRecipeImage, setSelectedRecipeImage] = useState<string>("");
-  const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
-    []
-  );
+    // array of ingredient names user selected
+    const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+    const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[]>([]);
+    // Conditonally render ingredients or recipes
+    const [userSearchedRecipes, setUserSearchedRecipes] =
+      useState<Boolean>(false);
+    const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
+    const [selectedRecipeImage, setSelectedRecipeImage] = useState<string>("");
+    const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
+      []
+    );
+    
+    // REVIEW FOR BEST WAY TO INCORPORATE DYNAMIC GRID
+    const BlobsContainer = styled.div`
+    grid-area: 1 / 2 / 2 / 3;
+    background-color: #ebe6da;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: ${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`};
+    grid-auto-rows: 250px;
+    grid-gap: 10px;
+    overflow: auto;
+  `;
+
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
@@ -141,6 +144,5 @@ const MainContainer = () => {
       </BlobsContainer>
     </Container>
   );
-};
-
+}
 export default MainContainer;
