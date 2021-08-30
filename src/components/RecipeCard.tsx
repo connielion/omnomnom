@@ -1,9 +1,7 @@
-import React, {useState, FC} from 'react';
-import {IIngredients, IngredientsRequest} from '../interfaces/Recipe';
+import React, {FC} from 'react';
+import {IIngredients } from '../interfaces/Recipe';
 import styled from 'styled-components';
 import PlusIcon from '../assets/plus.svg';
-import { timeEnd } from 'console';
-import { array } from 'yargs';
 
 interface RecipeCardProps {
     id: number;
@@ -62,7 +60,7 @@ const UsedIngredientsContainer = styled.div`
     }
 `
 
-const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,missedIngredients,  getRecipeDetails})=> {
+const RecipeCard: FC<RecipeCardProps> = ({id, title, image,missedIngredients,  getRecipeDetails})=> {
 
     const FoodImage = styled.div`
         width: 50%;
