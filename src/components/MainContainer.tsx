@@ -48,7 +48,7 @@ const MainContainer = () => {
     grid-template-columns: ${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`};
     grid-auto-rows: 250px;
     grid-gap: 10px;
-    overflow: scroll;
+    overflow: auto;
   `;
 
 

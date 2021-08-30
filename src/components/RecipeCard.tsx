@@ -31,7 +31,7 @@ const AddBtn = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 15px 0 15px 0px;
+    border-radius: 15px 0 15px 0;
     display: flex;
     justify-content: center;
     align-items: center;
