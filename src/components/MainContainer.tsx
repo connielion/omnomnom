@@ -35,9 +35,8 @@ const MainContainer = () => {
       useState<Boolean>(false);
     const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
     const [selectedRecipeImage, setSelectedRecipeImage] = useState<string>("");
-    const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
-      []
-    );
+    const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>([]);
+    const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
     
     // REVIEW FOR BEST WAY TO INCORPORATE DYNAMIC GRID
     const BlobsContainer = styled.div`
@@ -111,6 +110,7 @@ const MainContainer = () => {
             missedIngredients={missedIngredients}
             usedIngredients={usedIngredients}
             getRecipeDetails={getRecipeDetails}
+            setSelectedRecipes={setSelectedRecipes}
           ></RecipeCard>
         );
       });
@@ -126,6 +126,7 @@ const MainContainer = () => {
         setSelectedIngredients={setSelectedIngredients}
         selectedIngredients={selectedIngredients}
         setSearchedRecipes={setSearchedRecipes}
+        selectedRecipes={selectedRecipes}
       />
       <BlobsContainer>
         {/* Render Cards/Blobs OR Details */}
