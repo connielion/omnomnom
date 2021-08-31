@@ -2,7 +2,8 @@ import React, { FC } from 'react'
 import styled from 'styled-components'
 import SearchBar from './SearchBar'
 import IngredientButton from './IngredientButton'
-import FindRecipesBtn from './FindRecipesBtn'
+import FindRecipesBtn from './FindRecipesBtn';
+import {IRecipe} from '../interfaces/Recipe'
 
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
@@ -42,7 +43,8 @@ interface SidebarProps {
   searchByIngredients: Function;
   setSearchedRecipes: Function;
   setUserSearchedRecipes: Function;
-  selectedRecipes: string[];
+  selectedRecipes: IRecipe[];
+  getRecipeDetails: Function;
 }
 
 const Sidebar: FC<SidebarProps> = ({
@@ -51,7 +53,8 @@ const Sidebar: FC<SidebarProps> = ({
   selectedRecipes,
   searchByIngredients,
   setSearchedRecipes,
-  setUserSearchedRecipes
+  setUserSearchedRecipes,
+  getRecipeDetails,
 }) => {
   
   const searchRecipesOnClick = async () => {
@@ -72,11 +75,13 @@ const Sidebar: FC<SidebarProps> = ({
     ))
   }
 
+  //add onclick to getRecipeDetails to listed recipes in sidebar
   const renderRecipesList = () => {
-    return selectedRecipes?.map((recipeName) => {
+    return selectedRecipes?.map((recipe) => {
       return <RecipeBtn
-        key={recipeName}
-        >{recipeName}
+        key={recipe.id}
+        onClick={()=>getRecipeDetails(recipe.id)}
+        >{recipe.title}
       </RecipeBtn>
       
     })
