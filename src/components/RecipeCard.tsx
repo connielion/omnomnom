@@ -9,7 +9,8 @@ interface RecipeCardProps {
     usedIngredients: IIngredients[];
     missedIngredients: IIngredients[];
     image: string;
-    getRecipeDetails: Function
+    getRecipeDetails: Function;
+    setSelectedRecipes: Function;
 }
 
 const FoodCard = styled.div`
@@ -58,9 +59,11 @@ const UsedIngredientsContainer = styled.div`
         color: #fff;
         letter-spacing: 1px;
     }
-`
+`;
 
-const RecipeCard: FC<RecipeCardProps> = ({id, title, image,missedIngredients,  getRecipeDetails})=> {
+
+
+const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,missedIngredients,  getRecipeDetails, setSelectedRecipes})=> {
 
     const FoodImage = styled.div`
         width: 50%;
@@ -74,13 +77,18 @@ const RecipeCard: FC<RecipeCardProps> = ({id, title, image,missedIngredients,  g
         clip-path: ellipse(50% 53% at 64% 29%);
     `
 
+    const addRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setSelectedRecipes((prevState: string[])=> [...prevState, title]);
+    }
+
     return (
     <FoodCard onClick={()=>getRecipeDetails(id)}>
 
-        <AddBtn>
+        {/* add onclick to button to add to sidebar */}
+        <AddBtn onClick={e=>addRecipe(e)}>
             <img src={PlusIcon} alt="plus" />
         </AddBtn>
-
         <FoodImage></FoodImage>
         <TitleContainer>
             <h2>{title}</h2>
@@ -88,7 +96,6 @@ const RecipeCard: FC<RecipeCardProps> = ({id, title, image,missedIngredients,  g
         <UsedIngredientsContainer>
             <h3>{missedIngredients.length} Missing Ingredients</h3>
         </UsedIngredientsContainer>
-
     </FoodCard>)
 }
 

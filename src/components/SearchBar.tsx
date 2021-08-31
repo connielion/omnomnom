@@ -51,8 +51,15 @@ const SearchBar: FC<SearchBarProps> = ({selectedIngredients,setSelectedIngredien
 
   // define function for getting searchInput: setIngredientsInput(e.target.value)
   const addIngredientNameToList =()=> {
-    if(searchString !== '' && topIngredientsList.includes(searchString)){
-      setSelectedIngredients((prevState: string[]) =>[...prevState, searchString]);
+    if(searchString !== ''){
+      let searchStringFound: Boolean = false;
+
+      topIngredientsList.forEach(ingredient => {
+        if(ingredient.name ===searchString) searchStringFound = true;
+      })
+      if(searchStringFound===false){
+        setSelectedIngredients((prevState: string[]) =>[...prevState, searchString]);
+      }
     }
   }
 
