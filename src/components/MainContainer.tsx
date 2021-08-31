@@ -122,7 +122,7 @@ const MainContainer = () => {
       return cards;
     } else return [];
   };
-  console.log(`recipes []`, selectedRecipes)
+
 
   return (
     <Container>
