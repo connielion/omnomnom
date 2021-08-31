@@ -38,15 +38,33 @@ const MainContainer = () => {
     const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
       []
     );
+
+
+    const dynamicGridColumns = () => {
+
+      if (displayBlobs) {
+        return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
+      } else {
+        return `1fr`
+      }
+    }
+
+    const dynamiGridRow = () => {
+      if (displayBlobs) {
+        return `250px`;
+      } else {
+        return `1fr`
+      }
+    }
     
-    // REVIEW FOR BEST WAY TO INCORPORATE DYNAMIC GRID
+    // Grid container for the blobs, cards, and details
     const BlobsContainer = styled.div`
     grid-area: 1 / 2 / 2 / 3;
     background-color: #ebe6da;
     padding: 10px;
     display: grid;
-    grid-template-columns: ${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`};
-    grid-auto-rows: 250px;
+    grid-template-columns: ${dynamicGridColumns()};
+    grid-auto-rows: ${dynamiGridRow()};
     grid-gap: 10px;
     overflow: auto;
   `;

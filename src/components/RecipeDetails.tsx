@@ -6,11 +6,16 @@ import {
   IEquipment,
 } from "../interfaces/Recipe";
 import { v4 as uuidv4 } from 'uuid';
+import styled from 'styled-components';
 
 interface RecipeDetailsProps {
   recipeInstructions: IInstructions[];
   selectedRecipeImage: string;
 }
+
+const RecipeDetailsCard = styled.div`
+  background-color: #ef8080;
+`
 
 const RecipeDetails: FC<RecipeDetailsProps> = ({
   recipeInstructions,
@@ -51,11 +56,9 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
   });
 
   return (
-    <>
-      <p>RECIPE DETAILS</p>
-      <img src={selectedRecipeImage} alt="recipe" />
-      <ul>{steps}</ul>
-    </>
+    <RecipeDetailsCard>
+        
+    </RecipeDetailsCard>
   );
 };
 
