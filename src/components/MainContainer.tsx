@@ -50,7 +50,7 @@ const MainContainer = () => {
     const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
     const [selectedRecipeImage, setSelectedRecipeImage] = useState<string>("");
     const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>([]);
-    const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
+    const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
 
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
@@ -109,16 +109,11 @@ const MainContainer = () => {
   const renderCards = (): JSX.Element[] => {
     if (searchedRecipes.length) {
       const cards = searchedRecipes.map((recipe) => {
-        const { id, title, image, missedIngredients, usedIngredients } = recipe;
 
         return (
           <RecipeCard
-            key={id}
-            id={id}
-            title={title}
-            image={image}
-            missedIngredients={missedIngredients}
-            usedIngredients={usedIngredients}
+            key={recipe.id}
+            recipe={recipe}
             getRecipeDetails={getRecipeDetails}
             setSelectedRecipes={setSelectedRecipes}
           ></RecipeCard>
@@ -127,6 +122,7 @@ const MainContainer = () => {
       return cards;
     } else return [];
   };
+
 
   return (
     <Container>
@@ -137,6 +133,7 @@ const MainContainer = () => {
         selectedIngredients={selectedIngredients}
         setSearchedRecipes={setSearchedRecipes}
         selectedRecipes={selectedRecipes}
+        getRecipeDetails={getRecipeDetails}
       />
       <BlobsContainer userSearchedRecipes={userSearchedRecipes}>
         {/* Render Cards/Blobs OR Details */}
