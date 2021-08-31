@@ -1,4 +1,4 @@
-const ingredientNames = [
+export const topIngredientsList = [
   {
     id: 1002002,
     name: "5 spice powder",
@@ -3999,6 +3999,6 @@ const ingredientNames = [
     id: 10211362,
     name: "yukon gold potato",
   },
-].map((obj) => obj.name);
+];
 
-export const topIngredientsList = [...new Set(ingredientNames)];
+

@@ -1,9 +1,7 @@
-import React, {useState, FC} from 'react';
-import {IIngredients, IngredientsRequest} from '../interfaces/Recipe';
+import React, {FC} from 'react';
+import {IIngredients } from '../interfaces/Recipe';
 import styled from 'styled-components';
 import PlusIcon from '../assets/plus.svg';
-import { timeEnd } from 'console';
-import { array } from 'yargs';
 
 interface RecipeCardProps {
     id: number;
@@ -11,7 +9,8 @@ interface RecipeCardProps {
     usedIngredients: IIngredients[];
     missedIngredients: IIngredients[];
     image: string;
-    getRecipeDetails: Function
+    getRecipeDetails: Function;
+    setSelectedRecipes: Function;
 }
 
 const FoodCard = styled.div`
@@ -60,9 +59,11 @@ const UsedIngredientsContainer = styled.div`
         color: #fff;
         letter-spacing: 1px;
     }
-`
+`;
 
-const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,missedIngredients,  getRecipeDetails})=> {
+
+
+const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,missedIngredients,  getRecipeDetails, setSelectedRecipes})=> {
 
     const FoodImage = styled.div`
         width: 50%;
@@ -76,13 +77,18 @@ const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,miss
         clip-path: ellipse(50% 53% at 64% 29%);
     `
 
+    const addRecipe = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setSelectedRecipes((prevState: string[])=> [...prevState, title]);
+    }
+
     return (
     <FoodCard onClick={()=>getRecipeDetails(id)}>
 
-        <AddBtn>
+        {/* add onclick to button to add to sidebar */}
+        <AddBtn onClick={e=>addRecipe(e)}>
             <img src={PlusIcon} alt="plus" />
         </AddBtn>
-
         <FoodImage></FoodImage>
         <TitleContainer>
             <h2>{title}</h2>
@@ -90,7 +96,6 @@ const RecipeCard: FC<RecipeCardProps> = ({id, title, image, usedIngredients,miss
         <UsedIngredientsContainer>
             <h3>{missedIngredients.length} Missing Ingredients</h3>
         </UsedIngredientsContainer>
-
     </FoodCard>)
 }
 

@@ -28,17 +28,27 @@ const PickedIngredients = styled.div`
   flex-wrap: wrap;
 `
 
+const RecipeBtn = styled.div`
+  padding: 10px;
+  background-color: #fff;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  `
+
 interface SidebarProps {
   selectedIngredients: string[];
   setSelectedIngredients: Function;
   searchByIngredients: Function;
   setSearchedRecipes: Function;
   setUserSearchedRecipes: Function;
+  selectedRecipes: string[];
 }
 
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
   selectedIngredients,
+  selectedRecipes,
   searchByIngredients,
   setSearchedRecipes,
   setUserSearchedRecipes
@@ -49,6 +59,7 @@ const Sidebar: FC<SidebarProps> = ({
       setUserSearchedRecipes(true);
       const recipesList = await searchByIngredients(selectedIngredients.join(','));
       setSearchedRecipes(recipesList);
+      setSelectedIngredients([]);
     }
   }
 
@@ -61,6 +72,16 @@ const Sidebar: FC<SidebarProps> = ({
     ))
   }
 
+  const renderRecipesList = () => {
+    return selectedRecipes?.map((recipeName) => {
+      return <RecipeBtn
+        key={recipeName}
+        >{recipeName}
+      </RecipeBtn>
+      
+    })
+  }
+
   return (
     <SidebarContainer>
       <LogoContainer></LogoContainer>
@@ -70,7 +91,7 @@ const Sidebar: FC<SidebarProps> = ({
         selectedIngredients={selectedIngredients}
       />
       <PickedIngredients>
-        {selectedIngredients.length > 0 ? renderIngredientsList() : null}
+        {selectedIngredients.length > 0 ? renderIngredientsList() : renderRecipesList()}
       </PickedIngredients>
       <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} />
     </SidebarContainer>

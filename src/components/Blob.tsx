@@ -28,25 +28,17 @@ const H1Container = styled.div`
 
 interface BlobProps {
   ingredientName: string;
-  selectedIngredients: string[];
-  setSelectedIngredients: Function;
+  addIngredient: Function;
 }
 
 const Blob: FC<BlobProps> = ({
   ingredientName,
-  setSelectedIngredients,
-  selectedIngredients,
+  addIngredient
 }) => {
+
   return (
     <BlobContent
-      onClick={() => {
-        if (!selectedIngredients.includes(ingredientName)) {
-          setSelectedIngredients((prevState: string[]) => [
-            ...prevState,
-            ingredientName,
-          ]);
-        }
-      }}
+      onClick={()=>addIngredient(ingredientName)}
     >
       <H1Container>
         <IngredientName>{ingredientName}</IngredientName>

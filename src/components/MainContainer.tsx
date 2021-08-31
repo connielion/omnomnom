@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import Blob from "./Blob";
-import Blobs from "./Blobs";
 import RecipeCard from "./RecipeCard";
 import RecipeDetails from "./RecipeDetails";
 import styled from "styled-components";
-import { topIngredientsList } from "../util/topIngredientsList";
+import {topIngredientsList} from "../util/topIngredientsList";
 import {
   searchInstructions,
   searchRecipes,
@@ -15,7 +14,13 @@ import {
   IRecipe,
   InstructionsRequest,
   IInstructions,
+  ITopIngredient
 } from "../interfaces/Recipe";
+
+interface BlobsContainerProps {
+  userSearchedRecipes: Boolean;
+  displayBlobs: Boolean;
+}
 
 const Container = styled.div`
   width: 100vw;
@@ -25,6 +30,34 @@ const Container = styled.div`
   grid-template-columns: 350px 1fr;
 `;
 
+// Destructured. Can also be written as > data: BlobsContainerProps
+const dynamicColumn = ({displayBlobs, userSearchedRecipes}: BlobsContainerProps) => {
+  // destructured will look this > data.displayBlobs
+  if(displayBlobs) {
+    return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
+  } else {
+    return `1fr`;
+  }
+}
+
+const dynamicRow = ({displayBlobs}: BlobsContainerProps) => {
+  if(displayBlobs) {
+    return `250px`;
+  } else {
+    return `1fr`;
+  }
+}
+
+const BlobsContainer = styled.div<BlobsContainerProps>`
+grid-area: 1 / 2 / 2 / 3;
+background-color: #ebe6da;
+padding: 10px;
+display: grid;
+grid-template-columns: ${props => dynamicColumn(props)};
+grid-auto-rows: ${props => dynamicRow(props)};
+grid-gap: 10px;
+overflow: auto;
+`;
 
 const MainContainer = () => {
     // array of ingredient names user selected
@@ -35,39 +68,8 @@ const MainContainer = () => {
       useState<Boolean>(false);
     const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
     const [selectedRecipeImage, setSelectedRecipeImage] = useState<string>("");
-    const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
-      []
-    );
-
-
-    const dynamicGridColumns = () => {
-
-      if (displayBlobs) {
-        return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
-      } else {
-        return `1fr`
-      }
-    }
-
-    const dynamiGridRow = () => {
-      if (displayBlobs) {
-        return `250px`;
-      } else {
-        return `1fr`
-      }
-    }
-    
-    // Grid container for the blobs, cards, and details
-    const BlobsContainer = styled.div`
-    grid-area: 1 / 2 / 2 / 3;
-    background-color: #ebe6da;
-    padding: 10px;
-    display: grid;
-    grid-template-columns: ${dynamicGridColumns()};
-    grid-auto-rows: ${dynamiGridRow()};
-    grid-gap: 10px;
-    overflow: auto;
-  `;
+    const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>([]);
+    const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
 
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
@@ -88,14 +90,22 @@ const MainContainer = () => {
     return instructions;
   };
 
+  const addIngredient = (ingredient: string) => {
+    if (!selectedIngredients.includes(ingredient)) {
+      setSelectedIngredients((prevState: string[]) => [
+        ...prevState,
+        ingredient,
+      ]);
+    }
+  }
+
   const renderBlobs = (): JSX.Element[] => {
-    const blobs = topIngredientsList.map((ingredientName) => {
+    const blobs = topIngredientsList.map((ingredient: ITopIngredient) => {
       return (
         <Blob
-          key={ingredientName}
-          ingredientName={ingredientName}
-          setSelectedIngredients={setSelectedIngredients}
-          selectedIngredients={selectedIngredients}
+          key={ingredient.id}
+          ingredientName={ingredient.name}
+          addIngredient={addIngredient}
         />
       );
     });
@@ -129,6 +139,7 @@ const MainContainer = () => {
             missedIngredients={missedIngredients}
             usedIngredients={usedIngredients}
             getRecipeDetails={getRecipeDetails}
+            setSelectedRecipes={setSelectedRecipes}
           ></RecipeCard>
         );
       });
@@ -144,15 +155,12 @@ const MainContainer = () => {
         setSelectedIngredients={setSelectedIngredients}
         selectedIngredients={selectedIngredients}
         setSearchedRecipes={setSearchedRecipes}
+        selectedRecipes={selectedRecipes}
       />
-      <BlobsContainer>
+      <BlobsContainer userSearchedRecipes={userSearchedRecipes} displayBlobs={displayBlobs}>
         {/* Render Cards/Blobs OR Details */}
         {displayBlobs ? (
-          <Blobs
-            userSearchedRecipes={userSearchedRecipes}
-            renderCards={renderCards}
-            renderBlobs={renderBlobs}
-          />
+          userSearchedRecipes? renderCards() : renderBlobs()
         ) : (
           <RecipeDetails
             recipeInstructions={recipeInstructions}
