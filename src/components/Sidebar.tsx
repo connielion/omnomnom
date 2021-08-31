@@ -4,6 +4,7 @@ import SearchBar from './SearchBar'
 import IngredientButton from './IngredientButton'
 import FindRecipesBtn from './FindRecipesBtn';
 import {IRecipe} from '../interfaces/Recipe'
+import BackBtn from './BackBtn';
 
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
@@ -45,6 +46,9 @@ interface SidebarProps {
   setUserSearchedRecipes: Function;
   selectedRecipes: IRecipe[];
   getRecipeDetails: Function;
+  userSearchedRecipes: Boolean;
+  renderBlobs: Function;
+  setDisplayBlobs: Function;
 }
 
 const Sidebar: FC<SidebarProps> = ({
@@ -55,6 +59,9 @@ const Sidebar: FC<SidebarProps> = ({
   setSearchedRecipes,
   setUserSearchedRecipes,
   getRecipeDetails,
+  userSearchedRecipes,
+  renderBlobs,
+  setDisplayBlobs,
 }) => {
   
   const searchRecipesOnClick = async () => {
@@ -75,15 +82,14 @@ const Sidebar: FC<SidebarProps> = ({
     ))
   }
 
-  //add onclick to getRecipeDetails to listed recipes in sidebar
+  //onclick to getRecipeDetails to listed recipes in sidebar
   const renderRecipesList = () => {
     return selectedRecipes?.map((recipe) => {
       return <RecipeBtn
         key={recipe.id}
         onClick={()=>getRecipeDetails(recipe.id)}
-        >{recipe.title}
+        ><h2>{recipe.title}</h2>
       </RecipeBtn>
-      
     })
   }
 
@@ -96,9 +102,12 @@ const Sidebar: FC<SidebarProps> = ({
         selectedIngredients={selectedIngredients}
       />
       <PickedIngredients>
-        {selectedIngredients.length > 0 ? renderIngredientsList() : renderRecipesList()}
+        {selectedIngredients.length > 0 ? renderIngredientsList() : null}
       </PickedIngredients>
-      <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} />
+      <PickedIngredients>
+        {selectedRecipes.length ? (<><h2>Saved Recipes</h2>{renderRecipesList()}</>): null}
+      </PickedIngredients>
+      {!userSearchedRecipes ? <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} /> : <BackBtn setDisplayBlobs={setDisplayBlobs} setUserSearchedRecipes={setUserSearchedRecipes}/> }
     </SidebarContainer>
   )
 }
