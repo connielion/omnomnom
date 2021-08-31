@@ -1,3 +1,8 @@
+export interface ITopIngredient {
+  id: number;
+  name: string;
+}
+
 // FIND RECIPE BY INGREDIENTS
 export interface IIngredients {
   name: string;
