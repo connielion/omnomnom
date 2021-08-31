@@ -141,11 +141,6 @@ const MainContainer = () => {
       <BlobsContainer userSearchedRecipes={userSearchedRecipes}>
         {/* Render Cards/Blobs OR Details */}
         {displayBlobs ? (
-          // <Blobs
-          //   userSearchedRecipes={userSearchedRecipes}
-          //   renderCards={renderCards}
-          //   renderBlobs={renderBlobs}
-          // />
           userSearchedRecipes? renderCards() : renderBlobs()
         ) : (
           <RecipeDetails
