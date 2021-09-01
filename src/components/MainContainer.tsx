@@ -19,6 +19,7 @@ import {
 
 interface BlobsContainerProps {
   userSearchedRecipes: Boolean;
+  displayBlobs: Boolean;
 }
 
 const Container = styled.div`
@@ -29,13 +30,31 @@ const Container = styled.div`
   grid-template-columns: 350px 1fr;
 `;
 
+// Destructured. Can also be written as > data: BlobsContainerProps
+const dynamicColumn = ({displayBlobs, userSearchedRecipes}: BlobsContainerProps) => {
+  // destructured will look this > data.displayBlobs
+  if(displayBlobs) {
+    return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
+  } else {
+    return `1fr`;
+  }
+}
+
+const dynamicRow = ({displayBlobs}: BlobsContainerProps) => {
+  if(displayBlobs) {
+    return `250px`;
+  } else {
+    return `1fr`;
+  }
+}
+
 const BlobsContainer = styled.div<BlobsContainerProps>`
 grid-area: 1 / 2 / 2 / 3;
 background-color: #ebe6da;
 padding: 10px;
 display: grid;
-grid-template-columns: ${props => !props.userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`};
-grid-auto-rows: 250px;
+grid-template-columns: ${props => dynamicColumn(props)};
+grid-auto-rows: ${props => dynamicRow(props)};
 grid-gap: 10px;
 overflow: auto;
 `;
@@ -48,7 +67,7 @@ const MainContainer = () => {
     const [userSearchedRecipes, setUserSearchedRecipes] =
       useState<Boolean>(false);
     const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
-    const [selectedRecipeImage, setSelectedRecipeImage] = useState<string>("");
+    const [selectedRecipe, setSelectedRecipe] = useState<IRecipe[]>([]);
     const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>([]);
     const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
 
@@ -96,7 +115,7 @@ const MainContainer = () => {
 
   const getRecipeDetails = (id: number) => {
     const recipeObj = searchedRecipes.filter((recipe) => recipe.id === id)[0];
-    setSelectedRecipeImage(recipeObj.image);
+    setSelectedRecipe([recipeObj]);
     setDisplayBlobs(false);
     getRecipeSteps(id);
   };
@@ -138,14 +157,14 @@ const MainContainer = () => {
         renderBlobs={renderBlobs}
         setDisplayBlobs={setDisplayBlobs}
       />
-      <BlobsContainer userSearchedRecipes={userSearchedRecipes}>
+      <BlobsContainer userSearchedRecipes={userSearchedRecipes} displayBlobs={displayBlobs}>
         {/* Render Cards/Blobs OR Details */}
         {displayBlobs ? (
           userSearchedRecipes? renderCards() : renderBlobs()
         ) : (
           <RecipeDetails
+            selectedRecipe={selectedRecipe}
             recipeInstructions={recipeInstructions}
-            selectedRecipeImage={selectedRecipeImage}
           />
         )}
       </BlobsContainer>
