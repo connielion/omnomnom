@@ -153,6 +153,9 @@ const MainContainer = () => {
         setSearchedRecipes={setSearchedRecipes}
         selectedRecipes={selectedRecipes}
         getRecipeDetails={getRecipeDetails}
+        userSearchedRecipes={userSearchedRecipes}
+        renderBlobs={renderBlobs}
+        setDisplayBlobs={setDisplayBlobs}
       />
       <BlobsContainer userSearchedRecipes={userSearchedRecipes} displayBlobs={displayBlobs}>
         {/* Render Cards/Blobs OR Details */}
