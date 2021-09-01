@@ -9,7 +9,6 @@ import BackgroundTexture from "../assets/bgTexture.svg";
 
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
-  background-color: #ede6cb;
   background-image: url(${BackgroundTexture});
   background-repeat: no-repeat;
   background-size: cover;
