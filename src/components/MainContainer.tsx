@@ -99,6 +99,7 @@ const MainContainer = () => {
     }
   }
 
+
   const renderBlobs = (): JSX.Element[] => {
     const blobs = topIngredientsList.map((ingredient: ITopIngredient) => {
       return (
@@ -152,6 +153,7 @@ const MainContainer = () => {
         selectedIngredients={selectedIngredients}
         setSearchedRecipes={setSearchedRecipes}
         selectedRecipes={selectedRecipes}
+        setSelectedRecipes={setSelectedRecipes}
         getRecipeDetails={getRecipeDetails}
         userSearchedRecipes={userSearchedRecipes}
         renderBlobs={renderBlobs}

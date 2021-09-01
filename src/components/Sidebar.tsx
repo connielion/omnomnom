@@ -6,6 +6,7 @@ import FindRecipesBtn from './FindRecipesBtn';
 import {IRecipe} from '../interfaces/Recipe'
 import BackBtn from './BackBtn';
 
+
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   background-color: #ede6cb;
@@ -36,7 +37,9 @@ const RecipeBtn = styled.div`
   margin-right: 5px;
   margin-bottom: 5px;
   border-radius: 15px;
-  `
+  display: flex;
+  align-items: center;
+  `;
 
 interface SidebarProps {
   selectedIngredients: string[];
@@ -49,7 +52,16 @@ interface SidebarProps {
   userSearchedRecipes: Boolean;
   renderBlobs: Function;
   setDisplayBlobs: Function;
+  setSelectedRecipes: Function;
 }
+
+const RemoveRecipeBtn = styled.img`
+height: 10px;
+width: auto;
+weight: 20px;
+margin-left: 8px;
+margin-top: 3px;
+`;
 
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
@@ -60,8 +72,8 @@ const Sidebar: FC<SidebarProps> = ({
   setUserSearchedRecipes,
   getRecipeDetails,
   userSearchedRecipes,
-  renderBlobs,
   setDisplayBlobs,
+  setSelectedRecipes
 }) => {
   
   const searchRecipesOnClick = async () => {
@@ -78,17 +90,35 @@ const Sidebar: FC<SidebarProps> = ({
       <IngredientButton
         key={ingredientName}
         ingredientName={ingredientName}
-      ></IngredientButton>
+        removeIngredient={removeIngredient}
+      >
+      </IngredientButton>
     ))
   }
 
-  //onclick to getRecipeDetails to listed recipes in sidebar
+  const removeIngredient = (ingredient: string) => {
+    if(selectedIngredients.includes(ingredient)) {
+      // filter and get array not containing target ingredient
+      const updatedArray = selectedIngredients.filter(name => name !== ingredient); 
+      setSelectedIngredients(updatedArray);
+    }
+  }
+
+  const removeRecipe = (recipeID:number) => {
+    if(selectedRecipes.length){
+      const updatedRecipesList = selectedRecipes.filter(recipe=>recipe.id !== recipeID);
+      setSelectedRecipes(updatedRecipesList);
+    }
+  }
+
+  // getRecipeDetails: click handler to list recipes in sidebar and fetch recipe details by recipeID
   const renderRecipesList = () => {
     return selectedRecipes?.map((recipe) => {
       return <RecipeBtn
         key={recipe.id}
         onClick={()=>getRecipeDetails(recipe.id)}
         ><h2>{recipe.title}</h2>
+        <RemoveRecipeBtn onClick={()=>removeRecipe(recipe.id)} src="close.svg"></RemoveRecipeBtn>
       </RecipeBtn>
     })
   }
