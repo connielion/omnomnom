@@ -1,11 +1,11 @@
-import React, {useState, FC} from "react";
+import React, { useState, FC } from "react";
 import styled from "styled-components";
-import {topIngredientsList} from '../util/topIngredientsList';
+import { topIngredientsList } from "../util/topIngredientsList";
 
 interface SearchBarProps {
-    setSelectedIngredients: Function;
-    setUserSearchedRecipes: Function;
-    selectedIngredients: string[];
+  setSelectedIngredients: Function;
+  setUserSearchedRecipes: Function;
+  selectedIngredients: string[];
 }
 
 const SearchContainer = styled.div`
@@ -14,7 +14,6 @@ const SearchContainer = styled.div`
   justify-content: space-around;
   margin: 0 auto;
 `;
-
 
 const Input = styled.input`
   height: 40px;
@@ -26,7 +25,7 @@ const Input = styled.input`
   border: none;
   ::placeholder,
   ::-webkit-input-placeholder {
-    opacity: 0.5
+    opacity: 0.5;
   }
   :-ms-input-placeholder {
     font-weight: bold;
@@ -39,6 +38,7 @@ const AddButton = styled.button`
   border-radius: 15px;
   background-color: #fff;
   border: none;
+  cursor: pointer;
 `;
 
 const Plus = styled.img`
@@ -46,33 +46,40 @@ const Plus = styled.img`
   width: 15px;
 `;
 
-const SearchBar: FC<SearchBarProps> = ({selectedIngredients,setSelectedIngredients, setUserSearchedRecipes}) => {
-  const [searchString, setSearchString] = useState<String>(''); // single ingredient name 
+const SearchBar: FC<SearchBarProps> = ({
+  selectedIngredients,
+  setSelectedIngredients,
+  setUserSearchedRecipes,
+}) => {
+  const [searchString, setSearchString] = useState<String>(""); // single ingredient name
 
   // define function for getting searchInput: setIngredientsInput(e.target.value)
-  const addIngredientNameToList =()=> {
-    if(searchString !== ''){
+  const addIngredientNameToList = () => {
+    if (searchString !== "") {
       let searchStringFound: Boolean = false;
 
-      topIngredientsList.forEach(ingredient => {
-        if(ingredient.name ===searchString) searchStringFound = true;
-      })
-      if(searchStringFound===false){
-        setSelectedIngredients((prevState: string[]) =>[...prevState, searchString]);
+      topIngredientsList.forEach((ingredient) => {
+        if (ingredient.name === searchString) searchStringFound = true;
+      });
+      if (searchStringFound === false) {
+        setSelectedIngredients((prevState: string[]) => [
+          ...prevState,
+          searchString,
+        ]);
       }
     }
-  }
+  };
 
   const enterSubmit = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" && searchString !== '') {
-        // if any string in topIngredientsList[] has search bar value, setSelectedIngredints 
-      addIngredientNameToList()
+    if (event.key === "Enter" && searchString !== "") {
+      // if any string in topIngredientsList[] has search bar value, setSelectedIngredints
+      addIngredientNameToList();
     }
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
-    if(target) setSearchString(target.value);
+    if (target) setSearchString(target.value);
   };
 
   return (

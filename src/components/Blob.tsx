@@ -7,15 +7,16 @@ const BlobContent = styled.div`
   background-size: 120%;
   background-repeat: no-repeat;
   background-position: center;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 const IngredientName = styled.h1`
   font-size: 24px;
   color: #fff;
   letter-spacing: 1px;
+  cursor: pointer;
 `;
 
 const H1Container = styled.div`
