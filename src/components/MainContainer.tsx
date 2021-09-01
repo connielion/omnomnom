@@ -67,9 +67,9 @@ const MainContainer = () => {
     const [userSearchedRecipes, setUserSearchedRecipes] =
       useState<Boolean>(false);
     const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
-    const [selectedRecipeImage, setSelectedRecipeImage] = useState<string>("");
+    const [selectedRecipe, setSelectedRecipe] = useState<IRecipe[]>([]);
     const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>([]);
-    const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
+    const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
 
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
@@ -115,7 +115,7 @@ const MainContainer = () => {
 
   const getRecipeDetails = (id: number) => {
     const recipeObj = searchedRecipes.filter((recipe) => recipe.id === id)[0];
-    setSelectedRecipeImage(recipeObj.image);
+    setSelectedRecipe([recipeObj]);
     setDisplayBlobs(false);
     getRecipeSteps(id);
   };
@@ -128,16 +128,11 @@ const MainContainer = () => {
   const renderCards = (): JSX.Element[] => {
     if (searchedRecipes.length) {
       const cards = searchedRecipes.map((recipe) => {
-        const { id, title, image, missedIngredients, usedIngredients } = recipe;
 
         return (
           <RecipeCard
-            key={id}
-            id={id}
-            title={title}
-            image={image}
-            missedIngredients={missedIngredients}
-            usedIngredients={usedIngredients}
+            key={recipe.id}
+            recipe={recipe}
             getRecipeDetails={getRecipeDetails}
             setSelectedRecipes={setSelectedRecipes}
           ></RecipeCard>
@@ -146,6 +141,7 @@ const MainContainer = () => {
       return cards;
     } else return [];
   };
+
 
   return (
     <Container>
@@ -156,6 +152,7 @@ const MainContainer = () => {
         selectedIngredients={selectedIngredients}
         setSearchedRecipes={setSearchedRecipes}
         selectedRecipes={selectedRecipes}
+        getRecipeDetails={getRecipeDetails}
       />
       <BlobsContainer userSearchedRecipes={userSearchedRecipes} displayBlobs={displayBlobs}>
         {/* Render Cards/Blobs OR Details */}
@@ -163,8 +160,8 @@ const MainContainer = () => {
           userSearchedRecipes? renderCards() : renderBlobs()
         ) : (
           <RecipeDetails
+            selectedRecipe={selectedRecipe}
             recipeInstructions={recipeInstructions}
-            selectedRecipeImage={selectedRecipeImage}
           />
         )}
       </BlobsContainer>

@@ -4,14 +4,15 @@ import {
   IInstructionsIngredients,
   ISteps,
   IEquipment,
+  IRecipe,
 } from "../interfaces/Recipe";
-import { v4 as uuidv4 } from 'uuid';
-import styled from 'styled-components';
-import PlusIcon from '../assets/plus.svg';
+import { v4 as uuidv4 } from "uuid";
+import styled from "styled-components";
+import PlusIcon from "../assets/plus.svg";
 
 interface RecipeDetailsProps {
   recipeInstructions: IInstructions[];
-  selectedRecipeImage: string;
+  selectedRecipe: IRecipe[];
 }
 
 const RecipeDetailsCard = styled.div`
@@ -19,11 +20,12 @@ const RecipeDetailsCard = styled.div`
   border-radius: 15px;
   position: relative;
   padding-left: 70px;
-`
+  overflow: hidden;
+`;
 
 const RecipeDetails: FC<RecipeDetailsProps> = ({
   recipeInstructions,
-  selectedRecipeImage,
+  selectedRecipe,
 }) => {
   const displayStepsInfo = (steps: ISteps[]) => {
     return steps.map((stepObject) => {
@@ -59,19 +61,22 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
     );
   });
 
-  const FoodImage = styled.div`
-        width: 70%;
-        background-color: #fff;
-        background-image: url(${selectedRecipeImage});
-        background-size: 100%;
-        background-repeat: no-repeat;
-        height: 100%;
-        position: absolute;
-        right: 0;
-        clip-path: ellipse(50% 45% at 85% 19%);
-    `
 
-    const AddBtn = styled.div`
+  const FoodImage = styled.div`
+    width: 500px;
+    background-color: #fff;
+    background-image: url(${selectedRecipe[0].image});
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+    height: 500px;
+    position: absolute;
+    right: 0;
+    transform: translateX(15%) translateY(-15%);
+  `;
+
+  const AddBtn = styled.div`
     width: 50px;
     height: 50px;
     background-color: #fff;
@@ -82,28 +87,81 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
     display: flex;
     justify-content: center;
     align-items: center;
-`
+  `;
 
-    const RecipeInfo = styled.div`
-      width: 450px;
-      height: 500px;
-      background-color: white;
-      margin-top: 70px;
-    `
+  const RecipeInfo = styled.div`
+    width: 550px;
+    height: 500px;
+    margin-top: 70px;
+    text-align: start;
+    color: #fff;
+
+    h2 {
+      letter-spacing: 1px;
+    }
+
+    h3 {
+      margin-top: 15px;
+      letter-spacing: 1px;
+    }
+  `;
+
+  const MissingContainer = styled.div`
+    display: flex;
+
+    h4 {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+  `;
+
+  const StepsContainer = styled.div`
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+
+    p {
+      margin-top: 15px;
+      letter-spacing: 1px;
+    }
+  `;
+
+  const missedIngredientsMap = () => {
+    const missingIngredients = selectedRecipe[0].missedIngredients.map(
+      (ingredient, index) => {
+        return <h4>{(index ? ", " : "") + ingredient.name}</h4>;
+      }
+    );
+
+    return missingIngredients;
+  };
+
+
+    const stepsP = recipeInstructions[0]?.steps?.map((stepObject, index) => {
+      return  <p>({index+1}) {stepObject.step}</p>
+    });
 
   return (
     <RecipeDetailsCard>
-
       <FoodImage></FoodImage>
 
       <AddBtn>
-      <img src={PlusIcon} alt="plus" />
+        <img src={PlusIcon} alt="plus" />
       </AddBtn>
 
       <RecipeInfo>
-        
+        <h2>{selectedRecipe[0].title}</h2>
+        <h3>Missing Ingredients:</h3>
+        <MissingContainer>
+          {missedIngredientsMap()}
+        </MissingContainer>
 
-      </RecipeInfo>      
+        <StepsContainer>
+          {stepsP}
+        </StepsContainer>
+
+      </RecipeInfo>
 
     </RecipeDetailsCard>
   );
