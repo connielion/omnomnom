@@ -4,7 +4,7 @@ export interface ITopIngredient {
 }
 
 // FIND RECIPE BY INGREDIENTS
-export interface IIngredients {
+export interface IIngredient {
   name: string;
   amount: number;
   unit: string;
@@ -13,15 +13,17 @@ export interface IIngredients {
 export interface IRecipe {
   id: number;
   title: string;
-  usedIngredients: IIngredients[];
-  missedIngredients: IIngredients[];
+  usedIngredients: IIngredient[];
+  missedIngredients: IIngredient[];
   image: string;
 }
+
 export interface IRecipeRequest {
-  ingredients: string; // garlic, salmon, pepper
+  ingredients: string;
   number: number;
   apiKey: string;
 }
+
 class RecipeRequest implements IRecipeRequest {
   ingredients = "";
   number = 20;
@@ -37,7 +39,7 @@ class RecipeRequest implements IRecipeRequest {
   }
 }
 
-// RECIPE INGREDIENTS INTERFACE - fetching recipe instructions
+// fetching recipe instructions
 export interface IInstructionsIngredients {
   id: number;
   name: string;
@@ -68,7 +70,7 @@ export interface IInstructions {
   steps: ISteps[];
 }
 
-//Instructions Request Class
+//Instructions Request 
 export interface IInstructionRequest {
   id: number;
   apiKey: string;
@@ -83,29 +85,5 @@ class InstructionsRequest implements IInstructionRequest {
   }
 }
 
-// Ingredients list interface
-export interface ISelectableIngredient {
-  name: string;
-}
-// Request Interface for selectable ingredients fetch
-export interface IIngredientsRequest {
-  query: string;
-  number: number;
-  apiKey: string;
-}
-class IngredientsRequest implements IIngredientsRequest {
-  query = "";
-  number = 20;
-  apiKey = process.env.REACT_APP_API_KEY || "";
-  constructor(configOveride?: Partial<IIngredientsRequest>) {
-    if (configOveride) {
-      Object.assign(this, configOveride);
-      if (configOveride.query) {
-        this.query = encodeURIComponent(this.query);
-      }
-    }
-  }
-}
-
 // exporting all Request classes
-export { RecipeRequest, InstructionsRequest, IngredientsRequest };
+export { RecipeRequest, InstructionsRequest };

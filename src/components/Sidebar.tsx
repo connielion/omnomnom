@@ -54,8 +54,8 @@ interface SidebarProps {
   selectedRecipes: IRecipe[];
   getRecipeDetails: Function;
   userSearchedRecipes: Boolean;
-  renderBlobs: Function;
-  setDisplayBlobs: Function;
+  renderIngredientBlobs: Function;
+  setHideRecipeDetails: Function;
   setSelectedRecipes: Function;
 }
 
@@ -76,7 +76,7 @@ const Sidebar: FC<SidebarProps> = ({
   setUserSearchedRecipes,
   getRecipeDetails,
   userSearchedRecipes,
-  setDisplayBlobs,
+  setHideRecipeDetails,
   setSelectedRecipes,
 }) => {
   const searchRecipesOnClick = async () => {
@@ -156,7 +156,7 @@ const Sidebar: FC<SidebarProps> = ({
         <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} />
       ) : (
         <BackBtn
-          setDisplayBlobs={setDisplayBlobs}
+          setHideRecipeDetails={setHideRecipeDetails}
           setUserSearchedRecipes={setUserSearchedRecipes}
         />
       )}

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 interface BackBtnProps {
-  setDisplayBlobs: Function;
+  setHideRecipeDetails: Function;
   setUserSearchedRecipes: Function;
 }
 
@@ -21,13 +21,13 @@ const Button = styled.button`
 `;
 
 const BackBtn: FC<BackBtnProps> = ({
-  setDisplayBlobs,
+  setHideRecipeDetails,
   setUserSearchedRecipes,
 }) => {
   return (
     <Button
       onClick={() => {
-        setDisplayBlobs(true);
+        setHideRecipeDetails(true);
         setUserSearchedRecipes(false);
       }}
     >
