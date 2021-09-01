@@ -59,6 +59,7 @@ const RecipeInfo = styled.div`
 
   h2 {
     letter-spacing: 1px;
+    font-size: 38px;
   }
 
   h3 {
@@ -69,13 +70,27 @@ const RecipeInfo = styled.div`
 
 const MissingContainer = styled.div`
   display: flex;
+  align-items: flex-start;
+  flex-wrap: no-wrap;
+  overflow: auto;
+  width: 100%;
+  margin-top: 10px;
+`;
+
+const MissingIngredientsBtn = styled.div`
+  padding: 10px;
+  background-color: #fff;
+  margin-right: 2px;
+  border-radius: 15px;
+  display:flex;
+  flex-wrap: nowrap;
 
   h4 {
-    margin-top: 10px;
-    margin-bottom: 10px;
+    color: #ef8080;
     letter-spacing: 1px;
+    white-space: nowrap;
   }
-`;
+`
 
 const StepsContainer = styled.div`
   width: 100%;
@@ -97,7 +112,7 @@ const AddRecipeBtn = styled.button`
   padding: 10px;
   border: 1px solid #fff;
   border-radius: 15px;
-  color: #000;
+  color: #ef8080;
   letter-spacing: 1px;
 `;
 
@@ -120,7 +135,11 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
   const missedIngredientsMap = () => {
     const missingIngredients = selectedRecipe[0].missedIngredients.map(
       (ingredient, index) => {
-        return <h4>{(index ? ", " : "") + ingredient.name}</h4>;
+        // return <h4>{(index ? ", " : "") + ingredient.name}</h4>;
+        return (
+          <MissingIngredientsBtn>
+            <h4>{ingredient.name}</h4>
+          </MissingIngredientsBtn>)
       }
     );
 
