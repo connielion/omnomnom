@@ -8,6 +8,7 @@ interface RecipeCardProps {
   getRecipeDetails: Function;
   setSelectedRecipes: Function;
   addRecipe: Function;
+  selectedRecipes: IRecipe[];
 }
 
 const FoodCard = styled.div`
@@ -62,7 +63,8 @@ const RecipeCard: FC<RecipeCardProps> = ({
   recipe,
   getRecipeDetails,
   setSelectedRecipes,
-  addRecipe
+  addRecipe,
+  selectedRecipes,
 }) => {
   const FoodImage = styled.div`
     width: 50%;
