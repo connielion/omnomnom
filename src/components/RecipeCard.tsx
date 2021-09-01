@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IIngredients, IRecipe } from "../interfaces/Recipe";
+import { IRecipe } from "../interfaces/Recipe";
 import styled from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 
@@ -7,6 +7,7 @@ interface RecipeCardProps {
   recipe: IRecipe;
   getRecipeDetails: Function;
   setSelectedRecipes: Function;
+  addRecipe: Function;
   selectedRecipes: IRecipe[];
 }
 
@@ -62,6 +63,7 @@ const RecipeCard: FC<RecipeCardProps> = ({
   recipe,
   getRecipeDetails,
   setSelectedRecipes,
+  addRecipe,
   selectedRecipes,
 }) => {
   const FoodImage = styled.div`
@@ -76,17 +78,11 @@ const RecipeCard: FC<RecipeCardProps> = ({
     clip-path: ellipse(50% 53% at 64% 29%);
   `;
 
-  const addRecipe = (e: React.MouseEvent<HTMLDivElement>, recipe: IRecipe) => {
-    e.stopPropagation();
-    if (!selectedRecipes.includes(recipe)) {
-      setSelectedRecipes((prevState: IRecipe[]) => [...prevState, recipe]);
-    }
-  };
 
   return (
     <FoodCard onClick={() => getRecipeDetails(recipe.id)}>
       {/* add onclick to button to add to sidebar */}
-      <AddBtn onClick={(e) => addRecipe(e, recipe)}>
+      <AddBtn onClick={(e) => addRecipe(e,recipe)}>
         <img src={PlusIcon} alt="plus" />
       </AddBtn>
       <FoodImage></FoodImage>

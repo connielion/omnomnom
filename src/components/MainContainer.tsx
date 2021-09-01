@@ -98,7 +98,15 @@ const MainContainer = () => {
         ingredient,
       ]);
     }
+  }
+
+  const addRecipe = (e: React.MouseEvent<HTMLDivElement>, recipe: IRecipe) => {
+    e.stopPropagation();
+    if(!selectedRecipes.includes(recipe)){
+      setSelectedRecipes((prevState: IRecipe[]) => [...prevState, recipe]);
+    }
   };
+
 
   const renderBlobs = (): JSX.Element[] => {
     const blobs = topIngredientsList.map((ingredient: ITopIngredient) => {
@@ -131,6 +139,7 @@ const MainContainer = () => {
       const cards = searchedRecipes.map((recipe) => {
         return (
           <RecipeCard
+            addRecipe={addRecipe}
             key={recipe.id}
             recipe={recipe}
             getRecipeDetails={getRecipeDetails}
@@ -171,8 +180,11 @@ const MainContainer = () => {
           )
         ) : (
           <RecipeDetails
+            addRecipe={addRecipe}
             selectedRecipe={selectedRecipe}
             recipeInstructions={recipeInstructions}
+            setDisplayBlobs={setDisplayBlobs}
+            setUserSearchedRecipes={setUserSearchedRecipes}
           />
         )}
       </BlobsContainer>

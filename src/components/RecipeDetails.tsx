@@ -1,14 +1,14 @@
 import React, { FC } from "react";
-import {
-  IInstructions,
-  IRecipe,
-} from "../interfaces/Recipe";
+import { IInstructions, IRecipe } from "../interfaces/Recipe";
 import styled from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 
 interface RecipeDetailsProps {
   recipeInstructions: IInstructions[];
   selectedRecipe: IRecipe[];
+  setDisplayBlobs: Function;
+  setUserSearchedRecipes: Function;
+  addRecipe: Function;
 }
 
 interface ImageProps {
@@ -16,17 +16,17 @@ interface ImageProps {
 }
 
 const FoodImage = styled.div<ImageProps>`
-width: 500px;
-background-color: #fff;
-background-image:  ${props =>`url(${props.image})`};
-background-size: cover;
-background-repeat: no-repeat;
-background-position: center;
-border-radius: 50%;
-height: 500px;
-position: absolute;
-right: 0;
-transform: translateX(15%) translateY(-15%);
+  width: 500px;
+  background-color: #fff;
+  background-image: ${(props) => `url(${props.image})`};
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  height: 500px;
+  position: absolute;
+  right: 0;
+  transform: translateX(15%) translateY(-15%);
 `;
 
 const RecipeDetailsCard = styled.div`
@@ -130,9 +130,10 @@ const CloseRecipeBtn = styled.button`
 const RecipeDetails: FC<RecipeDetailsProps> = ({
   recipeInstructions,
   selectedRecipe,
+  setDisplayBlobs,
+  setUserSearchedRecipes,
+  addRecipe
 }) => {
-
-
   const missedIngredientsMap = () => {
     const missingIngredients = selectedRecipe[0].missedIngredients.map(
       (ingredient) => {
@@ -148,18 +149,22 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
 
   const stepsP = recipeInstructions[0]?.steps?.map((stepObject, index) => {
     return (
-      <p>
+      <p key={index}>
         ({index + 1}) {stepObject.step}
       </p>
     );
   });
 
+  const closeRecipeDetails = () => {
+    setDisplayBlobs(true);
+    setUserSearchedRecipes(true);
+  };
+
   return (
     <RecipeDetailsCard>
-      <FoodImage image={selectedRecipe[0].image}>
-      </FoodImage>
+      <FoodImage image={selectedRecipe[0].image}></FoodImage>
 
-      <AddBtn>
+      <AddBtn onClick={(e) => addRecipe(e,selectedRecipe[0])}>
         <img src={PlusIcon} alt="plus" />
       </AddBtn>
 
@@ -171,8 +176,10 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
         <StepsContainer>{stepsP}</StepsContainer>
 
         <BtnContainer>
-          <AddRecipeBtn>Add to List</AddRecipeBtn>
-          <CloseRecipeBtn>Close</CloseRecipeBtn>
+          <AddRecipeBtn onClick={(e) => addRecipe(e,selectedRecipe[0])}>Add to List</AddRecipeBtn>
+          <CloseRecipeBtn onClick={closeRecipeDetails}>
+            Close
+          </CloseRecipeBtn>
         </BtnContainer>
       </RecipeInfo>
     </RecipeDetailsCard>
