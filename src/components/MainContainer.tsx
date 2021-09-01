@@ -153,6 +153,7 @@ const MainContainer = () => {
         selectedIngredients={selectedIngredients}
         setSearchedRecipes={setSearchedRecipes}
         selectedRecipes={selectedRecipes}
+        setSelectedRecipes={setSelectedRecipes}
         getRecipeDetails={getRecipeDetails}
         userSearchedRecipes={userSearchedRecipes}
         renderBlobs={renderBlobs}

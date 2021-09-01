@@ -1,12 +1,8 @@
 import React, { FC } from "react";
 import {
   IInstructions,
-  IInstructionsIngredients,
-  ISteps,
-  IEquipment,
   IRecipe,
 } from "../interfaces/Recipe";
-import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 
