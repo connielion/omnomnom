@@ -6,7 +6,7 @@ import PlusIcon from "../assets/plus.svg";
 interface RecipeDetailsProps {
   recipeInstructions: IInstructions[];
   selectedRecipe: IRecipe[];
-  setDisplayBlobs: Function;
+  setHideRecipeDetails: Function;
   setUserSearchedRecipes: Function;
   addRecipe: Function;
 }
@@ -130,7 +130,7 @@ const CloseRecipeBtn = styled.button`
 const RecipeDetails: FC<RecipeDetailsProps> = ({
   recipeInstructions,
   selectedRecipe,
-  setDisplayBlobs,
+  setHideRecipeDetails,
   setUserSearchedRecipes,
   addRecipe
 }) => {
@@ -156,7 +156,7 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
   });
 
   const closeRecipeDetails = () => {
-    setDisplayBlobs(true);
+    setHideRecipeDetails(true);
     setUserSearchedRecipes(true);
   };
 

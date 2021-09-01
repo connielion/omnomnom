@@ -70,7 +70,7 @@ export interface IInstructions {
   steps: ISteps[];
 }
 
-//Instructions Request Class
+//Instructions Request 
 export interface IInstructionRequest {
   id: number;
   apiKey: string;
@@ -86,6 +86,4 @@ class InstructionsRequest implements IInstructionRequest {
 }
 
 // exporting all Request classes
-export { RecipeRequest, 
-  InstructionsRequest, 
-};
+export { RecipeRequest, InstructionsRequest };
