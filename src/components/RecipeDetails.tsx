@@ -79,14 +79,15 @@ const MissingContainer = styled.div`
 
 const MissingIngredientsBtn = styled.div`
   padding: 10px;
-  background-color: #fff;
-  margin-right: 2px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  margin-right: 5px;
   border-radius: 15px;
   display:flex;
   flex-wrap: nowrap;
 
   h4 {
-    color: #ef8080;
+    color: #fff;
     letter-spacing: 1px;
     white-space: nowrap;
   }
@@ -134,10 +135,9 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
 
   const missedIngredientsMap = () => {
     const missingIngredients = selectedRecipe[0].missedIngredients.map(
-      (ingredient, index) => {
-        // return <h4>{(index ? ", " : "") + ingredient.name}</h4>;
+      (ingredient) => {
         return (
-          <MissingIngredientsBtn>
+          <MissingIngredientsBtn key={ingredient.name}>
             <h4>{ingredient.name}</h4>
           </MissingIngredientsBtn>)
       }
