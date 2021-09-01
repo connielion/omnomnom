@@ -80,6 +80,7 @@ const MainContainer = () => {
     }
   }
 
+
   const renderBlobs = (): JSX.Element[] => {
     const blobs = topIngredientsList.map((ingredient: ITopIngredient) => {
       return (

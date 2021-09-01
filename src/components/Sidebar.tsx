@@ -6,6 +6,7 @@ import FindRecipesBtn from './FindRecipesBtn';
 import {IRecipe} from '../interfaces/Recipe'
 import BackBtn from './BackBtn';
 
+
 const SidebarContainer = styled.div`
   grid-area: 1 / 1 / 2 / 2;
   background-color: #ede6cb;
@@ -36,7 +37,7 @@ const RecipeBtn = styled.div`
   margin-right: 5px;
   margin-bottom: 5px;
   border-radius: 15px;
-  `
+  `;
 
 interface SidebarProps {
   selectedIngredients: string[];
@@ -60,7 +61,6 @@ const Sidebar: FC<SidebarProps> = ({
   setUserSearchedRecipes,
   getRecipeDetails,
   userSearchedRecipes,
-  renderBlobs,
   setDisplayBlobs,
 }) => {
   
@@ -78,11 +78,21 @@ const Sidebar: FC<SidebarProps> = ({
       <IngredientButton
         key={ingredientName}
         ingredientName={ingredientName}
-      ></IngredientButton>
+        removeIngredient={removeIngredient}
+      >
+      </IngredientButton>
     ))
   }
 
-  //onclick to getRecipeDetails to listed recipes in sidebar
+  const removeIngredient = (ingredient: string) => {
+    if(selectedIngredients.includes(ingredient)) {
+      // filter and get array not containing target ingredient
+      const updatedArray = selectedIngredients.filter(name => name !== ingredient); 
+      setSelectedIngredients(updatedArray);
+    }
+  }
+
+  // getRecipeDetails: click handler to list recipes in sidebar and fetch recipe details by recipeID
   const renderRecipesList = () => {
     return selectedRecipes?.map((recipe) => {
       return <RecipeBtn
