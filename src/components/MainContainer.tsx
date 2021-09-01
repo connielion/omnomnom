@@ -4,17 +4,14 @@ import Blob from "./Blob";
 import RecipeCard from "./RecipeCard";
 import RecipeDetails from "./RecipeDetails";
 import styled from "styled-components";
-import {topIngredientsList} from "../util/topIngredientsList";
-import {
-  searchInstructions,
-  searchRecipes,
-} from "../util/fetchAPI";
+import { topIngredientsList } from "../util/topIngredientsList";
+import { searchInstructions, searchRecipes } from "../util/fetchAPI";
 import {
   RecipeRequest,
   IRecipe,
   InstructionsRequest,
   IInstructions,
-  ITopIngredient
+  ITopIngredient,
 } from "../interfaces/Recipe";
 
 interface BlobsContainerProps {
@@ -31,46 +28,50 @@ const Container = styled.div`
 `;
 
 // Destructured. Can also be written as > data: BlobsContainerProps
-const dynamicColumn = ({displayBlobs, userSearchedRecipes}: BlobsContainerProps) => {
+const dynamicColumn = ({
+  displayBlobs,
+  userSearchedRecipes,
+}: BlobsContainerProps) => {
   // destructured will look this > data.displayBlobs
-  if(displayBlobs) {
+  if (displayBlobs) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
   } else {
     return `1fr`;
   }
-}
+};
 
-const dynamicRow = ({displayBlobs}: BlobsContainerProps) => {
-  if(displayBlobs) {
+const dynamicRow = ({ displayBlobs }: BlobsContainerProps) => {
+  if (displayBlobs) {
     return `250px`;
   } else {
     return `1fr`;
   }
-}
+};
 
 const BlobsContainer = styled.div<BlobsContainerProps>`
-grid-area: 1 / 2 / 2 / 3;
-background-color: #ebe6da;
-padding: 10px;
-display: grid;
-grid-template-columns: ${props => dynamicColumn(props)};
-grid-auto-rows: ${props => dynamicRow(props)};
-grid-gap: 10px;
-overflow: auto;
+  grid-area: 1 / 2 / 2 / 3;
+  background-color: #ebe6da;
+  padding: 10px;
+  display: grid;
+  grid-template-columns: ${(props) => dynamicColumn(props)};
+  grid-auto-rows: ${(props) => dynamicRow(props)};
+  grid-gap: 10px;
+  overflow: auto;
 `;
 
 const MainContainer = () => {
-    // array of ingredient names user selected
-    const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
-    const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[]>([]);
-    // Conditonally render ingredients or recipes
-    const [userSearchedRecipes, setUserSearchedRecipes] =
-      useState<Boolean>(false);
-    const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
-    const [selectedRecipe, setSelectedRecipe] = useState<IRecipe[]>([]);
-    const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>([]);
-    const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
-
+  // array of ingredient names user selected
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([]);
+  const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[]>([]);
+  // Conditonally render ingredients or recipes
+  const [userSearchedRecipes, setUserSearchedRecipes] =
+    useState<Boolean>(false);
+  const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
+  const [selectedRecipe, setSelectedRecipe] = useState<IRecipe[]>([]);
+  const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
+    []
+  );
+  const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
@@ -97,8 +98,7 @@ const MainContainer = () => {
         ingredient,
       ]);
     }
-  }
-
+  };
 
   const renderBlobs = (): JSX.Element[] => {
     const blobs = topIngredientsList.map((ingredient: ITopIngredient) => {
@@ -129,20 +129,19 @@ const MainContainer = () => {
   const renderCards = (): JSX.Element[] => {
     if (searchedRecipes.length) {
       const cards = searchedRecipes.map((recipe) => {
-
         return (
           <RecipeCard
             key={recipe.id}
             recipe={recipe}
             getRecipeDetails={getRecipeDetails}
             setSelectedRecipes={setSelectedRecipes}
+            selectedRecipes={selectedRecipes}
           ></RecipeCard>
         );
       });
       return cards;
     } else return [];
   };
-
 
   return (
     <Container>
@@ -159,10 +158,17 @@ const MainContainer = () => {
         renderBlobs={renderBlobs}
         setDisplayBlobs={setDisplayBlobs}
       />
-      <BlobsContainer userSearchedRecipes={userSearchedRecipes} displayBlobs={displayBlobs}>
+      <BlobsContainer
+        userSearchedRecipes={userSearchedRecipes}
+        displayBlobs={displayBlobs}
+      >
         {/* Render Cards/Blobs OR Details */}
         {displayBlobs ? (
-          userSearchedRecipes? renderCards() : renderBlobs()
+          userSearchedRecipes ? (
+            renderCards()
+          ) : (
+            renderBlobs()
+          )
         ) : (
           <RecipeDetails
             selectedRecipe={selectedRecipe}
@@ -172,5 +178,5 @@ const MainContainer = () => {
       </BlobsContainer>
     </Container>
   );
-}
+};
 export default MainContainer;
