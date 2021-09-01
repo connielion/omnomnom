@@ -81,7 +81,7 @@ const Sidebar: FC<SidebarProps> = ({
       setUserSearchedRecipes(true);
       const recipesList = await searchByIngredients(selectedIngredients.join(','));
       setSearchedRecipes(recipesList);
-      setSelectedIngredients([]);
+      // setSelectedIngredients([]);
     }
   }
 
