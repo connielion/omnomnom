@@ -78,11 +78,10 @@ const RecipeCard: FC<RecipeCardProps> = ({
     clip-path: ellipse(50% 53% at 64% 29%);
   `;
 
-
   return (
     <FoodCard onClick={() => getRecipeDetails(recipe.id)}>
       {/* add onclick to button to add to sidebar */}
-      <AddBtn onClick={(e) => addRecipe(e,recipe)}>
+      <AddBtn onClick={(e) => addRecipe(e, recipe)}>
         <img src={PlusIcon} alt="plus" />
       </AddBtn>
       <FoodImage></FoodImage>

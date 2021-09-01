@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 interface BackBtnProps {
-    setDisplayBlobs: Function;
+    setHideRecipeDetails: Function;
     setUserSearchedRecipes: Function;
 }
 
@@ -19,10 +19,10 @@ const Button = styled.button`
   margin-left: 2.5%;
 `;
 
-const BackBtn: FC<BackBtnProps> = ({ setDisplayBlobs, setUserSearchedRecipes}) => {
+const BackBtn: FC<BackBtnProps> = ({ setHideRecipeDetails, setUserSearchedRecipes}) => {
   return (
     <Button onClick={()=>{
-        setDisplayBlobs(true);
+        setHideRecipeDetails(true);
         setUserSearchedRecipes(false);
     }}>
       <h2>Back</h2>

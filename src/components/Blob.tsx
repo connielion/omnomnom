@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import styled from "styled-components";
 import ingredientBlob from "../assets/blob.svg";
 
-
 const BlobContent = styled.div`
   background-image: url(${ingredientBlob});
   background-size: 120%;
@@ -31,15 +30,9 @@ interface BlobProps {
   addIngredient: Function;
 }
 
-const Blob: FC<BlobProps> = ({
-  ingredientName,
-  addIngredient
-}) => {
-
+const Blob: FC<BlobProps> = ({ ingredientName, addIngredient }) => {
   return (
-    <BlobContent
-      onClick={()=>addIngredient(ingredientName)}
-    >
+    <BlobContent onClick={() => addIngredient(ingredientName)}>
       <H1Container>
         <IngredientName>{ingredientName}</IngredientName>
       </H1Container>

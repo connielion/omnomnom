@@ -16,7 +16,7 @@ import {
 
 interface BlobsContainerProps {
   userSearchedRecipes: Boolean;
-  displayBlobs: Boolean;
+  hideRecipeDetails: Boolean;
 }
 
 const Container = styled.div`
@@ -29,19 +29,19 @@ const Container = styled.div`
 
 // Destructured. Can also be written as > data: BlobsContainerProps
 const dynamicColumn = ({
-  displayBlobs,
+  hideRecipeDetails,
   userSearchedRecipes,
 }: BlobsContainerProps) => {
-  // destructured will look this > data.displayBlobs
-  if (displayBlobs) {
+  // destructured will look this > data.hideRecipeDetails
+  if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
   } else {
     return `1fr`;
   }
 };
 
-const dynamicRow = ({ displayBlobs }: BlobsContainerProps) => {
-  if (displayBlobs) {
+const dynamicRow = ({ hideRecipeDetails }: BlobsContainerProps) => {
+  if (hideRecipeDetails) {
     return `250px`;
   } else {
     return `1fr`;
@@ -66,7 +66,7 @@ const MainContainer = () => {
   // Conditonally render ingredients or recipes
   const [userSearchedRecipes, setUserSearchedRecipes] =
     useState<Boolean>(false);
-  const [displayBlobs, setDisplayBlobs] = useState<Boolean>(true);
+  const [hideRecipeDetails, setHideRecipeDetails] = useState<Boolean>(true);
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe[]>([]);
   const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
     []
@@ -98,17 +98,17 @@ const MainContainer = () => {
         ingredient,
       ]);
     }
-  }
+  };
 
+  // Function to allow user to add recipe from RecipeCard and RecipeDetail pages
   const addRecipe = (e: React.MouseEvent<HTMLDivElement>, recipe: IRecipe) => {
     e.stopPropagation();
-    if(!selectedRecipes.includes(recipe)){
+    if (!selectedRecipes.includes(recipe)) {
       setSelectedRecipes((prevState: IRecipe[]) => [...prevState, recipe]);
     }
   };
 
-
-  const renderBlobs = (): JSX.Element[] => {
+  const renderIngredientBlobs = (): JSX.Element[] => {
     const blobs = topIngredientsList.map((ingredient: ITopIngredient) => {
       return (
         <Blob
@@ -118,14 +118,14 @@ const MainContainer = () => {
         />
       );
     });
-
     return blobs;
   };
 
+  // Finds a recipe object by ID and save recipe to hook to get recipe
   const getRecipeDetails = (id: number) => {
     const recipeObj = searchedRecipes.filter((recipe) => recipe.id === id)[0];
     setSelectedRecipe([recipeObj]);
-    setDisplayBlobs(false);
+    setHideRecipeDetails(false);
     getRecipeSteps(id);
   };
 
@@ -164,26 +164,26 @@ const MainContainer = () => {
         setSelectedRecipes={setSelectedRecipes}
         getRecipeDetails={getRecipeDetails}
         userSearchedRecipes={userSearchedRecipes}
-        renderBlobs={renderBlobs}
-        setDisplayBlobs={setDisplayBlobs}
+        renderIngredientBlobs={renderIngredientBlobs}
+        setHideRecipeDetails={setHideRecipeDetails}
       />
       <BlobsContainer
         userSearchedRecipes={userSearchedRecipes}
-        displayBlobs={displayBlobs}
+        hideRecipeDetails={hideRecipeDetails}
       >
-        {/* Render Cards/Blobs OR Details */}
-        {displayBlobs ? (
+        {/* Render Cards or Blobs OR Details */}
+        {hideRecipeDetails ? (
           userSearchedRecipes ? (
             renderCards()
           ) : (
-            renderBlobs()
+            renderIngredientBlobs()
           )
         ) : (
           <RecipeDetails
             addRecipe={addRecipe}
             selectedRecipe={selectedRecipe}
             recipeInstructions={recipeInstructions}
-            setDisplayBlobs={setDisplayBlobs}
+            setHideRecipeDetails={setHideRecipeDetails}
             setUserSearchedRecipes={setUserSearchedRecipes}
           />
         )}

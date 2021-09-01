@@ -21,6 +21,8 @@ export const searchRecipes = async (
     return [];
   }
 };
+
+// fetch info for RecipeDetails content
 export const searchInstructions = async (
   request: IInstructionRequest
 ): Promise<IInstructions[]> => {
