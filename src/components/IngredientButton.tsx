@@ -19,9 +19,9 @@ const IngredientName = styled.h1`
 const RemoveBtn = styled.img`
   height: 10px;
   width: auto;
-  weight: 20px;
   margin-left: 8px;
   margin-top: 3px;
+  cursor: pointer;
 `;
 
 interface IngredientButtonProps {
@@ -30,12 +30,18 @@ interface IngredientButtonProps {
   removeIngredient: Function;
 }
 
-const IngredientButton: FC<IngredientButtonProps> = ({ ingredientName,  removeIngredient }) => {
+const IngredientButton: FC<IngredientButtonProps> = ({
+  ingredientName,
+  removeIngredient,
+}) => {
   return (
     <>
       <IngredientBtnStyle>
         <IngredientName>{ingredientName}</IngredientName>
-        <RemoveBtn src="close.svg" onClick={()=>removeIngredient(ingredientName)}></RemoveBtn>
+        <RemoveBtn
+          src="close.svg"
+          onClick={() => removeIngredient(ingredientName)}
+        ></RemoveBtn>
       </IngredientBtnStyle>
     </>
   );

@@ -42,6 +42,7 @@ const RecipeBtn = styled.div`
   border-radius: 15px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 interface SidebarProps {
@@ -63,6 +64,7 @@ const RemoveRecipeBtn = styled.img`
   width: auto;
   margin-left: 8px;
   margin-top: 3px;
+  cursor: pointer;
 `;
 
 const Sidebar: FC<SidebarProps> = ({

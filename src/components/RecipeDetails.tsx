@@ -48,6 +48,7 @@ const AddBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const RecipeInfo = styled.div`
@@ -83,7 +84,7 @@ const MissingIngredientsBtn = styled.div`
   border: 1px solid #fff;
   margin-right: 5px;
   border-radius: 15px;
-  display:flex;
+  display: flex;
   flex-wrap: nowrap;
 
   h4 {
@@ -91,7 +92,7 @@ const MissingIngredientsBtn = styled.div`
     letter-spacing: 1px;
     white-space: nowrap;
   }
-`
+`;
 
 const StepsContainer = styled.div`
   width: 100%;
@@ -115,6 +116,7 @@ const AddRecipeBtn = styled.button`
   border-radius: 15px;
   color: #ef8080;
   letter-spacing: 1px;
+  cursor: pointer;
 `;
 
 const CloseRecipeBtn = styled.button`
@@ -125,6 +127,7 @@ const CloseRecipeBtn = styled.button`
   color: #fff;
   margin-left: 10px;
   letter-spacing: 1px;
+  cursor: pointer;
 `;
 
 const RecipeDetails: FC<RecipeDetailsProps> = ({
@@ -132,7 +135,7 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
   selectedRecipe,
   setDisplayBlobs,
   setUserSearchedRecipes,
-  addRecipe
+  addRecipe,
 }) => {
   const missedIngredientsMap = () => {
     const missingIngredients = selectedRecipe[0].missedIngredients.map(
@@ -140,7 +143,8 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
         return (
           <MissingIngredientsBtn key={ingredient.name}>
             <h4>{ingredient.name}</h4>
-          </MissingIngredientsBtn>)
+          </MissingIngredientsBtn>
+        );
       }
     );
 
@@ -164,7 +168,7 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
     <RecipeDetailsCard>
       <FoodImage image={selectedRecipe[0].image}></FoodImage>
 
-      <AddBtn onClick={(e) => addRecipe(e,selectedRecipe[0])}>
+      <AddBtn onClick={(e) => addRecipe(e, selectedRecipe[0])}>
         <img src={PlusIcon} alt="plus" />
       </AddBtn>
 
@@ -176,10 +180,10 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
         <StepsContainer>{stepsP}</StepsContainer>
 
         <BtnContainer>
-          <AddRecipeBtn onClick={(e) => addRecipe(e,selectedRecipe[0])}>Add to List</AddRecipeBtn>
-          <CloseRecipeBtn onClick={closeRecipeDetails}>
-            Close
-          </CloseRecipeBtn>
+          <AddRecipeBtn onClick={(e) => addRecipe(e, selectedRecipe[0])}>
+            Add to List
+          </AddRecipeBtn>
+          <CloseRecipeBtn onClick={closeRecipeDetails}>Close</CloseRecipeBtn>
         </BtnContainer>
       </RecipeInfo>
     </RecipeDetailsCard>
