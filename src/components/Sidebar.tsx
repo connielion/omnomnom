@@ -109,6 +109,7 @@ interface SidebarProps {
   renderIngredientBlobs: Function;
   setHideRecipeDetails: Function;
   setSelectedRecipes: Function;
+  removeIngredient: Function;
 }
 
 const RecipeListContainer = styled.div`
@@ -172,6 +173,7 @@ const Sidebar: FC<SidebarProps> = ({
   userSearchedRecipes,
   setHideRecipeDetails,
   setSelectedRecipes,
+  removeIngredient
 }) => {
   const searchRecipesOnClick = async () => {
     if (selectedIngredients.length > 0) {
@@ -193,15 +195,6 @@ const Sidebar: FC<SidebarProps> = ({
     ));
   };
 
-  const removeIngredient = (ingredient: string) => {
-    if (selectedIngredients.includes(ingredient)) {
-      // filter and get array not containing target ingredient
-      const updatedArray = selectedIngredients.filter(
-        (name) => name !== ingredient
-      );
-      setSelectedIngredients(updatedArray);
-    }
-  };
 
   const removeRecipe = (
     e: React.MouseEvent<HTMLDivElement>,
