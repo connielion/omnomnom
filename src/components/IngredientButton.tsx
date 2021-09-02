@@ -2,26 +2,46 @@ import React, { FC } from "react";
 import styled from "styled-components";
 
 const IngredientBtnStyle = styled.div`
-  padding: 10px;
   background-color: #fff;
   margin-right: 5px;
   margin-bottom: 5px;
   border-radius: 15px;
   display: flex;
-  flex-wrap: no-wrap;
+  height: 35px;
+`;
+
+
+
+const IngredientNameContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+
+  h3 {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
 `;
 
-const IngredientName = styled.h1`
-  font-size: 16px;
-`;
+const RemoveBtn = styled.div`
+  background-color: #ef8080;
+  height: 100%;
+  width: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 
-const RemoveBtn = styled.img`
-  height: 10px;
-  width: auto;
-  weight: 20px;
-  margin-left: 8px;
-  margin-top: 3px;
+  img {
+    height: 40%;
+  }
 `;
 
 interface IngredientButtonProps {
@@ -32,12 +52,19 @@ interface IngredientButtonProps {
 
 const IngredientButton: FC<IngredientButtonProps> = ({ ingredientName,  removeIngredient }) => {
   return (
-    <>
+  
       <IngredientBtnStyle>
-        <IngredientName>{ingredientName}</IngredientName>
-        <RemoveBtn src="close.svg" onClick={()=>removeIngredient(ingredientName)}></RemoveBtn>
+        <IngredientNameContainer>
+          <h3>
+            {ingredientName}
+          </h3>
+        </IngredientNameContainer>
+        {/* <RemoveBtn src="close.svg" onClick={()=>removeIngredient(ingredientName)}></RemoveBtn> */}
+        <RemoveBtn onClick={()=>removeIngredient(ingredientName)}>
+          <img src="close.svg" alt="close-icon" />
+        </RemoveBtn>
       </IngredientBtnStyle>
-    </>
+    
   );
 };
 

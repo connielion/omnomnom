@@ -17,6 +17,13 @@ const SidebarContainer = styled.div`
   box-shadow: 1px 0 15px 1px #ef80803f;
 `;
 
+const SideBarHeadings = styled.h2 `
+  text-align: start;
+    margin-top: 25px;
+    margin-left: 2px;
+    font-size: 18px;
+`
+
 const LogoContainer = styled.div`
   width: 100%;
   height: 50px;
@@ -26,7 +33,7 @@ const LogoContainer = styled.div`
 
 const PickedIngredients = styled.div`
   width: 100%;
-  max-height: 325px;
+  max-height: 225px;
   margin-top: 10px;
   overflow-y: scroll;
   display: flex;
@@ -34,15 +41,17 @@ const PickedIngredients = styled.div`
   flex-wrap: wrap;
 `;
 
-const RecipeBtn = styled.div`
-  padding: 10px;
-  background-color: #fff;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  border-radius: 15px;
+const PickedRecipes = styled.div`
+  width: 100%;
+  max-height: 225px;
+  margin-top: 10px;
+  overflow-y: scroll;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
 `;
+
+
 
 interface SidebarProps {
   selectedIngredients: string[];
@@ -58,11 +67,55 @@ interface SidebarProps {
   setSelectedRecipes: Function;
 }
 
-const RemoveRecipeBtn = styled.img`
-  height: 10px;
-  width: auto;
-  margin-left: 8px;
-  margin-top: 3px;
+const RecipeListContainer = styled.div`
+  width: 100%;
+`
+
+
+const RecipeBtnStyle = styled.div`
+  background-color: #fff;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  display: flex;
+  height: 35px;
+
+  justify-content: space-between;
+`;
+
+
+
+const RecipeNameContainer = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+
+  h3 {
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-align: start;
+  }
+`;
+
+const RemoveBtn = styled.div`
+  background-color: #ef8080;
+  height: 100%;
+  width: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+  img {
+    height: 40%;
+  }
 `;
 
 const Sidebar: FC<SidebarProps> = ({
@@ -119,37 +172,49 @@ const Sidebar: FC<SidebarProps> = ({
   // getRecipeDetails: click handler to list recipes in sidebar and fetch recipe details by recipeID
   const renderRecipesList = () => {
     return selectedRecipes?.map((recipe) => {
+
+      const characterCheck = recipe.title.length <= 28 ? recipe.title : recipe.title.slice(0, 28) + '...';
+
       return (
-        <RecipeBtn key={recipe.id} onClick={() => getRecipeDetails(recipe.id)}>
-          <h2>{recipe.title}</h2>
-          <RemoveRecipeBtn
-            onClick={() => removeRecipe(recipe.id)}
-            src="close.svg"
-          ></RemoveRecipeBtn>
-        </RecipeBtn>
-      );
+  
+        <RecipeBtnStyle>
+          <RecipeNameContainer>
+            <h3>
+              {characterCheck}
+            </h3>
+          </RecipeNameContainer>
+
+          <RemoveBtn onClick={()=>removeRecipe(recipe.id)}>
+            <img src="close.svg" alt="close-icon" />
+          </RemoveBtn>
+        </RecipeBtnStyle>
+      
+    );
     });
   };
 
   return (
     <SidebarContainer>
       <LogoContainer></LogoContainer>
+
       <SearchBar
         setSelectedIngredients={setSelectedIngredients}
         setUserSearchedRecipes={setUserSearchedRecipes}
         selectedIngredients={selectedIngredients}
       />
+      <SideBarHeadings>{selectedIngredients.length > 0 ? `Selected Ingredients` : null}</SideBarHeadings>
       <PickedIngredients>
         {selectedIngredients.length > 0 ? renderIngredientsList() : null}
       </PickedIngredients>
-      <PickedIngredients>
+
+      <SideBarHeadings>{selectedRecipes.length > 0 ? `Selected Recipes` : null}</SideBarHeadings>
+      <PickedRecipes>
         {selectedRecipes.length ? (
-          <>
-            <h2>Saved Recipes</h2>
+          <RecipeListContainer>
             {renderRecipesList()}
-          </>
+          </RecipeListContainer>
         ) : null}
-      </PickedIngredients>
+      </PickedRecipes>
       {!userSearchedRecipes ? (
         <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} />
       ) : (
