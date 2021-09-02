@@ -186,6 +186,7 @@ const Sidebar: FC<SidebarProps> = ({
   };
 
   const renderIngredientsList = () => {
+    console.log(selectedIngredients)
     return selectedIngredients?.map((ingredientName) => (
       <IngredientButton
         key={ingredientName}
