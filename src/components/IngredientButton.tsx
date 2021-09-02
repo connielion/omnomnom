@@ -64,7 +64,7 @@ const IngredientButton: FC<IngredientButtonProps> = ({
             {ingredientName}
           </h3>
         </IngredientNameContainer>
-        {/* <RemoveBtn src="close.svg" onClick={()=>removeIngredient(ingredientName)}></RemoveBtn> */}
+
         <RemoveBtn onClick={()=>removeIngredient(ingredientName)}>
           <img src="close.svg" alt="close-icon" />
         </RemoveBtn>
