@@ -17,6 +17,7 @@ import {
 interface BlobsContainerProps {
   userSearchedRecipes: Boolean;
   hideRecipeDetails: Boolean;
+  selectedIngredients: string[];
 }
 
 const Container = styled.div`
@@ -73,6 +74,7 @@ const MainContainer = () => {
   );
   const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
 
+
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
     ingredients: string
@@ -100,6 +102,16 @@ const MainContainer = () => {
     }
   };
 
+  const removeIngredient = (ingredient: string) => {
+    if (selectedIngredients.includes(ingredient)) {
+      // filter and get array not containing target ingredient
+      const updatedArray = selectedIngredients.filter(
+        (name) => name !== ingredient
+      );
+      setSelectedIngredients(updatedArray);
+    }
+  };
+
   // Function to allow user to add recipe from RecipeCard and RecipeDetail pages
   const addRecipe = (e: React.MouseEvent<HTMLDivElement>, recipe: IRecipe) => {
     e.stopPropagation();
@@ -115,6 +127,7 @@ const MainContainer = () => {
           key={ingredient.id}
           ingredientName={ingredient.name}
           addIngredient={addIngredient}
+          selectedIngredients={selectedIngredients}
         />
       );
     });
@@ -155,6 +168,7 @@ const MainContainer = () => {
   return (
     <Container>
       <Sidebar
+        removeIngredient={removeIngredient}
         setUserSearchedRecipes={setUserSearchedRecipes}
         searchByIngredients={searchByIngredients}
         setSelectedIngredients={setSelectedIngredients}
@@ -170,6 +184,7 @@ const MainContainer = () => {
       <BlobsContainer
         userSearchedRecipes={userSearchedRecipes}
         hideRecipeDetails={hideRecipeDetails}
+        selectedIngredients={selectedIngredients}
       >
         {/* Render Cards or Blobs OR Details */}
         {hideRecipeDetails ? (

@@ -1,5 +1,5 @@
-import React, { FC } from "react";
-import styled from "styled-components";
+import React, { useState, FC, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
 import ingredientBlob from "../assets/blob.svg";
 
 const BlobContent = styled.div`
@@ -11,6 +11,7 @@ const BlobContent = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: relative;
 `;
 const IngredientName = styled.h1`
   font-size: 24px;
@@ -24,16 +25,60 @@ const H1Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 `;
+
 
 interface BlobProps {
   ingredientName: string;
   addIngredient: Function;
+  selectedIngredients: string[];
 }
 
-const Blob: FC<BlobProps> = ({ ingredientName, addIngredient }) => {
+interface BlobInitialProps {
+  blobClicked: Boolean;
+}
+
+const blobIn = keyframes`
+from {
+    transform: scaleY(0) scaleX(0);
+    opacity: 0;
+}
+to {
+  transform: scaleY(1) scaleX(1);
+  opacity: 1;
+}
+`;
+
+
+const BlobInitial = styled.div<BlobInitialProps>`
+  position: absolute;
+  z-index: 10;
+  background-color: #ef8080;
+  width: 100%;
+  height 100%;
+  transform: scaleY(0.1) scaleX(0.1);
+  border-radius: 15px;
+  opacity: 0;
+  animation-name: ${props => props.blobClicked ? blobIn : ``};
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+`;
+
+const Blob: FC<BlobProps> = ({ ingredientName, addIngredient, selectedIngredients}) => {
+  const [blobClicked, setBlobClicked] = useState<Boolean>(false);
+
+  useEffect(() => {
+    setBlobClicked(selectedIngredients.includes(ingredientName));
+  }, [selectedIngredients]);
+
   return (
-    <BlobContent onClick={() => addIngredient(ingredientName)}>
+    <BlobContent onClick={()=> {
+      addIngredient(ingredientName)
+      setBlobClicked(true)
+    }}>
+      <BlobInitial blobClicked={blobClicked}></BlobInitial>
       <H1Container>
         <IngredientName>{ingredientName}</IngredientName>
       </H1Container>
