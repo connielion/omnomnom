@@ -109,7 +109,11 @@ const Sidebar: FC<SidebarProps> = ({
     }
   };
 
-  const removeRecipe = (recipeID: number) => {
+  const removeRecipe = (
+    e: React.MouseEvent<HTMLDivElement>,
+    recipeID: number
+  ) => {
+    e.stopPropagation();
     if (selectedRecipes.length) {
       const updatedRecipesList = selectedRecipes.filter(
         (recipe) => recipe.id !== recipeID
@@ -125,7 +129,7 @@ const Sidebar: FC<SidebarProps> = ({
         <RecipeBtn key={recipe.id} onClick={() => getRecipeDetails(recipe.id)}>
           <h2>{recipe.title}</h2>
           <RemoveRecipeBtn
-            onClick={() => removeRecipe(recipe.id)}
+            onClick={(e) => removeRecipe(e, recipe.id)}
             src="close.svg"
           ></RemoveRecipeBtn>
         </RecipeBtn>
