@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import SearchBar from "./SearchBar";
 import IngredientButton from "./IngredientButton";
 import FindRecipesBtn from "./FindRecipesBtn";
@@ -20,8 +20,42 @@ const SidebarContainer = styled.div`
 const LogoContainer = styled.div`
   width: 100%;
   height: 50px;
-  background-color: blue;
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+`;
+
+const LogoImage = styled.img`
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  transform: translateX(0.5%);
+`;
+
+// to: how far text should go into gif
+const slideLeft = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-120%);
+  }
+`;
+
+const LogoText = styled.h1`
+  position: absolute;
+  left: 20%;
+  animation-name: ${slideLeft};
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+  transform: translateX(100%);
+  z-index: 0;
 `;
 
 const PickedIngredients = styled.div`
@@ -77,6 +111,7 @@ const Sidebar: FC<SidebarProps> = ({
   setHideRecipeDetails,
   setSelectedRecipes,
 }) => {
+
   const searchRecipesOnClick = async () => {
     if (selectedIngredients.length > 0) {
       setUserSearchedRecipes(true);
@@ -133,7 +168,10 @@ const Sidebar: FC<SidebarProps> = ({
 
   return (
     <SidebarContainer>
-      <LogoContainer></LogoContainer>
+      <LogoContainer>
+        <LogoImage src="nom.gif" alt="logo gif"></LogoImage>
+        <LogoText>Omnomnom</LogoText>
+      </LogoContainer>
       <SearchBar
         setSelectedIngredients={setSelectedIngredients}
         setUserSearchedRecipes={setUserSearchedRecipes}
