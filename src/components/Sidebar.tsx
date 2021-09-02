@@ -17,12 +17,12 @@ const SidebarContainer = styled.div`
   box-shadow: 1px 0 15px 1px #ef80803f;
 `;
 
-const SideBarHeadings = styled.h2 `
+const SideBarHeadings = styled.h2`
   text-align: start;
-    margin-top: 25px;
-    margin-left: 2px;
-    font-size: 18px;
-`
+  margin-top: 25px;
+  margin-left: 2px;
+  font-size: 18px;
+`;
 
 const LogoContainer = styled.div`
   width: 100%;
@@ -86,8 +86,6 @@ const PickedRecipes = styled.div`
   cursor: pointer;
 `;
 
-
-
 interface SidebarProps {
   selectedIngredients: string[];
   setSelectedIngredients: Function;
@@ -104,8 +102,7 @@ interface SidebarProps {
 
 const RecipeListContainer = styled.div`
   width: 100%;
-`
-
+`;
 
 const RecipeBtnStyle = styled.div`
   background-color: #fff;
@@ -117,8 +114,6 @@ const RecipeBtnStyle = styled.div`
 
   justify-content: space-between;
 `;
-
-
 
 const RecipeNameContainer = styled.div`
   padding-left: 10px;
@@ -167,7 +162,6 @@ const Sidebar: FC<SidebarProps> = ({
   setHideRecipeDetails,
   setSelectedRecipes,
 }) => {
-
   const searchRecipesOnClick = async () => {
     if (selectedIngredients.length > 0) {
       setUserSearchedRecipes(true);
@@ -198,7 +192,11 @@ const Sidebar: FC<SidebarProps> = ({
     }
   };
 
-  const removeRecipe = (recipeID: number) => {
+  const removeRecipe = (
+    e: React.MouseEvent<HTMLDivElement>,
+    recipeID: number
+  ) => {
+    e.stopPropagation();
     if (selectedRecipes.length) {
       const updatedRecipesList = selectedRecipes.filter(
         (recipe) => recipe.id !== recipeID
@@ -210,24 +208,25 @@ const Sidebar: FC<SidebarProps> = ({
   // getRecipeDetails: click handler to list recipes in sidebar and fetch recipe details by recipeID
   const renderRecipesList = () => {
     return selectedRecipes?.map((recipe) => {
-
-      const characterCheck = recipe.title.length <= 28 ? recipe.title : recipe.title.slice(0, 28) + '...';
+      const characterCheck =
+        recipe.title.length <= 28
+          ? recipe.title
+          : recipe.title.slice(0, 28) + "...";
 
       return (
-  
-        <RecipeBtnStyle>
+        <RecipeBtnStyle
+          key={recipe.id}
+          onClick={() => getRecipeDetails(recipe.id)}
+        >
           <RecipeNameContainer>
-            <h3>
-              {characterCheck}
-            </h3>
+            <h3>{characterCheck}</h3>
           </RecipeNameContainer>
 
-          <RemoveBtn onClick={()=>removeRecipe(recipe.id)}>
+          <RemoveBtn onClick={(e) => removeRecipe(e, recipe.id)}>
             <img src="close.svg" alt="close-icon" />
           </RemoveBtn>
         </RecipeBtnStyle>
-      
-    );
+      );
     });
   };
 
@@ -242,17 +241,19 @@ const Sidebar: FC<SidebarProps> = ({
         setUserSearchedRecipes={setUserSearchedRecipes}
         selectedIngredients={selectedIngredients}
       />
-      <SideBarHeadings>{selectedIngredients.length > 0 ? `Selected Ingredients` : null}</SideBarHeadings>
+      <SideBarHeadings>
+        {selectedIngredients.length > 0 ? `Selected Ingredients` : null}
+      </SideBarHeadings>
       <PickedIngredients>
         {selectedIngredients.length > 0 ? renderIngredientsList() : null}
       </PickedIngredients>
 
-      <SideBarHeadings>{selectedRecipes.length > 0 ? `Selected Recipes` : null}</SideBarHeadings>
+      <SideBarHeadings>
+        {selectedRecipes.length > 0 ? `Selected Recipes` : null}
+      </SideBarHeadings>
       <PickedRecipes>
         {selectedRecipes.length ? (
-          <RecipeListContainer>
-            {renderRecipesList()}
-          </RecipeListContainer>
+          <RecipeListContainer>{renderRecipesList()}</RecipeListContainer>
         ) : null}
       </PickedRecipes>
       {!userSearchedRecipes ? (
