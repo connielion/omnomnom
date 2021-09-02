@@ -47,48 +47,44 @@ const Plus = styled.img`
 `;
 
 const SearchBar: FC<SearchBarProps> = ({
-  selectedIngredients,
   setSelectedIngredients,
-  setUserSearchedRecipes,
+  selectedIngredients
 }) => {
-  const [searchString, setSearchString] = useState<String>(""); // single ingredient name
+  const [searchString, setSearchString] = useState<string>(""); // single ingredient name
 
-  // define function for getting searchInput: setIngredientsInput(e.target.value)
+  const clearText = () => {
+    setSearchString("");
+  };
+
+ 
   const addIngredientNameToList = () => {
-    if (searchString !== "") {
-      let searchStringFound: Boolean = false;
-
-      topIngredientsList.forEach((ingredient) => {
-        if (ingredient.name === searchString) searchStringFound = true;
-      });
-      if (searchStringFound === false) {
-        setSelectedIngredients((prevState: string[]) => [
-          ...prevState,
-          searchString,
-        ]);
-      }
+    if(!selectedIngredients.includes(searchString.toLowerCase())){
+      setSelectedIngredients((prevState: string[]) => [
+        ...prevState,
+        searchString.toLowerCase(),
+      ]);
     }
   };
 
   const enterSubmit = (event: React.KeyboardEvent) => {
-    if (event.key === "Enter" && searchString !== "") {
-      // if any string in topIngredientsList[] has search bar value, setSelectedIngredints
+    // if any object in topIngredientsList[] has name that equals to search bar value(lowercased searchString), setSelectedIngredints
+    const searchInputIsValid = topIngredientsList.filter(ingredient=>ingredient.name===searchString.toLowerCase()).length > 0;
+    if (event.key === "Enter" && searchString !== "" && searchInputIsValid) {
       addIngredientNameToList();
+      clearText();
     }
-  };
-
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement;
-    if (target) setSearchString(target.value);
   };
 
   return (
     <SearchContainer>
       <Input
         type="text"
+        value={searchString}
         placeholder="Enter an ingredient..."
-        onKeyPress={enterSubmit}
-        onChange={handleSearchChange}
+        onKeyPress={(e)=>{
+          enterSubmit(e);
+        }}
+        onChange={(e)=>{setSearchString(e.target.value)}}
       />
       <AddButton onClick={addIngredientNameToList}>
         <Plus src="plus.svg" />
