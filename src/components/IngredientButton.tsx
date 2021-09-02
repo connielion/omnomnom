@@ -38,9 +38,11 @@ const RemoveBtn = styled.div`
   align-items: center;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  cursor: pointer;
 
   img {
     height: 40%;
+    cursor: pointer;
   }
 `;
 
@@ -50,7 +52,10 @@ interface IngredientButtonProps {
   removeIngredient: Function;
 }
 
-const IngredientButton: FC<IngredientButtonProps> = ({ ingredientName,  removeIngredient }) => {
+const IngredientButton: FC<IngredientButtonProps> = ({
+  ingredientName,
+  removeIngredient,
+}) => {
   return (
   
       <IngredientBtnStyle>

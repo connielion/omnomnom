@@ -19,6 +19,7 @@ const FoodCard = styled.div`
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 const AddBtn = styled.div`
@@ -32,6 +33,7 @@ const AddBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 const TitleContainer = styled.div`
@@ -78,11 +80,10 @@ const RecipeCard: FC<RecipeCardProps> = ({
     clip-path: ellipse(50% 53% at 64% 29%);
   `;
 
-
   return (
     <FoodCard onClick={() => getRecipeDetails(recipe.id)}>
       {/* add onclick to button to add to sidebar */}
-      <AddBtn onClick={(e) => addRecipe(e,recipe)}>
+      <AddBtn onClick={(e) => addRecipe(e, recipe)}>
         <img src={PlusIcon} alt="plus" />
       </AddBtn>
       <FoodImage></FoodImage>
