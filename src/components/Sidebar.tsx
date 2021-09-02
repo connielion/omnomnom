@@ -36,9 +36,19 @@ const LogoContainer = styled.div`
   position: relative;
 `;
 
-const LogoImage = styled.img`
+const LogoBackground = styled.div`
   height: 50px;
   width: 50px;
+  background-image: url(${BackgroundTexture});
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  transform: translateX(-1%);
+`;
+
+const LogoImage = styled.img`
+  height: 50px;
+  width: 54px;
   position: absolute;
   left: 0;
   z-index: 2;
@@ -85,6 +95,7 @@ const PickedRecipes = styled.div`
   flex-wrap: wrap;
   cursor: pointer;
 `;
+
 
 interface SidebarProps {
   selectedIngredients: string[];
@@ -226,7 +237,9 @@ const Sidebar: FC<SidebarProps> = ({
   return (
     <SidebarContainer>
       <LogoContainer>
+      <LogoBackground>
         <LogoImage src="nom.gif" alt="logo gif"></LogoImage>
+      </LogoBackground>      
         <LogoText>Omnomnom</LogoText>
       </LogoContainer>
       <SearchBar
