@@ -94,11 +94,13 @@ const MainContainer = () => {
   };
 
   const addIngredient = (ingredient: string) => {
-    if (!selectedIngredients.includes(ingredient)) {
-      setSelectedIngredients((prevState: string[]) => [
-        ...prevState,
-        ingredient,
-      ]);
+    if(ingredient !== ""){
+      if (!selectedIngredients.includes(ingredient)) {
+        setSelectedIngredients((prevState: string[]) => [
+          ...prevState,
+          ingredient,
+        ]);
+      }
     }
   };
 
