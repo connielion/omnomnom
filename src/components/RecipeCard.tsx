@@ -47,6 +47,32 @@ const TitleContainer = styled.div`
     letter-spacing: 1px;
     color: #fff;
   }
+
+  @media (max-width: 414px) {
+    width: 225px;
+    padding-left: 20px;
+  }
+  h2 {
+    line-height: 30px;
+  }
+
+  @media (max-width: 375px) {
+    width: 202px;
+    margin-top: 15px;
+  }
+
+  h2 {
+    line-height: 27px;
+  }
+
+  @media (max-width: 320px) {
+    width: 190px;
+    padding-left: 15px;
+    margin-top: 35px;
+  }
+  h2 {
+    font-size: 22px;
+  }
 `;
 
 const UsedIngredientsContainer = styled.div`
@@ -58,6 +84,17 @@ const UsedIngredientsContainer = styled.div`
   h3 {
     color: #fff;
     letter-spacing: 1px;
+  }
+
+  @media (max-width: 414px) {
+    width: 250px;
+    padding-left: 20px;
+  }
+
+  @media (max-width: 320px) {
+    border: black solid 1px;
+    width: 220px;
+    padding-left: 15px;
   }
 `;
 

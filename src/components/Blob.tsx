@@ -17,6 +17,11 @@ const IngredientName = styled.h1`
   color: #fff;
   letter-spacing: 1px;
   cursor: pointer;
+
+  @media (max-width: 414px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
 `;
 
 const H1Container = styled.div`

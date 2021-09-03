@@ -22,7 +22,6 @@ interface BlobsContainerProps {
 const Container = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: lightblue;
   display: grid;
   grid-template-columns: 350px 1fr;
 `;
@@ -35,6 +34,30 @@ const dynamicColumn = ({
   // destructured will look this > data.hideRecipeDetails
   if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
+  } else {
+    return `1fr`;
+  }
+};
+
+const ipadDynamicColumn = ({
+  hideRecipeDetails,
+  userSearchedRecipes,
+}: BlobsContainerProps) => {
+  // destructured will look this > data.hideRecipeDetails
+  if (hideRecipeDetails) {
+    return `${!userSearchedRecipes ? `1fr 1fr 1fr` : `1fr 1fr`}`;
+  } else {
+    return `1fr`;
+  }
+};
+
+const mobileDynamicColumn = ({
+  hideRecipeDetails,
+  userSearchedRecipes,
+}: BlobsContainerProps) => {
+  // destructured will look this > data.hideRecipeDetails
+  if (hideRecipeDetails) {
+    return `${!userSearchedRecipes ? `1fr 1fr` : `1fr`}`;
   } else {
     return `1fr`;
   }
@@ -55,8 +78,24 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
   display: grid;
   grid-template-columns: ${(props) => dynamicColumn(props)};
   grid-auto-rows: ${(props) => dynamicRow(props)};
-  grid-gap: 10px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
   overflow: auto;
+
+  //ipad pro width
+  @media (max-width: 1024px) {
+    grid-template-columns: ${(props) => ipadDynamicColumn(props)};
+  }
+
+  @media (max-width: 860px) {
+    grid-template-columns: ${(props) => mobileDynamicColumn(props)};
+  }
+
+  @media (max-width: 414px) {
+    grid-area: 1/1/3/3;
+    height: 90%;
+    grid-column-gap: 0;
+  }
 `;
 
 const MainContainer = () => {

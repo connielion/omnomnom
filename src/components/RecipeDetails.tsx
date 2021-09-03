@@ -27,6 +27,17 @@ const FoodImage = styled.div<ImageProps>`
   position: absolute;
   right: 0;
   transform: translateX(15%) translateY(-15%);
+
+  @media (max-width: 414px) {
+    width: 500px;
+    transform: translateX(10%) translateY(-40%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      ${(props) => `url(${props.image})`};
+  }
+
+  @media (max-width: 375px) {
+    transform: translateX(12%) translateY(-40%);
+  }
 `;
 
 const RecipeDetailsCard = styled.div`
@@ -35,6 +46,19 @@ const RecipeDetailsCard = styled.div`
   position: relative;
   padding-left: 70px;
   overflow: hidden;
+
+  @media (max-width: 414px) {
+    overflow-y: scroll;
+    width: 105%;
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 0 0 15px 15px;
+  }
+
+  @media (max-width: 375px) {
+    width: 106%;
+  }
 `;
 
 const AddBtn = styled.div`
@@ -49,6 +73,10 @@ const AddBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media (max-width: 414px) {
+    border-radius: 0 0 15px 0;
+  }
 `;
 
 const RecipeInfo = styled.div`
@@ -66,6 +94,28 @@ const RecipeInfo = styled.div`
   h3 {
     margin-top: 15px;
     letter-spacing: 1px;
+  }
+
+  @media (max-width: 414px) {
+    width: 375px;
+    margin-left: -50px;
+    height: auto;
+
+    h2 {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      height: 190px;
+      line-height: 50px;
+    }
+
+    h3 {
+      margin-top: 20px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    width: 333px;
   }
 `;
 
@@ -92,6 +142,11 @@ const MissingIngredientsBtn = styled.div`
     letter-spacing: 1px;
     white-space: nowrap;
   }
+
+  @media (max-width: 414px) {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
 `;
 
 const StepsContainer = styled.div`
@@ -104,10 +159,20 @@ const StepsContainer = styled.div`
     letter-spacing: 1px;
     line-height: 22px;
   }
+
+  @media (max-width: 414px) {
+    max-height: none;
+    overflow: visible;
+  }
 `;
 
 const BtnContainer = styled.div`
   margin-top: 25px;
+
+  @media (max-width: 414px) {
+    position: absolute;
+    left: 20px;
+  }
 `;
 
 const AddRecipeBtn = styled.button`
@@ -117,6 +182,10 @@ const AddRecipeBtn = styled.button`
   color: #ef8080;
   letter-spacing: 1px;
   cursor: pointer;
+
+  @media (max-width: 414px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const CloseRecipeBtn = styled.button`
@@ -178,7 +247,6 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
         <MissingContainer>{missedIngredientsMap()}</MissingContainer>
 
         <StepsContainer>{stepsP}</StepsContainer>
-
         <BtnContainer>
           <AddRecipeBtn onClick={(e) => addRecipe(e, selectedRecipe[0])}>
             Add to List

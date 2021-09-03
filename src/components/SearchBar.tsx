@@ -13,6 +13,10 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
+
+  @media (max-width: 414px) {
+    margin-top: 10px;
+  }
 `;
 
 const Input = styled.input`
