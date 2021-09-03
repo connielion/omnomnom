@@ -70,6 +70,7 @@ const SearchBar: FC<SearchBarProps> = ({
           ...prevState,
           searchString.toLowerCase(),
         ]);
+        clearText();
       }
     }
   };
