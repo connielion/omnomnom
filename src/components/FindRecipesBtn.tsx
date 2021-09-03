@@ -70,6 +70,7 @@ const FindRecipesBtn: FC<FindRecipesBtnProps> = ({ searchRecipesOnClick, selecte
 
   useEffect(() => {
     isThereStuff();
+    // eslint-disable-next-line
   }, [selectedIngredients]);
 
 
