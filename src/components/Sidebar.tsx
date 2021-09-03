@@ -15,6 +15,20 @@ const SidebarContainer = styled.div`
   padding: 10px;
   position: relative;
   box-shadow: 1px 0 15px 1px #ef80803f;
+
+  @media (max-width: 414px) {
+    grid-area: 2/1/2/3;
+    height: 400px;
+    transform: translateX(0%) translateY(81%);
+  }
+
+  @media (max-width: 375px) {
+    transform: translateX(0%) translateY(79.5%);
+  }
+
+  @media (max-height: 568px) {
+    transform: translateX(0%) translateY(95%);
+  }
 `;
 
 const SideBarHeadings = styled.h2`
@@ -22,6 +36,15 @@ const SideBarHeadings = styled.h2`
   margin-top: 25px;
   margin-left: 2px;
   font-size: 18px;
+
+  @media (max-width: 414px) {
+    margin-top: 12px;
+    font-size: 15px;
+  }
+
+  @media (max-width: 375px) {
+    margin-top: 18px;
+  }
 `;
 
 const LogoContainer = styled.div`
@@ -34,6 +57,10 @@ const LogoContainer = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
+
+  @media (max-width: 414px) {
+    display: none;
+  }
 `;
 
 const LogoBackground = styled.div`
@@ -83,6 +110,10 @@ const PickedIngredients = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+
+  @media (max-width: 414px) {
+    max-height: 85px;
+  }
 `;
 
 const PickedRecipes = styled.div`
@@ -94,6 +125,10 @@ const PickedRecipes = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
   cursor: pointer;
+
+  @media (max-width: 414px) {
+    max-height: 85px;
+  }
 `;
 
 
@@ -123,8 +158,11 @@ const RecipeBtnStyle = styled.div`
   border-radius: 15px;
   display: flex;
   height: 35px;
-
   justify-content: space-between;
+
+  @media (max-width: 414px) {
+    height: 30px;
+  }
 `;
 
 const RecipeNameContainer = styled.div`
