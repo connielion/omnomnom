@@ -2,6 +2,15 @@ import React, { useState, FC, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import ingredientBlob from "../assets/blob.svg";
 
+const blobTransition = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
+
 const BlobContent = styled.div`
   background-image: url(${ingredientBlob});
   background-size: 120%;
@@ -12,6 +21,11 @@ const BlobContent = styled.div`
   align-items: center;
   cursor: pointer;
   position: relative;
+  opacity: 0;
+  animation-name: ${blobTransition};
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 `;
 const IngredientName = styled.h1`
   font-size: 24px;

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { IInstructions, IRecipe } from "../interfaces/Recipe";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -15,6 +15,15 @@ interface RecipeDetailsProps {
 interface ImageProps {
   image: string;
 }
+
+const recipeDetailsTransition = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
 
 const FoodImage = styled.div<ImageProps>`
   width: 500px;
@@ -56,6 +65,11 @@ const RecipeDetailsCard = styled.div`
   position: relative;
   padding-left: 70px;
   overflow: hidden;
+  opacity: 0;
+  animation-name: ${recipeDetailsTransition};
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 
   @media (max-width: 768px) {
     overflow-y: scroll;
