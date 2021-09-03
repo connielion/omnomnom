@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { IInstructions, IRecipe } from "../interfaces/Recipe";
 import styled from "styled-components";
 import PlusIcon from "../assets/plus.svg";
+import { v4 as uuidv4 } from 'uuid';
 
 interface RecipeDetailsProps {
   recipeInstructions: IInstructions[];
@@ -69,7 +70,7 @@ const RecipeInfo = styled.div`
   }
 `;
 
-const MissingContainer = styled.div`
+const IngredientsContainer = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: no-wrap;
@@ -137,19 +138,30 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
   setUserSearchedRecipes,
   addRecipe,
 }) => {
-  const missedIngredientsMap = () => {
-    const missingIngredients = selectedRecipe[0].missedIngredients.map(
+
+  const usedIngredientsMap = ()=>{
+    return selectedRecipe[0].usedIngredients.map(
       (ingredient) => {
         return (
-          <MissingIngredientsBtn key={ingredient.name}>
-            <h4>{ingredient.name}</h4>
+          <MissingIngredientsBtn key={uuidv4()}>
+            <h4>{ingredient.original}</h4>
           </MissingIngredientsBtn>
         );
       }
     );
+  }
 
-    return missingIngredients;
-  };
+  const missedIngredientsMap = () => {
+   return selectedRecipe[0].missedIngredients.map(
+      (ingredient) => {
+        return (
+          <MissingIngredientsBtn key={uuidv4()}>
+            <h4>{ingredient.original}</h4>
+          </MissingIngredientsBtn>
+        );
+      }
+    );
+};
 
   const stepsP = recipeInstructions[0]?.steps?.map((stepObject, index) => {
     return (
@@ -175,10 +187,10 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
       <RecipeInfo>
         <h2>{selectedRecipe[0].title}</h2>
         <h3>Missing Ingredients:</h3>
-        <MissingContainer>{missedIngredientsMap()}</MissingContainer>
-
+        <IngredientsContainer>{missedIngredientsMap()}</IngredientsContainer>
+        <h3>Ingredients should you have:</h3>
+        <IngredientsContainer>{usedIngredientsMap()}</IngredientsContainer>
         <StepsContainer>{recipeInstructions.length ? stepsP : <p>"Uh-oh. Instructions are not available."</p>}</StepsContainer>
-
         <BtnContainer>
           <AddRecipeBtn onClick={(e) => addRecipe(e, selectedRecipe[0])}>
             Add to List
