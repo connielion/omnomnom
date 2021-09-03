@@ -132,15 +132,17 @@ const RecipeCard: FC<RecipeCardProps> = ({
   selectedRecipes,
 }) => {
   const FoodImage = styled.div`
-    width: 50%;
+    width: 40%;
     background-color: #fff;
     background-image: url(${recipe.image});
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100%;
+    height: 70%;
     position: absolute;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    top: 0;
     right: 0;
-    clip-path: ellipse(50% 53% at 64% 29%);
   `;
 
   return (
