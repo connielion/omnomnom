@@ -234,6 +234,7 @@ const Sidebar: FC<SidebarProps> = ({
     });
   };
 
+
   return (
     <SidebarContainer>
       <LogoContainer>
@@ -263,7 +264,7 @@ const Sidebar: FC<SidebarProps> = ({
         ) : null}
       </PickedRecipes>
       {!userSearchedRecipes ? (
-        <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} />
+        <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} selectedIngredients={selectedIngredients} />
       ) : (
         <BackBtn
           setHideRecipeDetails={setHideRecipeDetails}
