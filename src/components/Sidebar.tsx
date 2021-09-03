@@ -17,14 +17,17 @@ const SidebarContainer = styled.div`
   box-shadow: 1px 0 15px 1px #ef80803f;
 
   @media (max-width: 414px) {
+    position: relative;
     grid-area: 2/1/2/3;
     height: 400px;
     transform: translateX(0%) translateY(81%);
   }
   @media (max-width: 375px){
+    position: relative;
     transform: translateX(0%) translateY(79.5%);
   }
   @media (max-width: 320px), and (max-height: 568px) {
+    position: relative;
     transform: translateX(0%) translateY(95.5%);
   }
 `;

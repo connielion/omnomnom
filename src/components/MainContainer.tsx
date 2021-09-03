@@ -24,7 +24,12 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   display: grid;
+  position: fixed;
   grid-template-columns: 350px 1fr;
+
+  @media (max-width: 414px) {
+    position: relative;
+  }
 `;
 
 // Destructured. Can also be written as > data: BlobsContainerProps
