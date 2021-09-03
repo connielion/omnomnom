@@ -299,7 +299,7 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
         <h2>{selectedRecipe[0].title}</h2>
         <h3>Missing Ingredients:</h3>
         <IngredientsContainer>{missedIngredientsMap()}</IngredientsContainer>
-        <h3>Ingredients should you have:</h3>
+        <h3>Your Ingredients:</h3>
         <IngredientsContainer>{usedIngredientsMap()}</IngredientsContainer>
         <StepsContainer>{recipeInstructions.length ? stepsP : <p>"Uh-oh. Instructions are not available."</p>}</StepsContainer>
         <BtnContainer>
