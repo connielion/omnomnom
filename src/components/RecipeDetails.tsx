@@ -236,7 +236,7 @@ const StepsContainer = styled.div`
     line-height: 22px;
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1440px) {
     max-height: 250px;
   }
 
