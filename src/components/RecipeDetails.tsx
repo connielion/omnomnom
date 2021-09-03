@@ -32,10 +32,12 @@ const FoodImage = styled.div<ImageProps>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 50%;
   height: 500px;
   position: absolute;
   right: 0;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  top: 0;
   transform: translateX(15%) translateY(-15%);
 
   @media (max-width: 768px) {
