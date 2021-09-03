@@ -48,6 +48,13 @@ const TitleContainer = styled.div`
     color: #fff;
   }
 
+  @media (max-width: 1024px) {
+      width: 188px;
+      margin-top: 45px;
+      padding-left: 20px;
+
+  }
+
   @media (max-width: 414px) {
     width: 225px;
     padding-left: 20px;
@@ -86,13 +93,18 @@ const UsedIngredientsContainer = styled.div`
     letter-spacing: 1px;
   }
 
+  @media (max-width: 1024px) {
+      h3 {
+          font-size: 1.1rem;
+      }
+  }
+
   @media (max-width: 414px) {
     width: 250px;
     padding-left: 20px;
   }
 
   @media (max-width: 320px) {
-    border: black solid 1px;
     width: 220px;
     padding-left: 15px;
   }

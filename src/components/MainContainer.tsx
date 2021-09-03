@@ -94,8 +94,20 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
 
   @media (max-width: 414px) {
     grid-area: 1/1/3/3;
-    height: 90%;
-    grid-column-gap: 0;
+    height: 89.7%;
+    grid-column-gap: 7px;
+  }
+
+  @media (max-width: 375px) {
+    height: 89.9%;
+  }
+
+  @media (max-height: 667px) {
+    height: 87.7%;
+  }
+
+  @media (max-height: 568px) {
+    height: 96.6%
   }
 `;
 

@@ -21,6 +21,14 @@ const SidebarContainer = styled.div`
     height: 400px;
     transform: translateX(0%) translateY(81%);
   }
+
+  @media (max-width: 375px) {
+    transform: translateX(0%) translateY(79.5%);
+  }
+
+  @media (max-height: 568px) {
+    transform: translateX(0%) translateY(95%);
+  }
 `;
 
 const SideBarHeadings = styled.h2`
@@ -32,6 +40,10 @@ const SideBarHeadings = styled.h2`
   @media (max-width: 414px) {
     margin-top: 12px;
     font-size: 15px;
+  }
+
+  @media (max-width: 375px) {
+    margin-top: 18px;
   }
 `;
 

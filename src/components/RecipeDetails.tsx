@@ -28,9 +28,13 @@ const FoodImage = styled.div<ImageProps>`
   right: 0;
   transform: translateX(15%) translateY(-15%);
 
+  @media (max-width: 768px) {
+    transform: translateX(25%) translateY(-15%);
+  }
+
   @media (max-width: 414px) {
     width: 500px;
-    transform: translateX(10%) translateY(-40%);
+    transform: translateX(8%) translateY(-40%);
     background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
       ${(props) => `url(${props.image})`};
   }
@@ -38,6 +42,11 @@ const FoodImage = styled.div<ImageProps>`
   @media (max-width: 375px) {
     transform: translateX(12%) translateY(-40%);
   }
+
+  @media (max-width: 320px) {
+    transform: translateX(14%) translateY(-45%);
+  }
+  
 `;
 
 const RecipeDetailsCard = styled.div`
@@ -46,6 +55,10 @@ const RecipeDetailsCard = styled.div`
   position: relative;
   padding-left: 70px;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    overflow-y: scroll;
+  }
 
   @media (max-width: 414px) {
     overflow-y: scroll;
@@ -57,7 +70,8 @@ const RecipeDetailsCard = styled.div`
   }
 
   @media (max-width: 375px) {
-    width: 106%;
+    width: 105%;
+    
   }
 `;
 
@@ -85,6 +99,7 @@ const RecipeInfo = styled.div`
   margin-top: 100px;
   text-align: start;
   color: #fff;
+  
 
   h2 {
     letter-spacing: 1px;
@@ -96,8 +111,18 @@ const RecipeInfo = styled.div`
     letter-spacing: 1px;
   }
 
+  @media (max-width: 1024px) {
+    margin-top: 425px;
+  }
+
+  @media (max-width: 768px) {
+    width: 360px;
+    margin-left: -50px;
+  }
+
   @media (max-width: 414px) {
     width: 375px;
+    margin-top: 90px;
     margin-left: -50px;
     height: auto;
 
@@ -110,12 +135,23 @@ const RecipeInfo = styled.div`
     }
 
     h3 {
-      margin-top: 20px;
+      margin-top: 25px;
     }
   }
 
   @media (max-width: 375px) {
     width: 333px;
+  }
+
+  @media (max-width: 320px) {
+    width: 308px;
+    margin-top: 55px;
+    
+    h2 {
+      font-size: 30px;
+      height: 205px;
+      line-height: 40px;
+    }
   }
 `;
 
@@ -160,6 +196,7 @@ const StepsContainer = styled.div`
     line-height: 22px;
   }
 
+
   @media (max-width: 414px) {
     max-height: none;
     overflow: visible;
@@ -168,6 +205,7 @@ const StepsContainer = styled.div`
 
 const BtnContainer = styled.div`
   margin-top: 25px;
+
 
   @media (max-width: 414px) {
     position: absolute;
@@ -182,6 +220,10 @@ const AddRecipeBtn = styled.button`
   color: #ef8080;
   letter-spacing: 1px;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 
   @media (max-width: 414px) {
     margin-bottom: 20px;
