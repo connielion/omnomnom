@@ -5,10 +5,12 @@ export interface ITopIngredient {
 
 // FIND RECIPE BY INGREDIENTS
 export interface IIngredient {
+  id: number;
   name: string;
   amount: number;
   unit: string;
   image: string;
+  original: string;
 }
 export interface IRecipe {
   id: number;

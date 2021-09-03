@@ -164,10 +164,6 @@ export const topIngredientsList = [
     name: "baby spinach leaves",
   },
   {
-    id: 10010204,
-    name: "baby-back ribs",
-  },
-  {
     id: 10192,
     name: "baby-back ribs",
   },
@@ -253,10 +249,6 @@ export const topIngredientsList = [
   },
   {
     id: 14003,
-    name: "beer",
-  },
-  {
-    id: 14006,
     name: "beer",
   },
   {
@@ -1488,10 +1480,6 @@ export const topIngredientsList = [
     name: "garlic paste",
   },
   {
-    id: 1022020,
-    name: "garlic powder",
-  },
-  {
     id: 2020,
     name: "garlic powder",
   },
@@ -1666,10 +1654,6 @@ export const topIngredientsList = [
   {
     id: 1052009,
     name: "ground chipotle chile pepper",
-  },
-  {
-    id: 1012010,
-    name: "ground cinnamon",
   },
   {
     id: 2010,
@@ -2064,10 +2048,6 @@ export const topIngredientsList = [
     name: "low fat milk",
   },
   {
-    id: 1174,
-    name: "low fat milk",
-  },
-  {
     id: 1117,
     name: "low fat plain yogurt",
   },
@@ -2185,10 +2165,6 @@ export const topIngredientsList = [
   },
   {
     id: 1015006,
-    name: "meat",
-  },
-  {
-    id: 1065062,
     name: "meat",
   },
   {
@@ -3224,10 +3200,6 @@ export const topIngredientsList = [
     name: "sherry",
   },
   {
-    id: 10214106,
-    name: "sherry",
-  },
-  {
     id: 1012068,
     name: "sherry vinegar",
   },
@@ -3274,10 +3246,6 @@ export const topIngredientsList = [
   {
     id: 12108,
     name: "shredded coconut",
-  },
-  {
-    id: 1001251,
-    name: "shredded mexican cheese blend",
   },
   {
     id: 1251,
