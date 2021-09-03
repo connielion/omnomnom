@@ -18,6 +18,11 @@ const IngredientName = styled.h1`
   color: #fff;
   letter-spacing: 1px;
   cursor: pointer;
+
+  @media (max-width: 414px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
 `;
 
 const H1Container = styled.div`
@@ -27,7 +32,6 @@ const H1Container = styled.div`
   align-items: center;
   z-index: 10;
 `;
-
 
 interface BlobProps {
   ingredientName: string;
@@ -50,23 +54,26 @@ to {
 }
 `;
 
-
 const BlobInitial = styled.div<BlobInitialProps>`
   position: absolute;
   z-index: 10;
   background-color: #ef8080;
   width: 100%;
-  height 100%;
+  height: 100%;
   transform: scaleY(0.1) scaleX(0.1);
   border-radius: 15px;
   opacity: 0;
-  animation-name: ${props => props.blobClicked ? blobIn : ``};
+  animation-name: ${(props) => (props.blobClicked ? blobIn : ``)};
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
   animation-iteration-count: 1;
 `;
 
-const Blob: FC<BlobProps> = ({ ingredientName, addIngredient, selectedIngredients}) => {
+const Blob: FC<BlobProps> = ({
+  ingredientName,
+  addIngredient,
+  selectedIngredients,
+}) => {
   const [blobClicked, setBlobClicked] = useState<Boolean>(false);
 
   useEffect(() => {
@@ -74,10 +81,12 @@ const Blob: FC<BlobProps> = ({ ingredientName, addIngredient, selectedIngredient
   }, [selectedIngredients]);
 
   return (
-    <BlobContent onClick={()=> {
-      addIngredient(ingredientName)
-      setBlobClicked(true)
-    }}>
+    <BlobContent
+      onClick={() => {
+        addIngredient(ingredientName);
+        setBlobClicked(true);
+      }}
+    >
       <BlobInitial blobClicked={blobClicked}></BlobInitial>
       <H1Container>
         <IngredientName>{ingredientName}</IngredientName>

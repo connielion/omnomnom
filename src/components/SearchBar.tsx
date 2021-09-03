@@ -13,6 +13,10 @@ const SearchContainer = styled.div`
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
+
+  @media (max-width: 414px) {
+    margin-top: 10px;
+  }
 `;
 
 const Input = styled.input`
@@ -38,10 +42,12 @@ const AddButton = styled.button`
   border-radius: 15px;
   background-color: #fff;
   border: none;
+  margin: 0 auto;
   cursor: pointer;
 `;
 
 const Plus = styled.img`
+  margin-top: 6px;
   height: 15px;
   width: 15px;
 `;
@@ -58,11 +64,13 @@ const SearchBar: FC<SearchBarProps> = ({
 
  
   const addIngredientNameToList = () => {
-    if(!selectedIngredients.includes(searchString.toLowerCase())){
-      setSelectedIngredients((prevState: string[]) => [
-        ...prevState,
-        searchString.toLowerCase(),
-      ]);
+    if(searchString !== ""){
+      if(!selectedIngredients.includes(searchString.toLowerCase())){
+        setSelectedIngredients((prevState: string[]) => [
+          ...prevState,
+          searchString.toLowerCase(),
+        ]);
+      }
     }
   };
 
