@@ -256,10 +256,12 @@ const Sidebar: FC<SidebarProps> = ({
   return (
     <SidebarContainer>
       <LogoContainer>
-        <LogoBackground>
+       <a href="/">
+       <LogoBackground>
           <LogoImage src="nom.gif" alt="logo gif"></LogoImage>
         </LogoBackground>      
-          <LogoText>Omnomnom</LogoText>
+       </a>
+       <LogoText>Omnomnom</LogoText>
       </LogoContainer>
       <SearchBar
         setSelectedIngredients={setSelectedIngredients}
