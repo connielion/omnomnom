@@ -35,7 +35,7 @@ const BackBtn: FC<BackBtnProps> = ({
         setUserSearchedRecipes(false);
       }}
     >
-      <h2>Back</h2>
+      <h2>Back to Ingredients</h2>
     </Button>
   );
 };
