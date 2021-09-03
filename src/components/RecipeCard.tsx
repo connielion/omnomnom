@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { IRecipe } from "../interfaces/Recipe";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 
 interface RecipeCardProps {
@@ -11,6 +11,15 @@ interface RecipeCardProps {
   selectedRecipes: IRecipe[];
 }
 
+const recipeCardTransition = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
+
 const FoodCard = styled.div`
   background-color: #ef8080;
   border-radius: 15px;
@@ -20,6 +29,11 @@ const FoodCard = styled.div`
   align-items: flex-start;
   flex-direction: column;
   cursor: pointer;
+  opacity: 0;
+  animation-name: ${recipeCardTransition};
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 `;
 
 const AddBtn = styled.div`
