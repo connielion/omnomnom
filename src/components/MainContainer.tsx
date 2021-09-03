@@ -40,6 +40,18 @@ const dynamicColumn = ({
   }
 };
 
+const largeScreenColumn = ({
+  hideRecipeDetails,
+  userSearchedRecipes,
+}: BlobsContainerProps) => {
+  // destructured will look this > data.hideRecipeDetails
+  if (hideRecipeDetails) {
+    return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr 1fr` : `1fr 1fr 1fr 1fr`}`;
+  } else {
+    return `1fr`;
+  }
+};
+
 const ipadDynamicColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
@@ -98,15 +110,11 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
     grid-column-gap: 7px;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 375px), and (max-height: 812px) {
     height: 89.9%;
   }
 
-  @media (max-height: 667px) {
-    height: 87.7%;
-  }
-
-  @media (max-height: 568px) {
+  @media (max-width: 320px), and (max-height: 568px) {
     height: 96.6%
   }
 `;
@@ -124,7 +132,6 @@ const MainContainer = () => {
     []
   );
   const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
-
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
     ingredients: string

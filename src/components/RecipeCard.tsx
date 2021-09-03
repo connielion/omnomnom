@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { IRecipe } from "../interfaces/Recipe";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 
 interface RecipeCardProps {
@@ -8,6 +8,15 @@ interface RecipeCardProps {
   getRecipeDetails: Function;
   addRecipe: Function;
 }
+
+const recipeCardTransition = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
 
 const FoodCard = styled.div`
   background-color: #ef8080;
@@ -18,6 +27,11 @@ const FoodCard = styled.div`
   align-items: flex-start;
   flex-direction: column;
   cursor: pointer;
+  opacity: 0;
+  animation-name: ${recipeCardTransition};
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 `;
 
 const AddBtn = styled.div`
@@ -44,6 +58,14 @@ const TitleContainer = styled.div`
   h2 {
     letter-spacing: 1px;
     color: #fff;
+  }
+
+  @media (min-width: 1925px) {
+    width: 220px;
+  }
+
+  @media (max-width: 1405px) {
+    width: 200px;
   }
 
   @media (max-width: 1024px) {
@@ -91,6 +113,12 @@ const UsedIngredientsContainer = styled.div`
     letter-spacing: 1px;
   }
 
+  @media (max-width: 1108px) {
+    h3 {
+        width: 180px;
+    }
+  }
+
   @media (max-width: 1024px) {
       h3 {
           font-size: 1.1rem;
@@ -114,15 +142,17 @@ const RecipeCard: FC<RecipeCardProps> = ({
   addRecipe,
 }) => {
   const FoodImage = styled.div`
-    width: 50%;
+    width: 40%;
     background-color: #fff;
     background-image: url(${recipe.image});
     background-size: cover;
     background-repeat: no-repeat;
-    height: 100%;
+    height: 70%;
     position: absolute;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    top: 0;
     right: 0;
-    clip-path: ellipse(50% 53% at 64% 29%);
   `;
 
   return (

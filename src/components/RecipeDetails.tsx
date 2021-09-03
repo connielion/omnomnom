@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { IInstructions, IRecipe } from "../interfaces/Recipe";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -16,6 +16,15 @@ interface ImageProps {
   image: string;
 }
 
+const recipeDetailsTransition = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
+
 const FoodImage = styled.div<ImageProps>`
   width: 500px;
   background-color: #fff;
@@ -23,10 +32,12 @@ const FoodImage = styled.div<ImageProps>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border-radius: 50%;
   height: 500px;
   position: absolute;
   right: 0;
+  border-top-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  top: 0;
   transform: translateX(15%) translateY(-15%);
 
   @media (max-width: 768px) {
@@ -56,6 +67,20 @@ const RecipeDetailsCard = styled.div`
   position: relative;
   padding-left: 70px;
   overflow: hidden;
+  opacity: 0;
+  animation-name: ${recipeDetailsTransition};
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+
+  @media (min-width: 1800px) {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1240px) {
+    overflow: scroll;
+  }
 
   @media (max-width: 768px) {
     overflow-y: scroll;
@@ -88,6 +113,7 @@ const AddBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  
 
   @media (max-width: 414px) {
     border-radius: 0 0 15px 0;
@@ -100,7 +126,6 @@ const RecipeInfo = styled.div`
   margin-top: 100px;
   text-align: start;
   color: #fff;
-  
 
   h2 {
     letter-spacing: 1px;
@@ -112,7 +137,15 @@ const RecipeInfo = styled.div`
     letter-spacing: 1px;
   }
 
-  @media (max-width: 1024px) {
+  @media (min-width: 1575px) {
+    width: 720px;
+  }
+
+  @media (max-width: 1400px) {
+    width: 400px;
+    }
+
+  @media (max-width: 1240px) {
     margin-top: 425px;
   }
 
@@ -203,6 +236,9 @@ const StepsContainer = styled.div`
     line-height: 22px;
   }
 
+  @media (max-width: 1400px) {
+    max-height: 250px;
+  }
 
   @media (max-width: 414px) {
     max-height: none;
@@ -227,6 +263,10 @@ const AddRecipeBtn = styled.button`
   color: #ef8080;
   letter-spacing: 1px;
   cursor: pointer;
+
+  @media (max-width: 1240px) {
+    margin-bottom: 20px;
+  }
 
   @media (max-width: 768px) {
     margin-bottom: 20px;
