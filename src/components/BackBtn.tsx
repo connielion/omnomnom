@@ -18,6 +18,10 @@ const Button = styled.button`
   margin-bottom: 10px;
   margin-left: 2.5%;
   cursor: pointer;
+
+  @media (max-width: 414px) {
+    padding: 5px;
+  }
 `;
 
 const BackBtn: FC<BackBtnProps> = ({

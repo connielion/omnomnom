@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { IInstructions, IRecipe } from "../interfaces/Recipe";
 import styled from "styled-components";
 import PlusIcon from "../assets/plus.svg";
+import { v4 as uuidv4 } from 'uuid';
 
 interface RecipeDetailsProps {
   recipeInstructions: IInstructions[];
@@ -27,6 +28,26 @@ const FoodImage = styled.div<ImageProps>`
   position: absolute;
   right: 0;
   transform: translateX(15%) translateY(-15%);
+
+  @media (max-width: 768px) {
+    transform: translateX(25%) translateY(-15%);
+  }
+
+  @media (max-width: 414px) {
+    width: 500px;
+    transform: translateX(8%) translateY(-40%);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      ${(props) => `url(${props.image})`};
+  }
+
+  @media (max-width: 375px) {
+    transform: translateX(12%) translateY(-40%);
+  }
+
+  @media (max-width: 320px) {
+    transform: translateX(14%) translateY(-45%);
+  }
+  
 `;
 
 const RecipeDetailsCard = styled.div`
@@ -35,6 +56,24 @@ const RecipeDetailsCard = styled.div`
   position: relative;
   padding-left: 70px;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    overflow-y: scroll;
+  }
+
+  @media (max-width: 414px) {
+    overflow-y: scroll;
+    width: 105%;
+    position: relative;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 0 0 15px 15px;
+  }
+
+  @media (max-width: 375px) {
+    width: 105%;
+    
+  }
 `;
 
 const AddBtn = styled.div`
@@ -49,6 +88,10 @@ const AddBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  @media (max-width: 414px) {
+    border-radius: 0 0 15px 0;
+  }
 `;
 
 const RecipeInfo = styled.div`
@@ -57,6 +100,7 @@ const RecipeInfo = styled.div`
   margin-top: 100px;
   text-align: start;
   color: #fff;
+  
 
   h2 {
     letter-spacing: 1px;
@@ -67,9 +111,52 @@ const RecipeInfo = styled.div`
     margin-top: 15px;
     letter-spacing: 1px;
   }
+
+  @media (max-width: 1024px) {
+    margin-top: 425px;
+  }
+
+  @media (max-width: 768px) {
+    width: 360px;
+    margin-left: -50px;
+  }
+
+  @media (max-width: 414px) {
+    width: 375px;
+    margin-top: 90px;
+    margin-left: -50px;
+    height: auto;
+
+    h2 {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      height: 190px;
+      line-height: 50px;
+    }
+
+    h3 {
+      margin-top: 25px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    width: 333px;
+  }
+
+  @media (max-width: 320px) {
+    width: 308px;
+    margin-top: 55px;
+    
+    h2 {
+      font-size: 30px;
+      height: 205px;
+      line-height: 40px;
+    }
+  }
 `;
 
-const MissingContainer = styled.div`
+const IngredientsContainer = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: no-wrap;
@@ -92,6 +179,11 @@ const MissingIngredientsBtn = styled.div`
     letter-spacing: 1px;
     white-space: nowrap;
   }
+
+  @media (max-width: 414px) {
+    padding: 5px;
+    margin-bottom: 10px;
+  }
 `;
 
 const StepsContainer = styled.div`
@@ -104,10 +196,22 @@ const StepsContainer = styled.div`
     letter-spacing: 1px;
     line-height: 22px;
   }
+
+
+  @media (max-width: 414px) {
+    max-height: none;
+    overflow: visible;
+  }
 `;
 
 const BtnContainer = styled.div`
   margin-top: 25px;
+
+
+  @media (max-width: 414px) {
+    position: absolute;
+    left: 20px;
+  }
 `;
 
 const AddRecipeBtn = styled.button`
@@ -117,6 +221,14 @@ const AddRecipeBtn = styled.button`
   color: #ef8080;
   letter-spacing: 1px;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 414px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const CloseRecipeBtn = styled.button`
@@ -137,19 +249,30 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
   setUserSearchedRecipes,
   addRecipe,
 }) => {
-  const missedIngredientsMap = () => {
-    const missingIngredients = selectedRecipe[0].missedIngredients.map(
+
+  const usedIngredientsMap = ()=>{
+    return selectedRecipe[0].usedIngredients.map(
       (ingredient) => {
         return (
-          <MissingIngredientsBtn key={ingredient.name}>
-            <h4>{ingredient.name}</h4>
+          <MissingIngredientsBtn key={uuidv4()}>
+            <h4>{ingredient.original}</h4>
           </MissingIngredientsBtn>
         );
       }
     );
+  }
 
-    return missingIngredients;
-  };
+  const missedIngredientsMap = () => {
+   return selectedRecipe[0].missedIngredients.map(
+      (ingredient) => {
+        return (
+          <MissingIngredientsBtn key={uuidv4()}>
+            <h4>{ingredient.original}</h4>
+          </MissingIngredientsBtn>
+        );
+      }
+    );
+};
 
   const stepsP = recipeInstructions[0]?.steps?.map((stepObject, index) => {
     return (
@@ -175,10 +298,10 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
       <RecipeInfo>
         <h2>{selectedRecipe[0].title}</h2>
         <h3>Missing Ingredients:</h3>
-        <MissingContainer>{missedIngredientsMap()}</MissingContainer>
-
+        <IngredientsContainer>{missedIngredientsMap()}</IngredientsContainer>
+        <h3>Ingredients should you have:</h3>
+        <IngredientsContainer>{usedIngredientsMap()}</IngredientsContainer>
         <StepsContainer>{recipeInstructions.length ? stepsP : <p>"Uh-oh. Instructions are not available."</p>}</StepsContainer>
-
         <BtnContainer>
           <AddRecipeBtn onClick={(e) => addRecipe(e, selectedRecipe[0])}>
             Add to List
