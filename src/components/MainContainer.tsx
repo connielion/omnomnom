@@ -208,8 +208,6 @@ const MainContainer = () => {
             key={recipe.id}
             recipe={recipe}
             getRecipeDetails={getRecipeDetails}
-            // setSelectedRecipes={setSelectedRecipes}
-            // selectedRecipes={selectedRecipes}
           ></RecipeCard>
         );
       });
