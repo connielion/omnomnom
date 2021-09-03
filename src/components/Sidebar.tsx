@@ -15,6 +15,18 @@ const SidebarContainer = styled.div`
   padding: 10px;
   position: relative;
   box-shadow: 1px 0 15px 1px #ef80803f;
+
+  @media (max-width: 414px) {
+    grid-area: 2/1/2/3;
+    height: 400px;
+    transform: translateX(0%) translateY(81%);
+  }
+  @media (max-width: 375px){
+    transform: translateX(0%) translateY(79.5%);
+  }
+  @media (max-width: 320px), and (max-height: 568px) {
+    transform: translateX(0%) translateY(95.5%);
+  }
 `;
 
 const SideBarHeadings = styled.h2`
@@ -34,6 +46,9 @@ const LogoContainer = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
+  @media (max-width: 375px){
+    display: none;
+  }
 `;
 
 const LogoBackground = styled.div`
@@ -238,10 +253,10 @@ const Sidebar: FC<SidebarProps> = ({
   return (
     <SidebarContainer>
       <LogoContainer>
-      <LogoBackground>
-        <LogoImage src="nom.gif" alt="logo gif"></LogoImage>
-      </LogoBackground>      
-        <LogoText>Omnomnom</LogoText>
+        <LogoBackground>
+          <LogoImage src="nom.gif" alt="logo gif"></LogoImage>
+        </LogoBackground>      
+          <LogoText>Omnomnom</LogoText>
       </LogoContainer>
       <SearchBar
         setSelectedIngredients={setSelectedIngredients}

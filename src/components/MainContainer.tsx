@@ -82,7 +82,7 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   overflow: auto;
-
+  z-index: 1;
   //ipad pro width
   @media (max-width: 1024px) {
     grid-template-columns: ${(props) => ipadDynamicColumn(props)};
