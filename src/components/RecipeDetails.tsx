@@ -56,6 +56,15 @@ const RecipeDetailsCard = styled.div`
   padding-left: 70px;
   overflow: hidden;
 
+  @media (min-width: 1800px) {
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1240px) {
+    overflow: scroll;
+  }
+
   @media (max-width: 768px) {
     overflow-y: scroll;
   }
@@ -87,6 +96,7 @@ const AddBtn = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  
 
   @media (max-width: 414px) {
     border-radius: 0 0 15px 0;
@@ -99,7 +109,6 @@ const RecipeInfo = styled.div`
   margin-top: 100px;
   text-align: start;
   color: #fff;
-  
 
   h2 {
     letter-spacing: 1px;
@@ -111,7 +120,15 @@ const RecipeInfo = styled.div`
     letter-spacing: 1px;
   }
 
-  @media (max-width: 1024px) {
+  @media (min-width: 1575px) {
+    width: 720px;
+  }
+
+  @media (max-width: 1400px) {
+    width: 400px;
+  }
+
+  @media (max-width: 1240px) {
     margin-top: 425px;
   }
 
@@ -220,6 +237,10 @@ const AddRecipeBtn = styled.button`
   color: #ef8080;
   letter-spacing: 1px;
   cursor: pointer;
+
+  @media (max-width: 1240px) {
+    margin-bottom: 20px;
+  }
 
   @media (max-width: 768px) {
     margin-bottom: 20px;

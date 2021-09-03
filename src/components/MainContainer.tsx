@@ -40,6 +40,18 @@ const dynamicColumn = ({
   }
 };
 
+const largeScreenColumn = ({
+  hideRecipeDetails,
+  userSearchedRecipes,
+}: BlobsContainerProps) => {
+  // destructured will look this > data.hideRecipeDetails
+  if (hideRecipeDetails) {
+    return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr 1fr` : `1fr 1fr 1fr 1fr`}`;
+  } else {
+    return `1fr`;
+  }
+};
+
 const ipadDynamicColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
@@ -83,7 +95,10 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
   grid-row-gap: 10px;
   overflow: auto;
 
-  //ipad pro width
+  @media (min-width: 1920px) {
+    grid-template-columns: ${(props) => largeScreenColumn(props)};
+  }
+
   @media (max-width: 1024px) {
     grid-template-columns: ${(props) => ipadDynamicColumn(props)};
   }
@@ -98,15 +113,11 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
     grid-column-gap: 7px;
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 375px), and (max-height: 812px) {
     height: 89.9%;
   }
 
-  @media (max-height: 667px) {
-    height: 87.7%;
-  }
-
-  @media (max-height: 568px) {
+  @media (max-width: 320px), and (max-height: 568px) {
     height: 96.6%
   }
 `;

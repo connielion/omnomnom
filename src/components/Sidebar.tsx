@@ -22,12 +22,12 @@ const SidebarContainer = styled.div`
     transform: translateX(0%) translateY(81%);
   }
 
-  @media (max-width: 375px) {
+  @media (max-width: 375px){
     transform: translateX(0%) translateY(79.5%);
   }
 
-  @media (max-height: 568px) {
-    transform: translateX(0%) translateY(95%);
+  @media (max-width: 320px), and (max-height: 568px) {
+    transform: translateX(0%) translateY(95.5%);
   }
 `;
 

@@ -12,6 +12,28 @@ const BlobContent = styled.div`
   align-items: center;
   cursor: pointer;
   position: relative;
+  // border: black solid 1px;
+
+  @media (min-width: 1535px) {
+    background-size: 100%;
+  }
+
+  @media (min-width: 1755px) {
+    background-size: 90%;
+  }
+
+  @media (min-width: 1920px) {
+    background-size: 100%;
+  }
+
+  @media (min-width: 2120px) {
+    background-size: 90%;
+  }
+
+  @media (min-width: 2315px) {
+    background-size: 82%;
+  }
+
 `;
 const IngredientName = styled.h1`
   font-size: 24px;
