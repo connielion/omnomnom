@@ -51,9 +51,19 @@ const LogoContainer = styled.div`
   }
 `;
 
-const LogoImage = styled.img`
+const LogoBackground = styled.div`
   height: 50px;
   width: 50px;
+  background-image: url(${BackgroundTexture});
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  transform: translateX(-1%);
+`;
+
+const LogoImage = styled.img`
+  height: 50px;
+  width: 54px;
   position: absolute;
   left: 0;
   z-index: 2;
@@ -109,6 +119,7 @@ const PickedRecipes = styled.div`
   }
 `;
 
+
 interface SidebarProps {
   selectedIngredients: string[];
   setSelectedIngredients: Function;
@@ -121,6 +132,7 @@ interface SidebarProps {
   renderIngredientBlobs: Function;
   setHideRecipeDetails: Function;
   setSelectedRecipes: Function;
+  removeIngredient: Function;
 }
 
 const RecipeListContainer = styled.div`
@@ -187,6 +199,7 @@ const Sidebar: FC<SidebarProps> = ({
   userSearchedRecipes,
   setHideRecipeDetails,
   setSelectedRecipes,
+  removeIngredient
 }) => {
   const searchRecipesOnClick = async () => {
     if (selectedIngredients.length > 0) {
@@ -199,6 +212,7 @@ const Sidebar: FC<SidebarProps> = ({
   };
 
   const renderIngredientsList = () => {
+    console.log(selectedIngredients)
     return selectedIngredients?.map((ingredientName) => (
       <IngredientButton
         key={ingredientName}
@@ -208,15 +222,6 @@ const Sidebar: FC<SidebarProps> = ({
     ));
   };
 
-  const removeIngredient = (ingredient: string) => {
-    if (selectedIngredients.includes(ingredient)) {
-      // filter and get array not containing target ingredient
-      const updatedArray = selectedIngredients.filter(
-        (name) => name !== ingredient
-      );
-      setSelectedIngredients(updatedArray);
-    }
-  };
 
   const removeRecipe = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -259,7 +264,9 @@ const Sidebar: FC<SidebarProps> = ({
   return (
     <SidebarContainer>
       <LogoContainer>
+      <LogoBackground>
         <LogoImage src="nom.gif" alt="logo gif"></LogoImage>
+      </LogoBackground>      
         <LogoText>Omnomnom</LogoText>
       </LogoContainer>
       <SearchBar

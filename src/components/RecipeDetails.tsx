@@ -246,7 +246,14 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
         <h3>Missing Ingredients:</h3>
         <MissingContainer>{missedIngredientsMap()}</MissingContainer>
 
-        <StepsContainer>{stepsP}</StepsContainer>
+        <StepsContainer>
+          {recipeInstructions.length ? (
+            stepsP
+          ) : (
+            <p>"Uh-oh. Instructions are not available."</p>
+          )}
+        </StepsContainer>
+
         <BtnContainer>
           <AddRecipeBtn onClick={(e) => addRecipe(e, selectedRecipe[0])}>
             Add to List

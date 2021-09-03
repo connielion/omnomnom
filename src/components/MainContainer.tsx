@@ -17,6 +17,7 @@ import {
 interface BlobsContainerProps {
   userSearchedRecipes: Boolean;
   hideRecipeDetails: Boolean;
+  selectedIngredients: string[];
 }
 
 const Container = styled.div`
@@ -131,11 +132,23 @@ const MainContainer = () => {
   };
 
   const addIngredient = (ingredient: string) => {
-    if (!selectedIngredients.includes(ingredient)) {
-      setSelectedIngredients((prevState: string[]) => [
-        ...prevState,
-        ingredient,
-      ]);
+    if (ingredient !== "") {
+      if (!selectedIngredients.includes(ingredient)) {
+        setSelectedIngredients((prevState: string[]) => [
+          ...prevState,
+          ingredient,
+        ]);
+      }
+    }
+  };
+
+  const removeIngredient = (ingredient: string) => {
+    if (selectedIngredients.includes(ingredient)) {
+      // filter and get array not containing target ingredient
+      const updatedArray = selectedIngredients.filter(
+        (name) => name !== ingredient
+      );
+      setSelectedIngredients(updatedArray);
     }
   };
 
@@ -154,6 +167,7 @@ const MainContainer = () => {
           key={ingredient.id}
           ingredientName={ingredient.name}
           addIngredient={addIngredient}
+          selectedIngredients={selectedIngredients}
         />
       );
     });
@@ -194,6 +208,7 @@ const MainContainer = () => {
   return (
     <Container>
       <Sidebar
+        removeIngredient={removeIngredient}
         setUserSearchedRecipes={setUserSearchedRecipes}
         searchByIngredients={searchByIngredients}
         setSelectedIngredients={setSelectedIngredients}
@@ -209,6 +224,7 @@ const MainContainer = () => {
       <BlobsContainer
         userSearchedRecipes={userSearchedRecipes}
         hideRecipeDetails={hideRecipeDetails}
+        selectedIngredients={selectedIngredients}
       >
         {/* Render Cards or Blobs OR Details */}
         {hideRecipeDetails ? (
