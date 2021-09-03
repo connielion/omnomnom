@@ -114,6 +114,8 @@ const Blob: FC<BlobProps> = ({
 
   useEffect(() => {
     setBlobClicked(selectedIngredients.includes(ingredientName));
+
+    // eslint-disable-next-line
   }, [selectedIngredients]);
 
   return (

@@ -1,44 +1,44 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Omnomnom
 
-## Available Scripts
+Recipe app with search by ingredient(from 1,000 ingredients) functionality. Displays ingredients, recipe image and instructions provided by [Spoonacular API](https://spoonacular.com/food-api).
 
-In the project directory, you can run:
+## Project Requirements
 
-### `yarn start`
+- Node version v.12.0.0+.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Project Setup
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+- Install required packages
+    - Navigate project's root directory
+    - Type and run `npm install`
 
-### `yarn test`
+### Running the Project
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Navigate to project directory in terminal
 
-### `yarn build`
+- Install packages via `npm install`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Open development server via `npm start`
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Development Process
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- When starting work on a new release version, increment `minor` version(example: 1.2.0 to 1.3.0)
 
-### `yarn eject`
+## Deployment Instructions
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- Install Firebase CLI by running `npm install -g firebase-tools`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Create project on Firebase console
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- In project's root directory, login via `firebase login` command
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Initialize Firebase project via `firebase init`
 
-## Learn More
+- Create `build` by runing `npm run build`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Run `firebase deploy`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- For more info about hosting with Firebase, check out the [official Firebase documentation](https://firebase.google.com/docs/hosting/quickstart)
+
+
+

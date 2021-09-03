@@ -94,11 +94,12 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   overflow: auto;
+  z-index: 1;
 
   @media (min-width: 1920px) {
     grid-template-columns: ${(props) => largeScreenColumn(props)};
   }
-
+  //ipad pro width
   @media (max-width: 1024px) {
     grid-template-columns: ${(props) => ipadDynamicColumn(props)};
   }
@@ -135,8 +136,6 @@ const MainContainer = () => {
     []
   );
   const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
-  const [firstClickState, setFirstClickState] = useState<Boolean>(false);
-
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (
     ingredients: string
@@ -220,8 +219,6 @@ const MainContainer = () => {
             key={recipe.id}
             recipe={recipe}
             getRecipeDetails={getRecipeDetails}
-            setSelectedRecipes={setSelectedRecipes}
-            selectedRecipes={selectedRecipes}
           ></RecipeCard>
         );
       });

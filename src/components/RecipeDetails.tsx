@@ -175,6 +175,12 @@ const RecipeInfo = styled.div`
 
   @media (max-width: 375px) {
     width: 333px;
+
+    h2 {
+      font-size: 26px;
+      height: 205px;
+      line-height: 40px;
+    }
   }
 
   @media (max-width: 320px) {
@@ -182,7 +188,7 @@ const RecipeInfo = styled.div`
     margin-top: 55px;
     
     h2 {
-      font-size: 30px;
+      font-size: 20px;
       height: 205px;
       line-height: 40px;
     }

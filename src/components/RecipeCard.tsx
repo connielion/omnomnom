@@ -6,9 +6,7 @@ import PlusIcon from "../assets/plus.svg";
 interface RecipeCardProps {
   recipe: IRecipe;
   getRecipeDetails: Function;
-  setSelectedRecipes: Function;
   addRecipe: Function;
-  selectedRecipes: IRecipe[];
 }
 
 const recipeCardTransition = keyframes`
@@ -141,9 +139,7 @@ const UsedIngredientsContainer = styled.div`
 const RecipeCard: FC<RecipeCardProps> = ({
   recipe,
   getRecipeDetails,
-  setSelectedRecipes,
   addRecipe,
-  selectedRecipes,
 }) => {
   const FoodImage = styled.div`
     width: 40%;
