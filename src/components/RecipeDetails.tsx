@@ -1,7 +1,8 @@
 import React, { FC } from "react";
 import { IInstructions, IRecipe } from "../interfaces/Recipe";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import PlusIcon from "../assets/plus.svg";
+import { v4 as uuidv4 } from 'uuid';
 
 interface RecipeDetailsProps {
   recipeInstructions: IInstructions[];
@@ -14,6 +15,15 @@ interface RecipeDetailsProps {
 interface ImageProps {
   image: string;
 }
+
+const recipeDetailsTransition = keyframes`
+from {
+  opacity: 0;
+}
+to {
+  opacity: 1;
+}
+`;
 
 const FoodImage = styled.div<ImageProps>`
   width: 500px;
@@ -55,6 +65,11 @@ const RecipeDetailsCard = styled.div`
   position: relative;
   padding-left: 70px;
   overflow: hidden;
+  opacity: 0;
+  animation-name: ${recipeDetailsTransition};
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
 
   @media (min-width: 1800px) {
     width: 85%;
@@ -126,7 +141,7 @@ const RecipeInfo = styled.div`
 
   @media (max-width: 1400px) {
     width: 400px;
-  }
+    }
 
   @media (max-width: 1240px) {
     margin-top: 425px;
@@ -172,7 +187,7 @@ const RecipeInfo = styled.div`
   }
 `;
 
-const MissingContainer = styled.div`
+const IngredientsContainer = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: no-wrap;
@@ -213,6 +228,9 @@ const StepsContainer = styled.div`
     line-height: 22px;
   }
 
+  @media (max-width: 1400px) {
+    max-height: 250px;
+  }
 
   @media (max-width: 414px) {
     max-height: none;
@@ -269,19 +287,30 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
   setUserSearchedRecipes,
   addRecipe,
 }) => {
-  const missedIngredientsMap = () => {
-    const missingIngredients = selectedRecipe[0].missedIngredients.map(
+
+  const usedIngredientsMap = ()=>{
+    return selectedRecipe[0].usedIngredients.map(
       (ingredient) => {
         return (
-          <MissingIngredientsBtn key={ingredient.name}>
-            <h4>{ingredient.name}</h4>
+          <MissingIngredientsBtn key={uuidv4()}>
+            <h4>{ingredient.original}</h4>
           </MissingIngredientsBtn>
         );
       }
     );
+  }
 
-    return missingIngredients;
-  };
+  const missedIngredientsMap = () => {
+   return selectedRecipe[0].missedIngredients.map(
+      (ingredient) => {
+        return (
+          <MissingIngredientsBtn key={uuidv4()}>
+            <h4>{ingredient.original}</h4>
+          </MissingIngredientsBtn>
+        );
+      }
+    );
+};
 
   const stepsP = recipeInstructions[0]?.steps?.map((stepObject, index) => {
     return (
@@ -307,16 +336,10 @@ const RecipeDetails: FC<RecipeDetailsProps> = ({
       <RecipeInfo>
         <h2>{selectedRecipe[0].title}</h2>
         <h3>Missing Ingredients:</h3>
-        <MissingContainer>{missedIngredientsMap()}</MissingContainer>
-
-        <StepsContainer>
-          {recipeInstructions.length ? (
-            stepsP
-          ) : (
-            <p>"Uh-oh. Instructions are not available."</p>
-          )}
-        </StepsContainer>
-
+        <IngredientsContainer>{missedIngredientsMap()}</IngredientsContainer>
+        <h3>Your Ingredients:</h3>
+        <IngredientsContainer>{usedIngredientsMap()}</IngredientsContainer>
+        <StepsContainer>{recipeInstructions.length ? stepsP : <p>"Uh-oh. Instructions are not available."</p>}</StepsContainer>
         <BtnContainer>
           <AddRecipeBtn onClick={(e) => addRecipe(e, selectedRecipe[0])}>
             Add to List

@@ -135,6 +135,7 @@ const MainContainer = () => {
     []
   );
   const [selectedRecipes, setSelectedRecipes] = useState<IRecipe[]>([]);
+  const [firstClickState, setFirstClickState] = useState<Boolean>(false);
 
   //arg: list of ingredients, returns a list of recipes(with recipe IDs used as args for fetchInstructionsById)
   const searchByIngredients = async (

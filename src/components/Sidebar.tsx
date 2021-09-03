@@ -36,15 +36,6 @@ const SideBarHeadings = styled.h2`
   margin-top: 25px;
   margin-left: 2px;
   font-size: 18px;
-
-  @media (max-width: 414px) {
-    margin-top: 12px;
-    font-size: 15px;
-  }
-
-  @media (max-width: 375px) {
-    margin-top: 18px;
-  }
 `;
 
 const LogoContainer = styled.div`
@@ -57,10 +48,6 @@ const LogoContainer = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
-
-  @media (max-width: 414px) {
-    display: none;
-  }
 `;
 
 const LogoBackground = styled.div`
@@ -110,10 +97,6 @@ const PickedIngredients = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
-
-  @media (max-width: 414px) {
-    max-height: 85px;
-  }
 `;
 
 const PickedRecipes = styled.div`
@@ -125,10 +108,6 @@ const PickedRecipes = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
   cursor: pointer;
-
-  @media (max-width: 414px) {
-    max-height: 85px;
-  }
 `;
 
 
@@ -158,11 +137,8 @@ const RecipeBtnStyle = styled.div`
   border-radius: 15px;
   display: flex;
   height: 35px;
-  justify-content: space-between;
 
-  @media (max-width: 414px) {
-    height: 30px;
-  }
+  justify-content: space-between;
 `;
 
 const RecipeNameContainer = styled.div`
@@ -224,7 +200,6 @@ const Sidebar: FC<SidebarProps> = ({
   };
 
   const renderIngredientsList = () => {
-    console.log(selectedIngredients)
     return selectedIngredients?.map((ingredientName) => (
       <IngredientButton
         key={ingredientName}
@@ -273,6 +248,7 @@ const Sidebar: FC<SidebarProps> = ({
     });
   };
 
+
   return (
     <SidebarContainer>
       <LogoContainer>
@@ -302,7 +278,7 @@ const Sidebar: FC<SidebarProps> = ({
         ) : null}
       </PickedRecipes>
       {!userSearchedRecipes ? (
-        <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} />
+        <FindRecipesBtn searchRecipesOnClick={searchRecipesOnClick} selectedIngredients={selectedIngredients} />
       ) : (
         <BackBtn
           setHideRecipeDetails={setHideRecipeDetails}
