@@ -8,9 +8,11 @@ const IngredientBtnStyle = styled.div`
   border-radius: 15px;
   display: flex;
   height: 35px;
+
+  @media (max-width: 414px) {
+    height: 30px;
+  }
 `;
-
-
 
 const IngredientNameContainer = styled.div`
   padding-left: 10px;
@@ -57,19 +59,15 @@ const IngredientButton: FC<IngredientButtonProps> = ({
   removeIngredient,
 }) => {
   return (
-  
-      <IngredientBtnStyle>
-        <IngredientNameContainer>
-          <h3>
-            {ingredientName}
-          </h3>
-        </IngredientNameContainer>
+    <IngredientBtnStyle>
+      <IngredientNameContainer>
+        <h3>{ingredientName}</h3>
+      </IngredientNameContainer>
 
-        <RemoveBtn onClick={()=>removeIngredient(ingredientName)}>
-          <img src="close.svg" alt="close-icon" />
-        </RemoveBtn>
-      </IngredientBtnStyle>
-    
+      <RemoveBtn onClick={() => removeIngredient(ingredientName)}>
+        <img src="close.svg" alt="close-icon" />
+      </RemoveBtn>
+    </IngredientBtnStyle>
   );
 };
 

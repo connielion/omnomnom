@@ -48,6 +48,10 @@ const RecipesBtn = styled.button<ButtonAnimationProps>`
   animation-duration: 0.7s;
   animation-fill-mode: ${props => props.recipeBtnOn ? `forwards` : `backwards`};
   animation-iteration-count: 1;
+
+  @media (max-width: 414px) {
+    padding: 5px;
+  }
 `;
 
 const FindRecipesBtn: FC<FindRecipesBtnProps> = ({ searchRecipesOnClick, selectedIngredients }) => {
