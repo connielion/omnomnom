@@ -54,6 +54,16 @@ const IngredientName = styled.h1`
   color: #fff;
   letter-spacing: 1px;
   cursor: pointer;
+  //tablet
+  @media (max-width: 1024px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  @media (max-width: 860px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
 
   @media (max-width: 414px) {
     font-size: 20px;

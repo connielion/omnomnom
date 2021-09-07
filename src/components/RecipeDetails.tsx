@@ -41,7 +41,8 @@ const FoodImage = styled.div<ImageProps>`
   transform: translateX(15%) translateY(-15%);
 
   @media (max-width: 768px) {
-    transform: translateX(25%) translateY(-15%);
+    width: 100%;
+    transform: translateX(0%) translateY(-15%);
   }
 
   @media (max-width: 414px) {
@@ -52,11 +53,13 @@ const FoodImage = styled.div<ImageProps>`
   }
 
   @media (max-width: 375px) {
-    transform: translateX(12%) translateY(-40%);
+    width: 375px;
+    transform: translateX(0%) translateY(-40%);
   }
 
   @media (max-width: 320px) {
-    transform: translateX(14%) translateY(-45%);
+    width: 320px;
+    transform: translateX(-8%) translateY(-45%);
   }
   
 `;
@@ -95,10 +98,6 @@ const RecipeDetailsCard = styled.div`
     border-radius: 0 0 15px 15px;
   }
 
-  @media (max-width: 375px) {
-    width: 105%;
-    
-  }
 `;
 
 const AddBtn = styled.div`
