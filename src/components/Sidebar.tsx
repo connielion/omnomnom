@@ -19,7 +19,7 @@ const SidebarContainer = styled.div`
   @media (max-width: 414px) {
     position: relative;
     grid-area: 2/1/2/3;
-    height: 400px;
+    height: 440px;
     transform: translateX(0%) translateY(81%);
   }
   @media (max-width: 375px){
@@ -28,6 +28,7 @@ const SidebarContainer = styled.div`
   }
   @media (max-width: 320px), and (max-height: 568px) {
     position: relative;
+    width: 100vw;
     transform: translateX(0%) translateY(95.5%);
   }
 `;
@@ -49,7 +50,13 @@ const LogoContainer = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
+  @media (max-width: 414px){
+    display: none;
+  }
   @media (max-width: 375px){
+    display: none;
+  }
+  @media (max-width: 320px){
     display: none;
   }
 `;
@@ -101,6 +108,15 @@ const PickedIngredients = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+  @media (max-width: 414px){
+    height: 80px;
+  }
+  @media (max-width: 375px){
+    height: 80px;
+  }
+  @media (max-width: 320px){
+    height: 110px;
+  }
 `;
 
 const PickedRecipes = styled.div`
@@ -132,6 +148,15 @@ interface SidebarProps {
 
 const RecipeListContainer = styled.div`
   width: 100%;
+  @media (max-width: 414px){
+    height: 110px;
+  }
+  @media (max-width: 375px){
+    height: 110px;
+  }
+  @media (max-width: 320px){
+    height: 110px;
+  }
 `;
 
 const RecipeBtnStyle = styled.div`
