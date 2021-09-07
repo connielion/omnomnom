@@ -59,6 +59,15 @@ const IngredientName = styled.h1`
     font-size: 20px;
     line-height: 28px;
   }
+  @media (max-width: 375px), and (max-height: 812px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media (max-width: 320px), and (max-height: 568px) {
+    font-size: 16px;
+    line-height: 16px;
+  }
 `;
 
 const H1Container = styled.div`

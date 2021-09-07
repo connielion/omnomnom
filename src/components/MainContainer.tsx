@@ -121,10 +121,12 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
 
   @media (max-width: 375px), and (max-height: 812px) {
     height: 89.9%;
+    grid-auto-rows: 175px;
   }
 
   @media (max-width: 320px), and (max-height: 568px) {
-    height: 96.6%
+    height: 96.6%;
+    grid-auto-rows: 175px;
   }
 `;
 
