@@ -15,8 +15,8 @@ import {
 } from "../interfaces/Recipe";
 
 interface BlobsContainerProps {
-  userSearchedRecipes: Boolean;
-  hideRecipeDetails: Boolean;
+  userSearchedRecipes: boolean;
+  hideRecipeDetails: boolean;
   selectedIngredients: string[];
 }
 
@@ -26,9 +26,11 @@ const Container = styled.div`
   display: grid;
   position: fixed;
   grid-template-columns: 350px 1fr;
+  grid-template-rows: 1fr;
 
   @media (max-width: 414px) {
     position: relative;
+    grid-template-rows: 0.35fr 1fr;
   }
 `;
 
@@ -123,18 +125,18 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
 
   @media (max-width: 414px) {
     grid-area: 1/1/3/3;
-    height: 89.7%;
+
     grid-column-gap: 7px;
     grid-auto-rows: ${props=>mobileDynamicRow(props)};
   }
 
   @media (max-width: 375px), and (max-height: 812px) {
-    height: 90%;
+
     grid-auto-rows: ${props=>mobileDynamicRow(props)};
   }
 
   @media (max-width: 320px), and (max-height: 568px) {
-    height: 96.6%;
+
     grid-auto-rows: ${props=>mobileDynamicRow(props)};
   }
 `;
@@ -145,8 +147,8 @@ const MainContainer = () => {
   const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[]>([]);
   // Conditonally render ingredients or recipes
   const [userSearchedRecipes, setUserSearchedRecipes] =
-    useState<Boolean>(false);
-  const [hideRecipeDetails, setHideRecipeDetails] = useState<Boolean>(true);
+    useState< boolean>(false);
+  const [hideRecipeDetails, setHideRecipeDetails] = useState< boolean>(true);
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe[]>([]);
   const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
     []

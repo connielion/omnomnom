@@ -7,8 +7,8 @@ interface FindRecipesBtnProps {
 }
 
 interface ButtonAnimationProps {
-  recipeBtnOn: Boolean;
-  firstClick: Boolean;
+  recipeBtnOn: boolean;
+  firstClick: boolean;
 }
 
 const btnIn = keyframes`
@@ -21,7 +21,7 @@ const btnOut = keyframes`
   to { transform: translateY(115%); }
 `
 
-const initialStyle = (recipeState:Boolean, firstClickState:Boolean) => {
+const initialStyle = (recipeState:  boolean, firstClickState:  boolean) => {
   let currAnimation = ``;
 
   if(firstClickState) return recipeState ? btnIn : btnOut;
