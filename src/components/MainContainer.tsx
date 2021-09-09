@@ -125,7 +125,6 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
 
   @media (max-width: 414px) {
     grid-area: 1/1/3/3;
-
     grid-column-gap: 7px;
     grid-auto-rows: ${props=>mobileDynamicRow(props)};
   }
