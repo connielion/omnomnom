@@ -183,14 +183,9 @@ const PickedIngredients = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+
   @media (max-width: 414px){
-    height: 80px;
-  }
-  @media (max-width: 375px){
-    height: 80px;
-  }
-  @media (max-width: 320px){
-    height: 110px;
+    max-height: 150px;
   }
 `;
 
@@ -209,7 +204,7 @@ const PickedRecipes = styled.div`
 const RecipeListContainer = styled.div`
   width: 100%;
   @media (max-width: 414px){
-    height: 110px;
+    max-height: 150px;
   }
   @media (max-width: 375px){
     height: 110px;
