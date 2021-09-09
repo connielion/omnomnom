@@ -32,13 +32,13 @@ interface SidebarContainerProps {
 }
 
 const sideBarIn = keyframes`
-  from {transform: translateY(0%);}
-  to {transform: translateY(100%)}
+  from {transform: translateY(100%);}
+  to {transform: translateY(0%)}
 `
 
 const sideBarOut = keyframes`
-  from {transform: translateY(100%)}
-  to {transform: translateY(0%)}
+  from {transform: translateY(0%)}
+  to {transform: translateY(100%)}
 `
 
 const upperIn = keyframes`
@@ -56,7 +56,10 @@ const lowerIn = keyframes`
   to {transform: translateY(-400%);}
 `;
 
-const lowerOut = keyframes``;
+const lowerOut = keyframes`
+  from {transform: translateY(-400%);}
+  to {transform: translateY(0%);}
+`;
 
 const initialStyle = (firstClick: boolean, sideBarState: boolean) => {
   let currStyle = ``;
@@ -88,6 +91,7 @@ const SidebarContainer = styled.div<SidebarContainerProps>`
   @media (max-width: 414px) {
     position: relative;
     grid-area: 2 / 1 / 3 / 3;
+    transform: translateY(100%);
     z-index: 100;
     animation-name: ${props => initialStyle(props.firstClick, props.sideBarState)};
     animation-duration: 0.7s;
@@ -270,7 +274,33 @@ const SidebarTrigger = styled.div`
   right: 0;
   transform: translateY(-115%) translateX(-15%);
   border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;
+
+const UpperIcon = styled.div<IconProps>`
+  height: 2px;
+  width: 60%;
+  background-color: #333;
+  animation-name: ${props => initialStyleUpper(props.firstClick, props.sideBarState)};
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+`
+
+const LowerIcon = styled.div<IconProps>`
+  height: 2px;
+  width: 60%;
+  background-color: #333;
+  animation-name: ${props => initialStyleLower(props.firstClick, props.sideBarState)};
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+`
 
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
@@ -357,7 +387,11 @@ const Sidebar: FC<SidebarProps> = ({
 
   return (
     <SidebarContainer sideBarState={sideBarState} firstClick={firstClick}>
-      <SidebarTrigger onClick={sidebarToggle}></SidebarTrigger>
+      {/* mobile sidebar trigger button */}
+      <SidebarTrigger onClick={sidebarToggle}>
+        <UpperIcon sideBarState={sideBarState} firstClick={firstClick}></UpperIcon>
+        <LowerIcon sideBarState={sideBarState} firstClick={firstClick}></LowerIcon>
+      </SidebarTrigger>
       <LogoContainer>
        <a href="/">
        <LogoBackground>
