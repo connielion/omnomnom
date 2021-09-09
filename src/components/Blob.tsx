@@ -95,7 +95,7 @@ interface BlobProps {
 }
 
 interface BlobInitialProps {
-  blobClicked: Boolean;
+  blobClicked: boolean;
 }
 
 const blobIn = keyframes`
@@ -129,7 +129,7 @@ const Blob: FC<BlobProps> = ({
   addIngredient,
   selectedIngredients,
 }) => {
-  const [blobClicked, setBlobClicked] = useState<Boolean>(false);
+  const [blobClicked, setBlobClicked] = useState<boolean>(false);
 
   useEffect(() => {
     setBlobClicked(selectedIngredients.includes(ingredientName));
