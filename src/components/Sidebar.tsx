@@ -267,7 +267,7 @@ const SidebarTrigger = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  transform: translateY(-135%) translateX(-15%);
+  transform: translateY(-250%) translateX(-15%);
   border-radius: 15px;
   display: flex;
   flex-direction: column;
