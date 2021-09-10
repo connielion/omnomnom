@@ -54,10 +54,29 @@ const IngredientName = styled.h1`
   color: #fff;
   letter-spacing: 1px;
   cursor: pointer;
+  //tablet
+  @media (max-width: 1024px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  @media (max-width: 860px) {
+    font-size: 18px;
+    line-height: 20px;
+  }
 
   @media (max-width: 414px) {
     font-size: 20px;
     line-height: 28px;
+  }
+  @media (max-width: 375px), and (max-height: 812px) {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  @media (max-width: 320px), and (max-height: 568px) {
+    font-size: 16px;
+    line-height: 16px;
   }
 `;
 
@@ -76,7 +95,7 @@ interface BlobProps {
 }
 
 interface BlobInitialProps {
-  blobClicked: Boolean;
+  blobClicked: boolean;
 }
 
 const blobIn = keyframes`
@@ -110,7 +129,7 @@ const Blob: FC<BlobProps> = ({
   addIngredient,
   selectedIngredients,
 }) => {
-  const [blobClicked, setBlobClicked] = useState<Boolean>(false);
+  const [blobClicked, setBlobClicked] = useState<boolean>(false);
 
   useEffect(() => {
     setBlobClicked(selectedIngredients.includes(ingredientName));

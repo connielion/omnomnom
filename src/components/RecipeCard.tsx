@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { IRecipe } from "../interfaces/Recipe";
-import styled, {keyframes} from "styled-components";
+import styled, { keyframes } from "styled-components";
 import PlusIcon from "../assets/plus.svg";
 
 interface RecipeCardProps {
@@ -58,6 +58,7 @@ const TitleContainer = styled.div`
   h2 {
     letter-spacing: 1px;
     color: #fff;
+    font-size: 22px;
   }
 
   @media (min-width: 1925px) {
@@ -69,36 +70,30 @@ const TitleContainer = styled.div`
   }
 
   @media (max-width: 1024px) {
-      width: 188px;
-      margin-top: 45px;
-      padding-left: 20px;
-
+    width: 188px;
+    margin-top: 45px;
+    padding-left: 20px;
   }
 
   @media (max-width: 414px) {
     width: 225px;
     padding-left: 20px;
   }
-  h2 {
-    line-height: 30px;
-  }
 
   @media (max-width: 375px) {
     width: 202px;
     margin-top: 15px;
-  }
 
-  h2 {
-    line-height: 27px;
+    h2 {
+      font-size: 18px !important;
+      line-height: 20px;
+    }
   }
 
   @media (max-width: 320px) {
     width: 190px;
     padding-left: 15px;
     margin-top: 35px;
-  }
-  h2 {
-    font-size: 22px;
   }
 `;
 
@@ -115,14 +110,14 @@ const UsedIngredientsContainer = styled.div`
 
   @media (max-width: 1108px) {
     h3 {
-        width: 180px;
+      width: 180px;
     }
   }
 
   @media (max-width: 1024px) {
-      h3 {
-          font-size: 1.1rem;
-      }
+    h3 {
+      font-size: 1.1rem;
+    }
   }
 
   @media (max-width: 414px) {
@@ -130,9 +125,20 @@ const UsedIngredientsContainer = styled.div`
     padding-left: 20px;
   }
 
+  @media (max-width: 375px) {
+    h3 {
+      font-size: 16px !important;
+      line-height: 20px;
+    }
+  }
+
   @media (max-width: 320px) {
     width: 220px;
     padding-left: 15px;
+    h3 {
+      font-size: 16px !important;
+      line-height: 20px;
+    }
   }
 `;
 
@@ -163,7 +169,11 @@ const RecipeCard: FC<RecipeCardProps> = ({
       </AddBtn>
       <FoodImage></FoodImage>
       <TitleContainer>
-        <h2>{recipe.title}</h2>
+        <h2>
+          {recipe.title.length <= 28
+            ? recipe.title
+            : recipe.title.slice(0, 28) + "..."}
+        </h2>
       </TitleContainer>
       <UsedIngredientsContainer>
         <h3>{recipe.missedIngredients.length} Missing Ingredients</h3>

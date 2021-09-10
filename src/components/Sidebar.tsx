@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { useState, FC } from "react";
 import styled, { keyframes } from "styled-components";
 import SearchBar from "./SearchBar";
 import IngredientButton from "./IngredientButton";
@@ -7,7 +7,79 @@ import { IRecipe } from "../interfaces/Recipe";
 import BackBtn from "./BackBtn";
 import BackgroundTexture from "../assets/bgTexture.svg";
 
-const SidebarContainer = styled.div`
+interface IconProps {
+  firstClick: boolean;
+  sideBarState: boolean;
+}
+interface SidebarProps {
+  selectedIngredients: string[];
+  setSelectedIngredients: Function;
+  searchByIngredients: Function;
+  setSearchedRecipes: Function;
+  setUserSearchedRecipes: Function;
+  selectedRecipes: IRecipe[];
+  getRecipeDetails: Function;
+  userSearchedRecipes: Boolean;
+  renderIngredientBlobs: Function;
+  setHideRecipeDetails: Function;
+  setSelectedRecipes: Function;
+  removeIngredient: Function;
+}
+
+interface SidebarContainerProps {
+  firstClick: boolean;
+  sideBarState: boolean;
+}
+
+const sideBarIn = keyframes`
+  from {transform: translateY(100%);}
+  to {transform: translateY(0%)}
+`
+
+const sideBarOut = keyframes`
+  from {transform: translateY(0%)}
+  to {transform: translateY(100%)}
+`
+
+const upperIn = keyframes`
+  from {transform: translateY(0%)}
+  to {transform: translateY(400%)}
+`;
+
+const upperOut = keyframes`
+  from {transform: translateY(400%)}
+  to {transform: translateY(0%)}
+`;
+
+const lowerIn = keyframes`
+  from {transform: translateY(0%);}
+  to {transform: translateY(-400%);}
+`;
+
+const lowerOut = keyframes`
+  from {transform: translateY(-400%);}
+  to {transform: translateY(0%);}
+`;
+
+const initialStyle = (firstClick: boolean, sideBarState: boolean) => {
+  let currStyle = ``;
+  if(firstClick) return sideBarState ? sideBarIn : sideBarOut;
+  return currStyle;
+}
+
+const initialStyleUpper = (firstClick: boolean, sideBarState: boolean) => {
+  let currStyle = ``;
+  if(firstClick) return sideBarState ? upperIn : upperOut;
+  return currStyle;
+}
+
+const initialStyleLower = (firstClick: boolean, sideBarState: boolean) => {
+  let currStyle = ``;
+  if(firstClick) return sideBarState ? lowerIn : lowerOut;
+  return currStyle;
+}
+
+const SidebarContainer = styled.div<SidebarContainerProps>`
   grid-area: 1 / 1 / 2 / 2;
   background-image: url(${BackgroundTexture});
   background-repeat: no-repeat;
@@ -18,17 +90,21 @@ const SidebarContainer = styled.div`
 
   @media (max-width: 414px) {
     position: relative;
-    grid-area: 2/1/2/3;
-    height: 400px;
-    transform: translateX(0%) translateY(81%);
+    grid-area: 2 / 1 / 3 / 3;
+    transform: translateY(100%);
+    z-index: 100;
+    animation-name: ${props => initialStyle(props.firstClick, props.sideBarState)};
+    animation-duration: 0.7s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
   }
   @media (max-width: 375px){
     position: relative;
-    transform: translateX(0%) translateY(79.5%);
+    
   }
   @media (max-width: 320px), and (max-height: 568px) {
     position: relative;
-    transform: translateX(0%) translateY(95.5%);
+    width: 100vw;
   }
 `;
 
@@ -49,7 +125,13 @@ const LogoContainer = styled.div`
   justify-content: center;
   overflow: hidden;
   position: relative;
+  @media (max-width: 414px){
+    display: none;
+  }
   @media (max-width: 375px){
+    display: none;
+  }
+  @media (max-width: 320px){
     display: none;
   }
 `;
@@ -101,6 +183,10 @@ const PickedIngredients = styled.div`
   display: flex;
   align-items: flex-start;
   flex-wrap: wrap;
+
+  @media (max-width: 414px){
+    max-height: 150px;
+  }
 `;
 
 const PickedRecipes = styled.div`
@@ -115,23 +201,17 @@ const PickedRecipes = styled.div`
 `;
 
 
-interface SidebarProps {
-  selectedIngredients: string[];
-  setSelectedIngredients: Function;
-  searchByIngredients: Function;
-  setSearchedRecipes: Function;
-  setUserSearchedRecipes: Function;
-  selectedRecipes: IRecipe[];
-  getRecipeDetails: Function;
-  userSearchedRecipes: Boolean;
-  renderIngredientBlobs: Function;
-  setHideRecipeDetails: Function;
-  setSelectedRecipes: Function;
-  removeIngredient: Function;
-}
-
 const RecipeListContainer = styled.div`
   width: 100%;
+  @media (max-width: 414px){
+    max-height: 150px;
+  }
+  @media (max-width: 375px){
+    height: 110px;
+  }
+  @media (max-width: 320px){
+    height: 110px;
+  }
 `;
 
 const RecipeBtnStyle = styled.div`
@@ -180,6 +260,43 @@ const RemoveBtn = styled.div`
   }
 `;
 
+const SidebarTrigger = styled.div`
+  height: 75px;
+  width: 75px;
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateY(-250%) translateX(-15%);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
+
+const UpperIcon = styled.div<IconProps>`
+  height: 2px;
+  width: 60%;
+  background-color: #333;
+  animation-name: ${props => initialStyleUpper(props.firstClick, props.sideBarState)};
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+`
+
+const LowerIcon = styled.div<IconProps>`
+  height: 2px;
+  width: 60%;
+  background-color: #333;
+  animation-name: ${props => initialStyleLower(props.firstClick, props.sideBarState)};
+  animation-duration: 0.7s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+`
+
 const Sidebar: FC<SidebarProps> = ({
   setSelectedIngredients,
   selectedIngredients,
@@ -193,6 +310,16 @@ const Sidebar: FC<SidebarProps> = ({
   setSelectedRecipes,
   removeIngredient
 }) => {
+  // sidebar animation
+  const [firstClick, setFirstClick] = useState<boolean>(false);
+  const [sideBarState, setSideBarState] = useState<boolean>(false);
+
+  const sidebarToggle = () => {
+    setFirstClick(true);
+    setSideBarState(!sideBarState);
+  }
+
+  
   const searchRecipesOnClick = async () => {
     if (selectedIngredients.length > 0) {
       setUserSearchedRecipes(true);
@@ -254,7 +381,12 @@ const Sidebar: FC<SidebarProps> = ({
 
 
   return (
-    <SidebarContainer>
+    <SidebarContainer sideBarState={sideBarState} firstClick={firstClick}>
+      {/* mobile sidebar trigger button */}
+      <SidebarTrigger onClick={sidebarToggle}>
+        <UpperIcon sideBarState={sideBarState} firstClick={firstClick}></UpperIcon>
+        <LowerIcon sideBarState={sideBarState} firstClick={firstClick}></LowerIcon>
+      </SidebarTrigger>
       <LogoContainer>
        <a href="/">
        <LogoBackground>

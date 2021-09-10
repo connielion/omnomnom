@@ -15,8 +15,8 @@ import {
 } from "../interfaces/Recipe";
 
 interface BlobsContainerProps {
-  userSearchedRecipes: Boolean;
-  hideRecipeDetails: Boolean;
+  userSearchedRecipes: boolean;
+  hideRecipeDetails: boolean;
   selectedIngredients: string[];
 }
 
@@ -26,9 +26,11 @@ const Container = styled.div`
   display: grid;
   position: fixed;
   grid-template-columns: 350px 1fr;
+  grid-template-rows: 1fr;
 
   @media (max-width: 414px) {
     position: relative;
+    grid-template-rows: 0.35fr 1fr;
   }
 `;
 
@@ -37,7 +39,6 @@ const dynamicColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
 }: BlobsContainerProps) => {
-  // destructured will look this > data.hideRecipeDetails
   if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
   } else {
@@ -49,7 +50,6 @@ const largeScreenColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
 }: BlobsContainerProps) => {
-  // destructured will look this > data.hideRecipeDetails
   if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr 1fr` : `1fr 1fr 1fr 1fr`}`;
   } else {
@@ -61,7 +61,6 @@ const ipadDynamicColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
 }: BlobsContainerProps) => {
-  // destructured will look this > data.hideRecipeDetails
   if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr` : `1fr 1fr`}`;
   } else {
@@ -73,7 +72,6 @@ const mobileDynamicColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
 }: BlobsContainerProps) => {
-  // destructured will look this > data.hideRecipeDetails
   if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr` : `1fr`}`;
   } else {
@@ -84,6 +82,14 @@ const mobileDynamicColumn = ({
 const dynamicRow = ({ hideRecipeDetails }: BlobsContainerProps) => {
   if (hideRecipeDetails) {
     return `250px`;
+  } else {
+    return `1fr`;
+  }
+};
+
+const mobileDynamicRow = ({ hideRecipeDetails }: BlobsContainerProps) => {
+  if (hideRecipeDetails) {
+    return `175px`;
   } else {
     return `1fr`;
   }
@@ -107,24 +113,28 @@ const BlobsContainer = styled.div<BlobsContainerProps>`
   //ipad pro width
   @media (max-width: 1024px) {
     grid-template-columns: ${(props) => ipadDynamicColumn(props)};
+    grid-auto-rows: 175px;
   }
 
   @media (max-width: 860px) {
     grid-template-columns: ${(props) => mobileDynamicColumn(props)};
+    grid-auto-rows: ${(props) => ipadDynamicColumn(props)};
   }
 
   @media (max-width: 414px) {
     grid-area: 1/1/3/3;
-    height: 89.7%;
     grid-column-gap: 7px;
+    grid-auto-rows: ${props=>mobileDynamicRow(props)};
   }
 
   @media (max-width: 375px), and (max-height: 812px) {
-    height: 89.9%;
+
+    grid-auto-rows: ${props=>mobileDynamicRow(props)};
   }
 
   @media (max-width: 320px), and (max-height: 568px) {
-    height: 96.6%
+
+    grid-auto-rows: ${props=>mobileDynamicRow(props)};
   }
 `;
 
@@ -134,8 +144,8 @@ const MainContainer = () => {
   const [searchedRecipes, setSearchedRecipes] = useState<IRecipe[]>([]);
   // Conditonally render ingredients or recipes
   const [userSearchedRecipes, setUserSearchedRecipes] =
-    useState<Boolean>(false);
-  const [hideRecipeDetails, setHideRecipeDetails] = useState<Boolean>(true);
+    useState< boolean>(false);
+  const [hideRecipeDetails, setHideRecipeDetails] = useState< boolean>(true);
   const [selectedRecipe, setSelectedRecipe] = useState<IRecipe[]>([]);
   const [recipeInstructions, setRecipeInstructions] = useState<IInstructions[]>(
     []

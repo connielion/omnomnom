@@ -27,8 +27,8 @@ const Input = styled.input`
   color: #ccc;
   border-radius: 15px;
   border: none;
-  ::placeholder,
-  ::-webkit-input-placeholder {
+  :: placeholder,
+  :: -webkit-input-placeholder {
     opacity: 0.5;
   }
   :-ms-input-placeholder {
