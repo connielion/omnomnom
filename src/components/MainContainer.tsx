@@ -39,7 +39,6 @@ const dynamicColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
 }: BlobsContainerProps) => {
-  // destructured will look this > data.hideRecipeDetails
   if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr` : `1fr 1fr`}`;
   } else {
@@ -51,7 +50,6 @@ const largeScreenColumn = ({
   hideRecipeDetails,
   userSearchedRecipes,
 }: BlobsContainerProps) => {
-  // destructured will look this > data.hideRecipeDetails
   if (hideRecipeDetails) {
     return `${!userSearchedRecipes ? `1fr 1fr 1fr 1fr 1fr` : `1fr 1fr 1fr 1fr`}`;
   } else {
